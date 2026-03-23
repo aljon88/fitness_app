@@ -32,6 +32,11 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Node modules (not needed for Flutter)
+node_modules/
+package-lock.json
+package.json
+
 # Symbolication related
 app.*.symbols
 
