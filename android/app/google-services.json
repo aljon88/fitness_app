@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "37587183326",
+    "project_id": "ai-fitness-trainer-10e3d",
+    "storage_bucket": "ai-fitness-trainer-10e3d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37587183326:android:a01483067cfc5c0d08844f",
+        "android_client_info": {
+          "package_name": "com.aifitnesstrainer.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf7-1czPv2HRoYzCL8pQEozkKGD7RVVpM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

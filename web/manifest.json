@@ -1,0 +1,36 @@
+{
+    "name": "AI Fitness Trainer",
+    "short_name": "AI Fitness",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0D0E21",
+    "theme_color": "#6C5CE7",
+    "description": "AI-powered fitness app with smart movement detection and real-time rep counting",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "categories": ["health", "fitness", "lifestyle"],
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
