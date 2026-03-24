@@ -268,23 +268,7 @@ class _EnhancedMealPlanScreenState extends State<EnhancedMealPlanScreen> with Ti
         ),
       ),
       bottomNavigationBar: MainNavigationBar(currentScreen: NavigationScreen.mealPlan),
-      floatingActionButton: Stack(
-        children: [
-          // Workout Camera FAB
-          Positioned(
-            bottom: 80,
-            right: 0,
-            child: WorkoutCameraFAB(),
-          ),
-          // Floating Nutrition Info FAB
-          if (_currentMealPlan != null)
-            Positioned(
-              bottom: 140,
-              right: 0,
-              child: _buildNutritionFAB(),
-            ),
-        ],
-      ),
+      floatingActionButton: _currentMealPlan != null ? _buildNutritionFAB() : null,
     );
   }
 
@@ -364,32 +348,6 @@ class _EnhancedMealPlanScreenState extends State<EnhancedMealPlanScreen> with Ti
                 ),
                 Text(
                   'Protein',
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: isSmallScreen ? 9 : 10,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
-          Container(width: 1, height: 25, color: Colors.white.withOpacity(0.2)),
-          
-          // Weekly cost
-          Expanded(
-            child: Column(
-              children: [
-                Text(
-                  '\${(_currentMealPlan?.totalEstimatedCost ?? 0.0).toStringAsFixed(0)}',
-                  style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: isSmallScreen ? 16 : 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Week',
                   style: TextStyle(
                     color: Colors.white70,
                     fontSize: isSmallScreen ? 9 : 10,
@@ -953,10 +911,6 @@ class _EnhancedMealPlanScreenState extends State<EnhancedMealPlanScreen> with Ti
         
         // Compact date selector
         _buildCompactDateSelector(isSmallScreen),
-        SizedBox(height: 16),
-        
-        // Quick workout access
-        _buildCompactWorkoutAccess(isSmallScreen),
         SizedBox(height: 16),
         
         // Meals - Compact

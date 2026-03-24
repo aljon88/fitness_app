@@ -14,6 +14,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  DateTime? _selectedBirthday;
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
   
@@ -104,7 +105,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                         SizedBox(height: isSmallScreen ? 16 : 24),
                         
                         Text(
-                          'AI FITNESS',
+                          'AI HOME',
                           style: TextStyle(
                             fontSize: isSmallScreen ? 24 : 32,
                             fontWeight: FontWeight.w900,
@@ -113,7 +114,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                           ),
                         ),
                         Text(
-                          'TRAINER',
+                          'WORKOUT COACH',
                           style: TextStyle(
                             fontSize: isSmallScreen ? 24 : 32,
                             fontWeight: FontWeight.w300,
@@ -224,6 +225,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                             label: 'Full Name',
                             icon: Icons.person_outline_rounded,
                           ),
+                          SizedBox(height: isSmallScreen ? 16 : 20),
+                          _buildBirthdayPicker(isSmallScreen),
                           SizedBox(height: isSmallScreen ? 16 : 20),
                         ],
                         
@@ -425,11 +428,87 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildBirthdayPicker(bool isSmallScreen) {
+    return GestureDetector(
+      onTap: () async {
+        final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now().subtract(Duration(days: 365 * 25)),
+          firstDate: DateTime(1940),
+          lastDate: DateTime.now(),
+          builder: (context, child) {
+            return Theme(
+              data: ThemeData.dark().copyWith(
+                colorScheme: ColorScheme.dark(
+                  primary: Color(0xFF6C5CE7),
+                  onPrimary: Colors.white,
+                  surface: Color(0xFF1A1B3A),
+                  onSurface: Colors.white,
+                ),
+              ),
+              child: child!,
+            );
+          },
+        );
+        
+        if (picked != null) {
+          setState(() {
+            _selectedBirthday = picked;
+          });
+        }
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: _selectedBirthday != null 
+                ? Color(0xFF6C5CE7) 
+                : Colors.white.withOpacity(0.1),
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.cake_outlined,
+              color: Color(0xFF6C5CE7),
+              size: 22,
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: Text(
+                _selectedBirthday == null
+                    ? 'Birthday'
+                    : '${_selectedBirthday!.day}/${_selectedBirthday!.month}/${_selectedBirthday!.year}',
+                style: TextStyle(
+                  color: _selectedBirthday == null 
+                      ? Colors.white60 
+                      : Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            Icon(
+              Icons.calendar_today,
+              color: Colors.white60,
+              size: 20,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void _handleEmailAuth() async {
     if (_isSignUp) {
       // Validate sign up form
       if (_nameController.text.isEmpty) {
         _showError('Please enter your full name');
+        return;
+      }
+      if (_selectedBirthday == null) {
+        _showError('Please select your birthday');
         return;
       }
       if (_emailController.text.isEmpty || !_emailController.text.contains('@')) {
@@ -444,6 +523,12 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
         _showError('Passwords do not match');
         return;
       }
+      
+      // Calculate age from birthday
+      final age = DateTime.now().year - _selectedBirthday!.year;
+      final hasHadBirthdayThisYear = DateTime.now().month > _selectedBirthday!.month ||
+          (DateTime.now().month == _selectedBirthday!.month && DateTime.now().day >= _selectedBirthday!.day);
+      final calculatedAge = hasHadBirthdayThisYear ? age : age - 1;
       
       // Show loading
       _showLoading('Creating account...');
@@ -461,7 +546,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       if (result.success) {
         _showSuccess(result.message);
         if (result.needsOnboarding) {
-          _navigateToOnboarding(_emailController.text.trim());
+          _navigateToOnboardingWithBirthday(_emailController.text.trim(), calculatedAge);
         } else {
           _navigateToDashboard(_emailController.text.trim());
         }
@@ -579,6 +664,46 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
             initialUserData: {
               'name': userName,
               'email': userEmail,
+            },
+            onCompleted: (profile) async {
+              // Save profile using Firebase
+              final authService = FirebaseAuthService();
+              await authService.completeOnboarding(profile);
+              
+              // Navigate to dashboard
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => DashboardScreen(profile: profile),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(opacity: animation, child: child);
+                  },
+                ),
+              );
+            },
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        ),
+      );
+    });
+  }
+
+  void _navigateToOnboardingWithBirthday(String userEmail, int age) {
+    // Get the user's name from the form if available
+    String userName = _nameController.text.trim();
+    
+    Future.delayed(Duration(milliseconds: 500), () {
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => OnboardingWizardScreen(
+            initialUserData: {
+              'name': userName,
+              'email': userEmail,
+              'age': age.toString(),
+              'birthday': _selectedBirthday!.toIso8601String(),
             },
             onCompleted: (profile) async {
               // Save profile using Firebase

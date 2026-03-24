@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/auth_screen.dart';
+import 'screens/landing_screen.dart';
 import 'services/navigation_service.dart';
 import 'services/firebase_app_initialization_service.dart';
 
@@ -28,7 +29,7 @@ class AIFitnessApp extends StatelessWidget {
     );
     
     return MaterialApp(
-      title: 'AI Fitness Trainer',
+      title: 'AI Home Workout Coach',
       debugShowCheckedModeBanner: false,
       navigatorKey: NavigationService().navigatorKey,
       theme: ThemeData(
@@ -109,7 +110,7 @@ class AppInitializer extends StatelessWidget {
                     ),
                     SizedBox(height: 32),
                     Text(
-                      'AI FITNESS TRAINER',
+                      'AI HOME WORKOUT COACH',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -184,8 +185,13 @@ class AppInitializer extends StatelessWidget {
           );
         }
         
-        // Return the determined initial screen
-        return snapshot.data ?? AuthScreen();
+        // If user is already logged in, go to their screen, otherwise show landing page
+        if (snapshot.data is AuthScreen) {
+          return LandingScreen();
+        }
+        
+        // Return the determined initial screen (Dashboard if logged in)
+        return snapshot.data ?? LandingScreen();
       },
     );
   }

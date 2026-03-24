@@ -812,6 +812,12 @@ class _WorkoutSessionScreenState extends State<WorkoutSessionScreen> {
       _totalWorkoutTime = 0;
     });
     
+    // Ensure camera is still active
+    if (_cameraController != null && !_cameraController!.value.isInitialized) {
+      print('⚠️ Camera not initialized, reinitializing...');
+      _initializeCamera();
+    }
+    
     // Start workout timer
     _workoutTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (mounted && _isWorkoutStarted && !_isResting) {

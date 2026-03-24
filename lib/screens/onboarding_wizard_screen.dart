@@ -31,6 +31,7 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
   Map<String, dynamic> userProfile = {
     'name': '',
     'age': '',
+    'birthday': '',
     'height': '',
     'weight': '',
     'gender': '',
@@ -55,6 +56,9 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
       // Pre-populate text controllers
       if (userProfile['name'] != null && userProfile['name'].isNotEmpty) {
         _nameController.text = userProfile['name'];
+      }
+      if (userProfile['age'] != null && userProfile['age'].isNotEmpty) {
+        _ageController.text = userProfile['age'];
       }
       if (userProfile['email'] != null && userProfile['email'].isNotEmpty) {
         // We don't have an email field in onboarding, but we store it
@@ -286,7 +290,7 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
           ),
           SizedBox(height: isSmallScreen ? 16 : 20),
           Text(
-            'What\'s your Identity?',
+            'What\'s your gender?',
             style: TextStyle(
               color: Colors.white,
               fontSize: isSmallScreen ? 20 : 24,
@@ -300,7 +304,7 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
           SizedBox(height: isSmallScreen ? 12 : 16),
           _buildCompactGenderOption('Female', Icons.female, 'female', isSmallScreen),
           SizedBox(height: isSmallScreen ? 12 : 16),
-          _buildCompactGenderOption('LGBT', Icons.favorite, 'lgbt', isSmallScreen),
+          _buildCompactGenderOption('Prefer not to say', Icons.favorite, 'other', isSmallScreen),
           SizedBox(height: 20),
         ],
       ),
@@ -667,7 +671,7 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
   }
   Widget _buildMotivationStep(bool isSmallScreen) {
     final motivations = [
-      {'title': 'Breakup', 'icon': Icons.broken_image, 'color': Colors.red},
+      {'title': 'Health', 'icon': Icons.favorite, 'color': Colors.red},
       {'title': 'Passion', 'icon': Icons.local_fire_department, 'color': Colors.orange},
       {'title': 'Family', 'icon': Icons.family_restroom, 'color': Colors.pink},
       {'title': 'Goals', 'icon': Icons.flag, 'color': Colors.blue},
@@ -1081,17 +1085,17 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
           ),
           SizedBox(height: isSmallScreen ? 20 : 32),
           Text(
-            'You\'re All Set!',
+            '🎉 You\'re All Set!',
             style: TextStyle(
               color: Colors.white,
-              fontSize: isSmallScreen ? 22 : 28,
-              fontWeight: FontWeight.bold,
+              fontSize: isSmallScreen ? 24 : 32,
+              fontWeight: FontWeight.w800,
             ),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: isSmallScreen ? 12 : 16),
           Text(
-            'I\'ve created a personalized program just for you. Let\'s start your transformation journey!',
+            'Your personalized fitness journey starts now!',
             style: TextStyle(
               color: Colors.white70,
               fontSize: isSmallScreen ? 16 : 18,
@@ -1101,39 +1105,175 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
           ),
           SizedBox(height: isSmallScreen ? 24 : 32),
           
-          // Summary of selections - Compact
+          // Key Highlights - More Visual
+          Row(
+            children: [
+              Expanded(
+                child: _buildHighlightCard(
+                  Icons.fitness_center_rounded,
+                  userProfile['fitnessLevel'],
+                  'Fitness Level',
+                  Color(0xFF6C5CE7),
+                  isSmallScreen,
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: _buildHighlightCard(
+                  Icons.flag_rounded,
+                  userProfile['primaryGoal'],
+                  'Primary Goal',
+                  Color(0xFF00B894),
+                  isSmallScreen,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: _buildHighlightCard(
+                  Icons.favorite_rounded,
+                  userProfile['motivation'],
+                  'Motivation',
+                  Color(0xFFFF7675),
+                  isSmallScreen,
+                ),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: _buildHighlightCard(
+                  Icons.person_rounded,
+                  '${userProfile['age']} yrs',
+                  'Age',
+                  Color(0xFF74B9FF),
+                  isSmallScreen,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          
+          // Allergies Card - Full Width
           Container(
-            padding: EdgeInsets.all(isSmallScreen ? 14 : 16),
+            padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Color(0xFFFD79A8).withOpacity(0.3)),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                Text(
-                  'Your Profile Summary:',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: isSmallScreen ? 16 : 18,
-                    fontWeight: FontWeight.bold,
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFD79A8).withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.warning_rounded, color: Color(0xFFFD79A8), size: isSmallScreen ? 20 : 24),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Allergies',
+                        style: TextStyle(
+                          color: Colors.white60,
+                          fontSize: isSmallScreen ? 10 : 11,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        (userProfile['allergies'] as List).isEmpty ? 'None' : (userProfile['allergies'] as List).join(', '),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: isSmallScreen ? 13 : 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: isSmallScreen ? 8 : 12),
-                _buildCompactSummaryItem('Name', userProfile['name'], isSmallScreen),
-                _buildCompactSummaryItem('Age', '${userProfile['age']} years old', isSmallScreen),
-                _buildCompactSummaryItem('Height', '${userProfile['height']} cm', isSmallScreen),
-                _buildCompactSummaryItem('Weight', '${userProfile['weight']} kg', isSmallScreen),
-                _buildCompactSummaryItem('Gender', userProfile['gender'], isSmallScreen),
-                _buildCompactSummaryItem('Fitness Level', userProfile['fitnessLevel'], isSmallScreen),
-                _buildCompactSummaryItem('Allergies', (userProfile['allergies'] as List).isEmpty ? 'None' : (userProfile['allergies'] as List).join(', '), isSmallScreen),
-                _buildCompactSummaryItem('Motivation', userProfile['motivation'], isSmallScreen),
-                _buildCompactSummaryItem('Primary Goal', userProfile['primaryGoal'], isSmallScreen),
-                _buildCompactSummaryItem('Chosen Advice', userProfile['selectedAdvice'], isSmallScreen),
+              ],
+            ),
+          ),
+          SizedBox(height: isSmallScreen ? 24 : 32),
+          
+          // Motivational Message
+          Container(
+            padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF6C5CE7).withOpacity(0.2), Color(0xFF74B9FF).withOpacity(0.2)],
+              ),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Color(0xFF6C5CE7).withOpacity(0.3)),
+            ),
+            child: Column(
+              children: [
+                Icon(Icons.auto_awesome_rounded, color: Color(0xFF6C5CE7), size: 32),
+                SizedBox(height: 12),
+                Text(
+                  userProfile['selectedAdvice'],
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: isSmallScreen ? 14 : 16,
+                    fontWeight: FontWeight.w600,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ],
             ),
           ),
           SizedBox(height: isSmallScreen ? 40 : 60),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHighlightCard(IconData icon, String value, String label, Color color, bool isSmallScreen) {
+    return Container(
+      padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.2),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: color, size: isSmallScreen ? 20 : 24),
+          ),
+          SizedBox(height: 8),
+          Text(
+            value,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isSmallScreen ? 13 : 15,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+          SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              color: Colors.white60,
+              fontSize: isSmallScreen ? 10 : 11,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

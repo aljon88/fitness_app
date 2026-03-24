@@ -3,6 +3,7 @@ import 'workout_program_screen.dart';
 import 'enhanced_meal_plan_screen.dart';
 import 'camera_screen.dart';
 import 'auth_screen.dart';
+import 'progress_tracking_screen.dart';
 import '../services/navigation_service.dart';
 import '../services/firebase_auth_service.dart';
 import '../models/navigation_state.dart';
@@ -80,20 +81,6 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                     subtitle: 'Ready for your workout?',
                     showBackButton: false,
                     actions: [
-                      Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                        child: Icon(
-                          Icons.notifications_outlined,
-                          color: Colors.white,
-                          size: 22,
-                        ),
-                      ),
-                      SizedBox(width: 12),
                       GestureDetector(
                         onTap: _showLogoutDialog,
                         child: Container(
@@ -159,45 +146,65 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(24),
+      padding: EdgeInsets.all(28),
       decoration: BoxDecoration(
         gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [
-            Color(0xFF6C5CE7).withOpacity(0.2),
-            Color(0xFFA29BFE).withOpacity(0.1),
+            Color(0xFF6C5CE7),
+            Color(0xFF8B7FE8),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xFF6C5CE7).withOpacity(0.3),
+            blurRadius: 20,
+            spreadRadius: 0,
+            offset: Offset(0, 10),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.auto_awesome_rounded,
-                color: Color(0xFF6C5CE7),
-                size: 28,
-              ),
-              SizedBox(width: 12),
-              Text(
-                'AI Fitness Journey',
-                style: TextStyle(
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.auto_awesome_rounded,
                   color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
+                  size: 24,
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  'AI Fitness Journey',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
+                  ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 16),
           Text(
             programInfo['description'],
             style: TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-              height: 1.5,
+              color: Colors.white.withOpacity(0.95),
+              fontSize: 15,
+              height: 1.6,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -298,37 +305,54 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     required Color color,
   }) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        color: Color(0xFF1E1F3A),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 15,
+            spreadRadius: 0,
+            offset: Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         children: [
-          Icon(icon, color: color, size: 24),
-          SizedBox(height: 8),
+          Container(
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 26),
+          ),
+          SizedBox(height: 12),
           Text(
             value,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
             ),
           ),
+          SizedBox(height: 2),
           Text(
             title,
             style: TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
+              color: Colors.white.withOpacity(0.9),
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             subtitle,
             style: TextStyle(
-              color: Colors.white60,
-              fontSize: 10,
+              color: Colors.white.withOpacity(0.5),
+              fontSize: 11,
             ),
           ),
         ],
@@ -382,6 +406,16 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
           gradient: [Color(0xFF00B894), Color(0xFF00CEC9)],
           onTap: () => navigationService.navigateToMealPlan(),
         ),
+        SizedBox(height: 16),
+        
+        // Progress Tracking
+        _buildFeatureCard(
+          icon: Icons.trending_up_rounded,
+          title: 'Progress Tracking',
+          subtitle: 'Monitor your fitness journey',
+          gradient: [Color(0xFFFD79A8), Color(0xFFE84393)],
+          onTap: () => _navigateToProgressTracking(),
+        ),
       ],
     );
   }
@@ -410,24 +444,44 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(24),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: gradient.map((c) => c.withOpacity(0.2)).toList()),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white.withOpacity(0.1)),
+          color: Color(0xFF1E1F3A),
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: Colors.white.withOpacity(0.08)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 15,
+              spreadRadius: 0,
+              offset: Offset(0, 5),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
-              width: 60,
-              height: 60,
+              width: 64,
+              height: 64,
               decoration: BoxDecoration(
-                gradient: LinearGradient(colors: gradient),
-                borderRadius: BorderRadius.circular(16),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: gradient,
+                ),
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: gradient[0].withOpacity(0.4),
+                    blurRadius: 12,
+                    spreadRadius: 0,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
-              child: Icon(icon, color: Colors.white, size: 28),
+              child: Icon(icon, color: Colors.white, size: 30),
             ),
-            SizedBox(width: 16),
+            SizedBox(width: 20),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,25 +490,34 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                     title,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: 0.3,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  SizedBox(height: 6),
                   Text(
                     subtitle,
                     style: TextStyle(
-                      color: Colors.white70,
+                      color: Colors.white.withOpacity(0.6),
                       fontSize: 13,
+                      height: 1.4,
                     ),
                   ),
                 ],
               ),
             ),
-            Icon(
-              Icons.arrow_forward_ios_rounded,
-              color: Colors.white60,
-              size: 16,
+            Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.05),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: Colors.white.withOpacity(0.5),
+                size: 16,
+              ),
             ),
           ],
         ),
@@ -468,63 +531,100 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        color: Color(0xFF1E1F3A),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 15,
+            spreadRadius: 0,
+            offset: Offset(0, 5),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                Icons.today_rounded,
-                color: Color(0xFF6C5CE7),
-                size: 24,
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Color(0xFF6C5CE7).withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.today_rounded,
+                  color: Color(0xFF6C5CE7),
+                  size: 24,
+                ),
               ),
-              SizedBox(width: 12),
+              SizedBox(width: 14),
               Text(
                 'Today\'s Progress',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.3,
                 ),
               ),
             ],
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 18),
           
           Text(
             programInfo['todayMessage'],
             style: TextStyle(
-              color: Colors.white70,
+              color: Colors.white.withOpacity(0.7),
               fontSize: 14,
-              height: 1.5,
+              height: 1.6,
             ),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: 20),
           
           Container(
             width: double.infinity,
-            height: 48,
+            height: 54,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  _getButtonColorForLevel(fitnessLevel),
+                  _getButtonColorForLevel(fitnessLevel).withOpacity(0.8),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(27),
+              boxShadow: [
+                BoxShadow(
+                  color: _getButtonColorForLevel(fitnessLevel).withOpacity(0.4),
+                  blurRadius: 12,
+                  spreadRadius: 0,
+                  offset: Offset(0, 6),
+                ),
+              ],
+            ),
             child: ElevatedButton(
               onPressed: () => NavigationService().navigateToWorkoutProgram(),
               style: ElevatedButton.styleFrom(
-                backgroundColor: _getButtonColorForLevel(fitnessLevel),
+                backgroundColor: Colors.transparent,
                 foregroundColor: Colors.white,
                 elevation: 0,
+                shadowColor: Colors.transparent,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: BorderRadius.circular(27),
                 ),
               ),
               child: Text(
                 programInfo['buttonText'],
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 0.5,
                 ),
               ),
             ),
@@ -545,6 +645,14 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
       default:
         return Color(0xFF6C5CE7);
     }
+  }
+
+  void _navigateToProgressTracking() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ProgressTrackingScreen(profile: widget.profile),
+      ),
+    );
   }
 
   void _showLogoutDialog() {
