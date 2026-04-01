@@ -1,0 +1,173 @@
+{
+  "goal": "muscle_gain",
+  "fitnessLevel": "beginner",
+  "duration": 90,
+  "calorieTargets": {
+    "workoutDay": 2400,
+    "restDay": 2000
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 160,
+      "carbs": 300,
+      "fats": 60
+    },
+    "restDay": {
+      "protein": 160,
+      "carbs": 220,
+      "fats": 56
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Muscle Builder Oatmeal",
+      "description": "Protein-enriched oats with banana, nuts, and protein powder",
+      "calories": 520,
+      "protein": 28,
+      "carbs": 72,
+      "fats": 14,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["1.5 cups oats", "1 scoop protein powder", "1 banana", "1/4 cup almonds", "1 cup milk", "Honey"],
+      "prepTime": 12,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Big Breakfast Scramble",
+      "description": "Large scramble with eggs, turkey, cheese, and toast",
+      "calories": 560,
+      "protein": 42,
+      "carbs": 52,
+      "fats": 20,
+      "allergens": ["eggs", "dairy", "gluten"],
+      "ingredients": ["4 eggs", "3 slices turkey", "1/4 cup cheese", "2 slices toast", "Vegetables"],
+      "prepTime": 15,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Protein Smoothie Bowl",
+      "description": "Thick smoothie bowl with granola, fruits, and nut butter",
+      "calories": 540,
+      "protein": 32,
+      "carbs": 68,
+      "fats": 16,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["2 scoops protein powder", "1 banana", "Berries", "1 cup milk", "Granola", "Almond butter"],
+      "prepTime": 8,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Double Chicken Bowl",
+      "description": "Extra chicken with rice, beans, and vegetables",
+      "calories": 680,
+      "protein": 56,
+      "carbs": 78,
+      "fats": 14,
+      "allergens": [],
+      "ingredients": ["220g chicken breast", "1.5 cups rice", "1 cup black beans", "Vegetables", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Beef & Pasta Power Meal",
+      "description": "Lean beef with whole wheat pasta and marinara",
+      "calories": 700,
+      "protein": 52,
+      "carbs": 86,
+      "fats": 16,
+      "allergens": ["gluten"],
+      "ingredients": ["180g lean beef", "2 cups pasta", "Marinara sauce", "Vegetables", "Parmesan"],
+      "prepTime": 28,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Tuna Rice Bowl",
+      "description": "High-protein tuna with rice and avocado",
+      "calories": 660,
+      "protein": 48,
+      "carbs": 80,
+      "fats": 16,
+      "allergens": ["seafood"],
+      "ingredients": ["2 cans tuna", "1.5 cups rice", "1/2 avocado", "Vegetables", "Soy sauce"],
+      "prepTime": 15,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Chicken & Sweet Potato",
+      "description": "Grilled chicken with roasted sweet potatoes and broccoli",
+      "calories": 640,
+      "protein": 50,
+      "carbs": 72,
+      "fats": 14,
+      "allergens": [],
+      "ingredients": ["180g chicken", "2 sweet potatoes", "1.5 cups broccoli", "Olive oil", "Herbs"],
+      "prepTime": 35,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Salmon with Quinoa",
+      "description": "Baked salmon with quinoa and roasted vegetables",
+      "calories": 660,
+      "protein": 48,
+      "carbs": 68,
+      "fats": 20,
+      "allergens": ["seafood"],
+      "ingredients": ["180g salmon", "1.5 cups quinoa", "Mixed vegetables", "Lemon", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Turkey Meatballs with Rice",
+      "description": "Lean turkey meatballs with brown rice and vegetables",
+      "calories": 620,
+      "protein": 46,
+      "carbs": 74,
+      "fats": 14,
+      "allergens": ["eggs"],
+      "ingredients": ["180g ground turkey", "1 egg", "1.5 cups rice", "Tomato sauce", "Vegetables"],
+      "prepTime": 35,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Protein Shake with Banana",
+      "description": "High-protein shake with banana and oats",
+      "calories": 340,
+      "protein": 30,
+      "carbs": 42,
+      "fats": 6,
+      "allergens": ["dairy"],
+      "ingredients": ["2 scoops protein powder", "1 banana", "1/4 cup oats", "1 cup milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Peanut Butter Sandwich",
+      "description": "Whole grain bread with peanut butter and banana",
+      "calories": 380,
+      "protein": 16,
+      "carbs": 52,
+      "fats": 14,
+      "allergens": ["nuts", "gluten"],
+      "ingredients": ["2 slices whole grain bread", "3 tbsp peanut butter", "1 banana"],
+      "prepTime": 3,
+      "mealType": "snack"
+    },
+    {
+      "name": "Greek Yogurt with Granola",
+      "description": "Protein-rich yogurt with crunchy granola",
+      "calories": 320,
+      "protein": 26,
+      "carbs": 44,
+      "fats": 6,
+      "allergens": ["dairy"],
+      "ingredients": ["1.5 cups Greek yogurt", "1/2 cup granola", "Honey"],
+      "prepTime": 2,
+      "mealType": "snack"
+    }
+  ]
+}

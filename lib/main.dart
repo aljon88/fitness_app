@@ -5,15 +5,20 @@ import 'firebase_options.dart';
 import 'screens/auth_screen.dart';
 import 'screens/landing_screen.dart';
 import 'services/navigation_service.dart';
-import 'services/firebase_app_initialization_service.dart';
+import 'services/app_initialization_service.dart'; // Changed from firebase version
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // Initialize Firebase (but don't block if it fails)
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    print('Firebase initialization failed: $e');
+    print('Continuing with local storage only...');
+  }
   
   runApp(AIFitnessApp());
 }
@@ -29,13 +34,13 @@ class AIFitnessApp extends StatelessWidget {
     );
     
     return MaterialApp(
-      title: 'AI Home Workout Coach',
+      title: 'FitFlow - Home Workouts',
       debugShowCheckedModeBanner: false,
       navigatorKey: NavigationService().navigatorKey,
       theme: ThemeData(
         fontFamily: 'SF Pro Display',
-        primaryColor: Color(0xFF6C5CE7),
-        scaffoldBackgroundColor: Color(0xFF0D0E21),
+        primaryColor: Color(0xFF1E88E5), // Professional blue
+        scaffoldBackgroundColor: Color(0xFF121212), // Dark background
         textTheme: TextTheme(
           headlineLarge: TextStyle(
             color: Colors.white,
@@ -65,7 +70,7 @@ class AppInitializer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Widget>(
-      future: FirebaseAppInitializationService.getInitialScreen(),
+      future: AppInitializationService.getInitialScreen(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           // Show loading screen while checking authentication
@@ -76,9 +81,9 @@ class AppInitializer extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFF0D0E21),
-                    Color(0xFF1A1B3A),
-                    Color(0xFF2D3561),
+                    Color(0xFF121212),
+                    Color(0xFF1E1E1E),
+                    Color(0xFF2A2A2A),
                   ],
                 ),
               ),
@@ -91,36 +96,36 @@ class AppInitializer extends StatelessWidget {
                       height: 100,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Color(0xFF6C5CE7), Color(0xFF74B9FF)],
+                          colors: [Color(0xFF1E88E5), Color(0xFF42A5F5)],
                         ),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Color(0xFF6C5CE7).withOpacity(0.3),
+                            color: Color(0xFF1E88E5).withOpacity(0.3),
                             blurRadius: 20,
                             spreadRadius: 5,
                           ),
                         ],
                       ),
                       child: Icon(
-                        Icons.smart_toy_rounded,
+                        Icons.fitness_center_rounded,
                         size: 50,
                         color: Colors.white,
                       ),
                     ),
                     SizedBox(height: 32),
                     Text(
-                      'AI HOME WORKOUT COACH',
+                      'FITFLOW',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 28,
+                        fontWeight: FontWeight.w900,
                         color: Colors.white,
-                        letterSpacing: 2,
+                        letterSpacing: 3,
                       ),
                     ),
                     SizedBox(height: 16),
                     CircularProgressIndicator(
-                      color: Color(0xFF6C5CE7),
+                      color: Color(0xFF1E88E5),
                     ),
                     SizedBox(height: 16),
                     Text(
@@ -146,9 +151,9 @@ class AppInitializer extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color(0xFF0D0E21),
-                    Color(0xFF1A1B3A),
-                    Color(0xFF2D3561),
+                    Color(0xFF121212),
+                    Color(0xFF1E1E1E),
+                    Color(0xFF2A2A2A),
                   ],
                 ),
               ),

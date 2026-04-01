@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/navigation_state.dart';
 import '../screens/dashboard_screen.dart';
-import '../screens/camera_screen.dart';
-import '../screens/workout_program_screen.dart';
+// import '../screens/camera_screen.dart'; // REMOVED - using timer workout system
+import '../screens/calendar_screen.dart';
 import '../screens/workout_detail_screen.dart';
-import '../screens/workout_session_screen.dart';
-import '../screens/enhanced_meal_plan_screen.dart';
+// import '../screens/workout_session_screen.dart'; // REMOVED - using active_workout_screen with timer system
+import '../screens/meal_plan_screen.dart';
+import '../screens/user_profile_screen.dart';
 
 /// Central navigation service for managing app-wide navigation
 /// Provides consistent navigation patterns and state preservation
@@ -160,6 +161,14 @@ class NavigationService {
     );
   }
 
+  /// Navigate to user profile
+  Future<void> navigateToUserProfile() async {
+    await navigateTo(
+      NavigationScreen.profile,
+      arguments: {'profile': _userProfile},
+    );
+  }
+
   /// Get route widget for screen
   Widget? _getRouteForScreen(NavigationScreen screen, Map<String, dynamic>? arguments) {
     switch (screen) {
@@ -175,6 +184,8 @@ class NavigationService {
         return _getWorkoutSessionScreen(arguments);
       case NavigationScreen.mealPlan:
         return _getMealPlanScreen(arguments);
+      case NavigationScreen.profile:
+        return _getProfileScreen(arguments);
       default:
         return null;
     }
@@ -222,11 +233,12 @@ class NavigationService {
   }
 
   Widget _getCameraScreen(Map<String, dynamic>? arguments) {
-    return CameraScreen();
+    // Camera screen removed - using timer workout system instead
+    return _getDashboardScreen();
   }
 
   Widget _getWorkoutProgramScreen(Map<String, dynamic>? arguments) {
-    return WorkoutProgramScreen(userProfile: arguments?['profile'] ?? _userProfile ?? {});
+    return CalendarScreen(userProfile: arguments?['profile'] ?? _userProfile ?? {});
   }
 
   Widget _getWorkoutDetailScreen(Map<String, dynamic>? arguments) {
@@ -238,15 +250,16 @@ class NavigationService {
   }
 
   Widget _getWorkoutSessionScreen(Map<String, dynamic>? arguments) {
-    return WorkoutSessionScreen(
-      workout: arguments?['workout'] ?? {},
-      profile: arguments?['profile'] ?? _userProfile ?? {},
-      onWorkoutCompleted: arguments?['onWorkoutCompleted'] ?? () {},
-    );
+    // Workout session screen removed - using active_workout_screen with timer system
+    return _getDashboardScreen();
   }
 
   Widget _getMealPlanScreen(Map<String, dynamic>? arguments) {
-    return EnhancedMealPlanScreen(userProfile: arguments?['profile'] ?? _userProfile ?? {});
+    return MealPlanScreen(profile: arguments?['profile'] ?? _userProfile ?? {});
+  }
+
+  Widget _getProfileScreen(Map<String, dynamic>? arguments) {
+    return const UserProfileScreen();
   }
 
   /// Clear all navigation state
@@ -286,6 +299,8 @@ class NavigationService {
         return 'Active Workout';
       case NavigationScreen.mealPlan:
         return 'Meal Plan';
+      case NavigationScreen.profile:
+        return 'Profile';
       case NavigationScreen.auth:
         return 'Login';
       case NavigationScreen.onboarding:

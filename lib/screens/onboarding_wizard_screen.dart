@@ -43,7 +43,6 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
     'selectedAdvice': '',
     'fitnessLevel': 'beginner',
     'allergies': [],
-    'dietaryPreferences': [],
   };
 
   @override
@@ -1393,7 +1392,18 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
       _fadeController.reset();
       _fadeController.forward();
     } else {
-      // Complete onboarding
+      // Complete onboarding - log profile data before sending
+      print('🎯 Onboarding complete! Profile data:');
+      print('   Name: ${userProfile['name']}');
+      print('   Age: ${userProfile['age']}');
+      print('   Height: ${userProfile['height']}');
+      print('   Weight: ${userProfile['weight']}');
+      print('   Gender: ${userProfile['gender']}');
+      print('   Primary Goal: ${userProfile['primaryGoal']}');
+      print('   Fitness Level: ${userProfile['fitnessLevel']}');
+      print('   All keys: ${userProfile.keys.toList()}');
+      print('   Profile is empty: ${userProfile.isEmpty}');
+      
       widget.onCompleted(userProfile);
     }
   }

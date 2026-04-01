@@ -1,0 +1,125 @@
+{
+  "goal": "weight_loss",
+  "fitnessLevel": "advanced",
+  "duration": 30,
+  "calorieTargets": {
+    "workoutDay": 2400,
+    "restDay": 2000
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 180,
+      "carbs": 270,
+      "fats": 67
+    },
+    "restDay": {
+      "protein": 180,
+      "carbs": 200,
+      "fats": 62
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Power Breakfast Bowl",
+      "description": "Eggs, turkey sausage, sweet potato hash, and avocado",
+      "calories": 580,
+      "protein": 40,
+      "carbs": 56,
+      "fats": 22,
+      "allergens": ["eggs"],
+      "ingredients": ["4 eggs", "2 turkey sausages", "1 sweet potato", "1/2 avocado", "Peppers", "Onions"],
+      "prepTime": 20,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "High-Protein French Toast",
+      "description": "Protein-enriched French toast with berries and nut butter",
+      "calories": 560,
+      "protein": 36,
+      "carbs": 66,
+      "fats": 16,
+      "allergens": ["eggs", "gluten", "nuts", "dairy"],
+      "ingredients": ["3 slices bread", "3 eggs", "1 scoop protein powder", "1 cup berries", "2 tbsp almond butter"],
+      "prepTime": 15,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Double Chicken Rice Bowl",
+      "description": "Extra chicken with jasmine rice and stir-fried vegetables",
+      "calories": 720,
+      "protein": 60,
+      "carbs": 82,
+      "fats": 14,
+      "allergens": [],
+      "ingredients": ["250g chicken breast", "2 cups jasmine rice", "Mixed vegetables", "Teriyaki sauce"],
+      "prepTime": 30,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Beef & Sweet Potato Power Meal",
+      "description": "Lean ground beef with sweet potatoes and green beans",
+      "calories": 700,
+      "protein": 56,
+      "carbs": 76,
+      "fats": 18,
+      "allergens": [],
+      "ingredients": ["200g lean ground beef", "2 sweet potatoes", "1.5 cups green beans", "Olive oil"],
+      "prepTime": 35,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Grilled Salmon with Quinoa",
+      "description": "Large salmon portion with quinoa and roasted asparagus",
+      "calories": 740,
+      "protein": 56,
+      "carbs": 70,
+      "fats": 26,
+      "allergens": ["seafood"],
+      "ingredients": ["200g salmon", "2 cups quinoa", "1.5 cups asparagus", "Lemon", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken Fajita Bowl",
+      "description": "Seasoned chicken with rice, beans, and all the toppings",
+      "calories": 720,
+      "protein": 60,
+      "carbs": 80,
+      "fats": 18,
+      "allergens": [],
+      "ingredients": ["220g chicken", "1.5 cups rice", "1 cup black beans", "Peppers", "Onions", "Guacamole"],
+      "prepTime": 25,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Mass Gainer Shake",
+      "description": "High-calorie protein shake with oats and peanut butter",
+      "calories": 400,
+      "protein": 34,
+      "carbs": 46,
+      "fats": 10,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["2 scoops protein powder", "1/2 cup oats", "2 tbsp peanut butter", "1 banana", "Milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Chicken Breast with Rice Cakes",
+      "description": "Lean protein with quick carbs",
+      "calories": 300,
+      "protein": 36,
+      "carbs": 30,
+      "fats": 4,
+      "allergens": [],
+      "ingredients": ["150g chicken breast", "4 rice cakes", "Hot sauce"],
+      "prepTime": 10,
+      "mealType": "snack"
+    }
+  ]
+}

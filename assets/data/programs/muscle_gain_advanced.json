@@ -1,0 +1,205 @@
+{
+  "programId": "muscle_gain_advanced",
+  "programName": "Muscle Gain - Advanced Program",
+  "goal": "muscle_gain",
+  "fitnessLevel": "advanced",
+  "duration": {
+    "days": 30,
+    "weeks": 4
+  },
+  "schedule": {
+    "workoutsPerWeek": 6,
+    "restDays": ["sunday"]
+  },
+  "overview": {
+    "focus": "Maximum Hypertrophy & Advanced Techniques",
+    "intensity": "Very High",
+    "equipment": "None (bodyweight only)",
+    "description": "Advanced muscle building with plyometrics and skill work"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Push (Plyometric)", "duration": 40, "calories": 220},
+    "tuesday": {"name": "Pull (Advanced)", "duration": 40, "calories": 210},
+    "wednesday": {"name": "Legs - Quads", "duration": 40, "calories": 230},
+    "thursday": {"name": "Shoulders & Core", "duration": 40, "calories": 200},
+    "friday": {"name": "Legs - Hamstrings", "duration": 40, "calories": 220},
+    "saturday": {"name": "Arms & Core", "duration": 35, "calories": 190},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Shock Phase",
+      "weeks": "1-2",
+      "description": "Advanced techniques and maximum volume",
+      "workouts": {
+        "monday": {
+          "name": "Push (Plyometric)",
+          "duration": 40,
+          "calories": 220,
+          "exercises": [
+            {"exerciseId": "plyometric_pushups", "name": "Plyometric Push-ups", "sets": 5, "reps": 8, "duration": null, "rest": 90, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Explosive push off ground"},
+            {"exerciseId": "handstand_pushups", "name": "Handstand Push-ups", "sets": 4, "reps": 6, "duration": null, "rest": 90, "targetMuscles": ["Shoulders", "Triceps"], "notes": "Against wall, full range"},
+            {"exerciseId": "diamond_pushups", "name": "Diamond Push-ups", "sets": 4, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Triceps", "Chest"], "notes": "Hands together, full range"},
+            {"exerciseId": "dips", "name": "Dips", "sets": 4, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Triceps", "Chest"], "notes": "Full range, controlled"},
+            {"exerciseId": "decline_pushups", "name": "Decline Push-ups", "sets": 4, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Shoulders"], "notes": "Feet elevated"}
+          ]
+        },
+        "tuesday": {
+          "name": "Pull (Advanced)",
+          "duration": 40,
+          "calories": 210,
+          "exercises": [
+            {"exerciseId": "pullups", "name": "Pull-ups", "sets": 5, "reps": null, "duration": null, "rest": 90, "targetMuscles": ["Back", "Biceps"], "notes": "Max reps, full range"},
+            {"exerciseId": "chinups", "name": "Chin-ups", "sets": 4, "reps": null, "duration": null, "rest": 90, "targetMuscles": ["Biceps", "Back"], "notes": "Max reps, controlled"},
+            {"exerciseId": "inverted_rows", "name": "Inverted Rows", "sets": 4, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Back", "Biceps"], "notes": "Full range, squeeze"},
+            {"exerciseId": "superman_holds", "name": "Superman Holds", "sets": 4, "reps": null, "duration": 30, "rest": 45, "targetMuscles": ["Back", "Core"], "notes": "Maximum lift"},
+            {"exerciseId": "archer_rows", "name": "Archer Rows", "sets": 4, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Back", "Biceps"], "notes": "8 each side, controlled"}
+          ]
+        },
+        "wednesday": {
+          "name": "Legs - Quads",
+          "duration": 40,
+          "calories": 230,
+          "exercises": [
+            {"exerciseId": "pistol_squats", "name": "Pistol Squats", "sets": 5, "reps": 6, "duration": null, "rest": 90, "targetMuscles": ["Quads", "Glutes"], "notes": "6 each leg, full range"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 5, "reps": 15, "duration": null, "rest": 75, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "bulgarian_split_squats", "name": "Bulgarian Split Squats", "sets": 4, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Quads", "Glutes"], "notes": "12 each leg, rear foot elevated"},
+            {"exerciseId": "wall_sit", "name": "Wall Sit", "sets": 4, "reps": null, "duration": 60, "rest": 60, "targetMuscles": ["Quads"], "notes": "90-degree angle, maximum hold"},
+            {"exerciseId": "single_leg_calf_raises", "name": "Single-Leg Calf Raises", "sets": 4, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Calves"], "notes": "20 each leg, full range"}
+          ]
+        },
+        "thursday": {
+          "name": "Shoulders & Core",
+          "duration": 40,
+          "calories": 200,
+          "exercises": [
+            {"exerciseId": "handstand_hold", "name": "Handstand Hold", "sets": 5, "reps": null, "duration": 30, "rest": 90, "targetMuscles": ["Shoulders", "Core"], "notes": "Against wall, max time"},
+            {"exerciseId": "pike_pushups", "name": "Pike Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Shoulders"], "notes": "Hips high, full range"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 60, "rest": 45, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "leg_raises", "name": "Leg Raises", "sets": 4, "reps": 20, "duration": null, "rest": 60, "targetMuscles": ["Lower Abs"], "notes": "Controlled, full range"},
+            {"exerciseId": "bicycle_crunches", "name": "Bicycle Crunches", "sets": 4, "reps": 25, "duration": null, "rest": 45, "targetMuscles": ["Obliques", "Abs"], "notes": "25 each side"}
+          ]
+        },
+        "friday": {
+          "name": "Legs - Hamstrings",
+          "duration": 40,
+          "calories": 220,
+          "exercises": [
+            {"exerciseId": "nordic_curls", "name": "Nordic Curls", "sets": 5, "reps": 6, "duration": null, "rest": 90, "targetMuscles": ["Hamstrings"], "notes": "Assisted, controlled negative"},
+            {"exerciseId": "single_leg_deadlifts", "name": "Single-Leg Deadlifts", "sets": 4, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Hamstrings", "Glutes"], "notes": "12 each leg, controlled"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 20, "duration": null, "rest": 60, "targetMuscles": ["Glutes", "Hamstrings"], "notes": "Squeeze at top"},
+            {"exerciseId": "alternating_lunges", "name": "Alternating Lunges", "sets": 4, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Quads", "Glutes", "Hamstrings"], "notes": "15 each leg"},
+            {"exerciseId": "calf_raises", "name": "Calf Raises", "sets": 4, "reps": 25, "duration": null, "rest": 45, "targetMuscles": ["Calves"], "notes": "Full range, squeeze"}
+          ]
+        },
+        "saturday": {
+          "name": "Arms & Core",
+          "duration": 35,
+          "calories": 190,
+          "exercises": [
+            {"exerciseId": "diamond_pushups", "name": "Diamond Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Triceps", "Chest"], "notes": "Full range, controlled"},
+            {"exerciseId": "chinups", "name": "Chin-ups", "sets": 5, "reps": null, "duration": null, "rest": 90, "targetMuscles": ["Biceps", "Back"], "notes": "Max reps, controlled"},
+            {"exerciseId": "dips", "name": "Dips", "sets": 4, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Triceps"], "notes": "Full range"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 60, "rest": 45, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "russian_twists", "name": "Russian Twists", "sets": 4, "reps": 30, "duration": null, "rest": 45, "targetMuscles": ["Obliques"], "notes": "30 each side"}
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Peak Hypertrophy",
+      "weeks": "3-4",
+      "description": "Peak muscle building with skill progressions",
+      "workouts": {
+        "monday": {
+          "name": "Push (Plyometric)",
+          "duration": 42,
+          "calories": 250,
+          "exercises": [
+            {"exerciseId": "plyometric_pushups", "name": "Plyometric Push-ups", "sets": 6, "reps": 10, "duration": null, "rest": 80, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Maximum explosive power"},
+            {"exerciseId": "handstand_pushups", "name": "Handstand Push-ups", "sets": 5, "reps": 8, "duration": null, "rest": 80, "targetMuscles": ["Shoulders", "Triceps"], "notes": "Full range, controlled"},
+            {"exerciseId": "diamond_pushups", "name": "Diamond Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 55, "targetMuscles": ["Triceps", "Chest"], "notes": "Slow tempo, full range"},
+            {"exerciseId": "dips", "name": "Dips", "sets": 5, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Triceps", "Chest"], "notes": "Full range, slow tempo"},
+            {"exerciseId": "decline_pushups", "name": "Decline Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 55, "targetMuscles": ["Chest", "Shoulders"], "notes": "Feet elevated, controlled"}
+          ]
+        },
+        "tuesday": {
+          "name": "Pull (Advanced)",
+          "duration": 42,
+          "calories": 240,
+          "exercises": [
+            {"exerciseId": "pullups", "name": "Pull-ups", "sets": 6, "reps": null, "duration": null, "rest": 80, "targetMuscles": ["Back", "Biceps"], "notes": "Max reps, increase volume"},
+            {"exerciseId": "chinups", "name": "Chin-ups", "sets": 5, "reps": null, "duration": null, "rest": 80, "targetMuscles": ["Biceps", "Back"], "notes": "Max reps, slow tempo"},
+            {"exerciseId": "inverted_rows", "name": "Inverted Rows", "sets": 5, "reps": 15, "duration": null, "rest": 55, "targetMuscles": ["Back", "Biceps"], "notes": "Full range, maximum squeeze"},
+            {"exerciseId": "superman_holds", "name": "Superman Holds", "sets": 5, "reps": null, "duration": 40, "rest": 40, "targetMuscles": ["Back", "Core"], "notes": "Maximum lift and hold"},
+            {"exerciseId": "archer_rows", "name": "Archer Rows", "sets": 5, "reps": 10, "duration": null, "rest": 55, "targetMuscles": ["Back", "Biceps"], "notes": "10 each side, slow tempo"}
+          ]
+        },
+        "wednesday": {
+          "name": "Legs - Quads",
+          "duration": 42,
+          "calories": 260,
+          "exercises": [
+            {"exerciseId": "pistol_squats", "name": "Pistol Squats", "sets": 6, "reps": 8, "duration": null, "rest": 80, "targetMuscles": ["Quads", "Glutes"], "notes": "8 each leg, full range"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 6, "reps": 18, "duration": null, "rest": 70, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum explosive height"},
+            {"exerciseId": "bulgarian_split_squats", "name": "Bulgarian Split Squats", "sets": 5, "reps": 15, "duration": null, "rest": 55, "targetMuscles": ["Quads", "Glutes"], "notes": "15 each leg, slow tempo"},
+            {"exerciseId": "wall_sit", "name": "Wall Sit", "sets": 5, "reps": null, "duration": 70, "rest": 55, "targetMuscles": ["Quads"], "notes": "Maximum hold time"},
+            {"exerciseId": "single_leg_calf_raises", "name": "Single-Leg Calf Raises", "sets": 5, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Calves"], "notes": "25 each leg, full range"}
+          ]
+        },
+        "thursday": {
+          "name": "Shoulders & Core",
+          "duration": 42,
+          "calories": 230,
+          "exercises": [
+            {"exerciseId": "handstand_hold", "name": "Handstand Hold", "sets": 6, "reps": null, "duration": 40, "rest": 80, "targetMuscles": ["Shoulders", "Core"], "notes": "Increase hold time"},
+            {"exerciseId": "pike_pushups", "name": "Pike Push-ups", "sets": 6, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Shoulders"], "notes": "Full range, slow tempo"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 70, "rest": 40, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "leg_raises", "name": "Leg Raises", "sets": 5, "reps": 25, "duration": null, "rest": 55, "targetMuscles": ["Lower Abs"], "notes": "Slow tempo, controlled"},
+            {"exerciseId": "bicycle_crunches", "name": "Bicycle Crunches", "sets": 5, "reps": 30, "duration": null, "rest": 40, "targetMuscles": ["Obliques", "Abs"], "notes": "30 each side, slow tempo"}
+          ]
+        },
+        "friday": {
+          "name": "Legs - Hamstrings",
+          "duration": 42,
+          "calories": 250,
+          "exercises": [
+            {"exerciseId": "nordic_curls", "name": "Nordic Curls", "sets": 6, "reps": 8, "duration": null, "rest": 80, "targetMuscles": ["Hamstrings"], "notes": "Increase reps, controlled"},
+            {"exerciseId": "single_leg_deadlifts", "name": "Single-Leg Deadlifts", "sets": 5, "reps": 15, "duration": null, "rest": 55, "targetMuscles": ["Hamstrings", "Glutes"], "notes": "15 each leg, slow tempo"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 5, "reps": 25, "duration": null, "rest": 55, "targetMuscles": ["Glutes", "Hamstrings"], "notes": "Squeeze and hold at top"},
+            {"exerciseId": "alternating_lunges", "name": "Alternating Lunges", "sets": 5, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Quads", "Glutes", "Hamstrings"], "notes": "18 each leg, slow tempo"},
+            {"exerciseId": "calf_raises", "name": "Calf Raises", "sets": 5, "reps": 30, "duration": null, "rest": 40, "targetMuscles": ["Calves"], "notes": "Full range, maximum squeeze"}
+          ]
+        },
+        "saturday": {
+          "name": "Arms & Core",
+          "duration": 38,
+          "calories": 220,
+          "exercises": [
+            {"exerciseId": "diamond_pushups", "name": "Diamond Push-ups", "sets": 6, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Triceps", "Chest"], "notes": "Slow tempo, full range"},
+            {"exerciseId": "chinups", "name": "Chin-ups", "sets": 6, "reps": null, "duration": null, "rest": 80, "targetMuscles": ["Biceps", "Back"], "notes": "Max reps, increase volume"},
+            {"exerciseId": "dips", "name": "Dips", "sets": 5, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Triceps"], "notes": "Full range, slow tempo"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 70, "rest": 40, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "russian_twists", "name": "Russian Twists", "sets": 5, "reps": 35, "duration": null, "rest": 40, "targetMuscles": ["Obliques"], "notes": "35 each side, controlled"}
+          ]
+        }
+      }
+    }
+  ],
+  "expectedResults": {
+    "muscleGain": "2-4 kg lean mass",
+    "strength": "60-80% increase",
+    "bodyComposition": "Maximum muscle definition",
+    "fitnessLevel": "Elite strength"
+  },
+  "nutrition": {
+    "dailyCalories": "3000-3200",
+    "protein": "200-220g",
+    "carbs": "350-380g",
+    "fats": "85-95g",
+    "workoutDayAdjustment": "+500 calories",
+    "restDayAdjustment": "-300 calories"
+  }
+}

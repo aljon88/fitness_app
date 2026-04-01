@@ -1,0 +1,62 @@
+{
+  "programId": "general_fitness_beginner",
+  "programName": "General Fitness - Beginner Program",
+  "goal": "general_fitness",
+  "fitnessLevel": "beginner",
+  "duration": {
+    "days": 90,
+    "weeks": 13
+  },
+  "schedule": {
+    "workoutsPerWeek": 4,
+    "restDays": ["tuesday", "thursday", "sunday"]
+  },
+  "overview": {
+    "focus": "Balanced Fitness & Overall Health",
+    "intensity": "Low to Moderate",
+    "equipment": "None (bodyweight only)",
+    "description": "Well-rounded fitness program for overall health and wellness"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Full Body Strength", "duration": 30, "calories": 150},
+    "tuesday": {"name": "REST", "duration": 0, "calories": 0},
+    "wednesday": {"name": "Cardio + Core", "duration": 25, "calories": 140},
+    "thursday": {"name": "REST", "duration": 0, "calories": 0},
+    "friday": {"name": "Full Body Strength", "duration": 30, "calories": 155},
+    "saturday": {"name": "Active Recovery + Flexibility", "duration": 20, "calories": 80},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Foundation",
+      "weeks": "1-4",
+      "description": "Building foundational fitness across all domains"
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Progressive Overload",
+      "weeks": "5-9",
+      "description": "Increasing volume and intensity gradually"
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Consolidation",
+      "weeks": "10-13",
+      "description": "Building endurance and solidifying habits"
+    }
+  ],
+  "expectedResults": {
+    "cardio": "Improved cardiovascular endurance",
+    "strength": "Basic strength foundation",
+    "flexibility": "Better mobility",
+    "overall": "Enhanced energy and well-being"
+  },
+  "nutrition": {
+    "dailyCalories": "2000-2200",
+    "protein": "120-140g",
+    "carbs": "220-240g",
+    "fats": "60-70g",
+    "focus": "Balanced nutrition, whole foods"
+  }
+}

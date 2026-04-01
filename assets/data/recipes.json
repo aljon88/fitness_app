@@ -1,0 +1,1485 @@
+{
+  "recipes": [
+    {
+      "id": "breakfast_001",
+      "name": "Protein Oatmeal Bowl",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Oats", "amount": 0.5, "unit": "cup", "allergens": ["wheat"]},
+        {"name": "Banana", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Almond Butter", "amount": 1, "unit": "tbsp", "allergens": ["nuts"]},
+        {"name": "Honey", "amount": 1, "unit": "tsp", "allergens": []},
+        {"name": "Cinnamon", "amount": 0.5, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Cook oats according to package directions",
+        "Slice banana and add to oats",
+        "Top with almond butter and honey",
+        "Sprinkle with cinnamon"
+      ],
+      "nutrition": {
+        "calories": 350,
+        "protein": 12,
+        "carbs": 58,
+        "fats": 9,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 5,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_002",
+      "name": "Greek Yogurt Parfait",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Greek Yogurt", "amount": 1, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Mixed Berries", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Granola", "amount": 0.25, "unit": "cup", "allergens": ["wheat", "nuts"]},
+        {"name": "Honey", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Layer yogurt in a bowl",
+        "Add berries on top",
+        "Sprinkle with granola",
+        "Drizzle with honey"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 20,
+        "carbs": 45,
+        "fats": 7,
+        "fiber": 5
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_003",
+      "name": "Veggie Egg Scramble",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Eggs", "amount": 3, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Spinach", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Bell Pepper", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Onion", "amount": 0.25, "unit": "whole", "allergens": []},
+        {"name": "Cheese", "amount": 0.25, "unit": "cup", "allergens": ["dairy"]}
+      ],
+      "instructions": [
+        "Dice vegetables",
+        "Sauté vegetables in pan",
+        "Beat eggs and pour over vegetables",
+        "Scramble until cooked",
+        "Top with cheese"
+      ],
+      "nutrition": {
+        "calories": 280,
+        "protein": 24,
+        "carbs": 8,
+        "fats": 18,
+        "fiber": 2
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_004",
+      "name": "Protein Pancakes",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Banana", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Eggs", "amount": 2, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Protein Powder", "amount": 1, "unit": "scoop", "allergens": ["dairy"]},
+        {"name": "Oats", "amount": 0.25, "unit": "cup", "allergens": ["wheat"]}
+      ],
+      "instructions": [
+        "Blend all ingredients",
+        "Heat pan over medium heat",
+        "Pour batter to form pancakes",
+        "Flip when bubbles form",
+        "Cook until golden"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 32,
+        "carbs": 42,
+        "fats": 10,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_005",
+      "name": "Avocado Toast",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Whole Wheat Bread", "amount": 2, "unit": "slices", "allergens": ["wheat"]},
+        {"name": "Avocado", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Eggs", "amount": 2, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Cherry Tomatoes", "amount": 0.5, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Toast bread",
+        "Mash avocado and spread on toast",
+        "Fry or poach eggs",
+        "Top toast with eggs and tomatoes"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 18,
+        "carbs": 38,
+        "fats": 24,
+        "fiber": 12
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 8,
+      "servings": 1
+    }
+  ]
+}
+,
+    {
+      "id": "breakfast_003",
+      "name": "Scrambled Eggs with Toast",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Eggs", "amount": 3, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Whole Wheat Bread", "amount": 2, "unit": "slices", "allergens": ["wheat"]},
+        {"name": "Butter", "amount": 1, "unit": "tsp", "allergens": ["dairy"]},
+        {"name": "Salt", "amount": 0.25, "unit": "tsp", "allergens": []},
+        {"name": "Pepper", "amount": 0.25, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Beat eggs with salt and pepper",
+        "Cook in buttered pan until fluffy",
+        "Toast bread",
+        "Serve eggs with toast"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 24,
+        "carbs": 28,
+        "fats": 18,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 5,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_004",
+      "name": "Avocado Toast",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Whole Wheat Bread", "amount": 2, "unit": "slices", "allergens": ["wheat"]},
+        {"name": "Avocado", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Lemon Juice", "amount": 1, "unit": "tsp", "allergens": []},
+        {"name": "Salt", "amount": 0.25, "unit": "tsp", "allergens": []},
+        {"name": "Red Pepper Flakes", "amount": 0.25, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Toast bread until golden",
+        "Mash avocado with lemon juice and salt",
+        "Spread on toast",
+        "Sprinkle with red pepper flakes"
+      ],
+      "nutrition": {
+        "calories": 340,
+        "protein": 10,
+        "carbs": 36,
+        "fats": 20,
+        "fiber": 12
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 2,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_005",
+      "name": "Protein Smoothie Bowl",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Banana", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Protein Powder", "amount": 1, "unit": "scoop", "allergens": ["dairy"]},
+        {"name": "Almond Milk", "amount": 0.5, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Spinach", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Chia Seeds", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Blend all ingredients until smooth",
+        "Pour into bowl",
+        "Top with fresh fruit and seeds"
+      ],
+      "nutrition": {
+        "calories": 310,
+        "protein": 28,
+        "carbs": 38,
+        "fats": 6,
+        "fiber": 9
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "lunch_001",
+      "name": "Grilled Chicken Salad",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 150, "unit": "g", "allergens": []},
+        {"name": "Mixed Greens", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Cherry Tomatoes", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Cucumber", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Olive Oil", "a,
+    {
+      "id": "lunch_001",
+      "name": "Grilled Chicken Salad",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Mixed Greens", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Cherry Tomatoes", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Cucumber", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Olive Oil", "amount": 2, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Grill chicken breast",
+        "Slice chicken",
+        "Toss greens with vegetables",
+        "Top with chicken",
+        "Drizzle with olive oil"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 42,
+        "carbs": 12,
+        "fats": 18,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "lunch_002",
+      "name": "Turkey Wrap",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Whole Wheat Tortilla", "amount": 1, "unit": "whole", "allergens": ["wheat"]},
+        {"name": "Turkey Breast", "amount": 4, "unit": "oz", "allergens": []},
+        {"name": "Lettuce", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Tomato", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Hummus", "amount": 2, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Spread hummus on tortilla",
+        "Layer turkey and vegetables",
+        "Roll tightly",
+        "Cut in half"
+      ],
+      "nutrition": {
+        "calories": 340,
+        "protein": 28,
+        "carbs": 38,
+        "fats": 10,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "lunch_003",
+      "name": "Quinoa Buddha Bowl",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Quinoa", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Chickpeas", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Sweet Potato", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Kale", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Tahini", "amount": 2, "unit": "tbsp", "allergens": ["sesame"]}
+      ],
+      "instructions": [
+        "Cook quinoa",
+        "Roast sweet potato and chickpeas",
+        "Massage kale",
+        "Assemble bowl",
+        "Drizzle with tahini"
+      ],
+      "nutrition": {
+        "calories": 480,
+        "protein": 18,
+        "carbs": 68,
+        "fats": 16,
+        "fiber": 14
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 25,
+      "servings": 1
+    },
+    {
+      "id": "lunch_004",
+      "name": "Tuna Salad",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Canned Tuna", "amount": 5, "unit": "oz", "allergens": ["fish"]},
+        {"name": "Greek Yogurt", "amount": 2, "unit": "tbsp", "allergens": ["dairy"]},
+        {"name": "Celery", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Red Onion", "amount": 0.25, "unit": "cup", "allergens": []},
+        {"name": "Whole Wheat Crackers", "amount": 10, "unit": "pieces", "allergens": ["wheat"]}
+      ],
+      "instructions": [
+        "Drain tuna",
+        "Mix with yogurt",
+        "Add diced celery and onion",
+        "Serve with crackers"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 36,
+        "carbs": 28,
+        "fats": 8,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "lunch_005",
+      "name": "Chicken Stir Fry",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Broccoli", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Bell Peppers", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Soy Sauce", "amount": 2, "unit": "tbsp", "allergens": ["soy"]},
+        {"name": "Brown Rice", "amount": 1, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Cook rice",
+        "Slice chicken and vegetables",
+        "Stir fry chicken",
+        "Add vegetables",
+        "Season with soy sauce"
+      ],
+      "nutrition": {
+        "calories": 450,
+        "protein": 44,
+        "carbs": 52,
+        "fats": 8,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_001",
+      "name": "Baked Salmon with Asparagus",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Salmon Fillet", "amount": 6, "unit": "oz", "allergens": ["fish"]},
+        {"name": "Asparagus", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Lemon", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Olive Oil", "amount": 1, "unit": "tbsp", "allergens": []},
+        {"name": "Garlic", "amount": 2, "unit": "cloves", "allergens": []}
+      ],
+      "instructions": [
+        "Preheat oven to 400°F",
+        "Season salmon with lemon and garlic",
+        "Arrange asparagus on baking sheet",
+        "Drizzle with olive oil",
+        "Bake for 15-20 minutes"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 38,
+        "carbs": 8,
+        "fats": 22,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "dinner_002",
+      "name": "Lean Beef Tacos",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Lean Ground Beef", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Corn Tortillas", "amount": 3, "unit": "whole", "allergens": []},
+        {"name": "Lettuce", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Tomato", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Avocado", "amount": 0.5, "unit": "whole", "allergens": []}
+      ],
+      "instructions": [
+        "Brown ground beef",
+        "Season with taco spices",
+        "Warm tortillas",
+        "Fill with beef and toppings"
+      ],
+      "nutrition": {
+        "calories": 480,
+        "protein": 38,
+        "carbs": 42,
+        "fats": 18,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_003",
+      "name": "Chicken Breast with Sweet Potato",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 8, "unit": "oz", "allergens": []},
+        {"name": "Sweet Potato", "amount": 1, "unit": "large", "allergens": []},
+        {"name": "Green Beans", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Olive Oil", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Bake sweet potato at 400°F",
+        "Grill or bake chicken",
+        "Steam green beans",
+        "Serve together"
+      ],
+      "nutrition": {
+        "calories": 520,
+        "protein": 52,
+        "carbs": 48,
+        "fats": 12,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 30,
+      "servings": 1
+    },
+    {
+      "id": "dinner_004",
+      "name": "Shrimp Pasta",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Shrimp", "amount": 6, "unit": "oz", "allergens": ["shellfish"]},
+        {"name": "Whole Wheat Pasta", "amount": 2, "unit": "oz", "allergens": ["wheat"]},
+        {"name": "Cherry Tomatoes", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Spinach", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Garlic", "amount": 3, "unit": "cloves", "allergens": []}
+      ],
+      "instructions": [
+        "Cook pasta",
+        "Sauté garlic",
+        "Add shrimp and cook",
+        "Add tomatoes and spinach",
+        "Toss with pasta"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 38,
+        "carbs": 48,
+        "fats": 10,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_005",
+      "name": "Turkey Meatballs with Zucchini Noodles",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Ground Turkey", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Zucchini", "amount": 2, "unit": "medium", "allergens": []},
+        {"name": "Marinara Sauce", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Parmesan", "amount": 2, "unit": "tbsp", "allergens": ["dairy"]}
+      ],
+      "instructions": [
+        "Form turkey into meatballs",
+        "Bake at 375°F for 20 minutes",
+        "Spiralize zucchini",
+        "Heat marinara",
+        "Serve meatballs over zoodles"
+      ],
+      "nutrition": {
+        "calories": 360,
+        "protein": 42,
+        "carbs": 18,
+        "fats": 14,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 15,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "snack_001",
+      "name": "Protein Smoothie",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Protein Powder", "amount": 1, "unit": "scoop", "allergens": ["dairy"]},
+        {"name": "Banana", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Almond Milk", "amount": 1, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Spinach", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Peanut Butter", "amount": 1, "unit": "tbsp", "allergens": ["nuts"]}
+      ],
+      "instructions": [
+        "Add all ingredients to blender",
+        "Blend until smooth",
+        "Serve immediately"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 28,
+        "carbs": 32,
+        "fats": 10,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "snack_002",
+      "name": "Apple with Almond Butter",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Apple", "amount": 1, "unit": "medium", "allergens": []},
+        {"name": "Almond Butter", "amount": 2, "unit": "tbsp", "allergens": ["nuts"]}
+      ],
+      "instructions": [
+        "Slice apple",
+        "Serve with almond butter for dipping"
+      ],
+      "nutrition": {
+        "calories": 240,
+        "protein": 6,
+        "carbs": 28,
+        "fats": 14,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 2,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "snack_003",
+      "name": "Hard Boiled Eggs",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Eggs", "amount": 2, "unit": "whole", "allergens": ["eggs"]}
+      ],
+      "instructions": [
+        "Place eggs in pot",
+        "Cover with water",
+        "Bring to boil",
+        "Remove from heat and cover for 10 minutes",
+        "Cool in ice bath"
+      ],
+      "nutrition": {
+        "calories": 140,
+        "protein": 12,
+        "carbs": 2,
+        "fats": 10,
+        "fiber": 0
+      },
+      "prepTimeMinutes": 2,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "snack_004",
+      "name": "Trail Mix",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Almonds", "amount": 0.25, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Walnuts", "amount": 0.25, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Dried Cranberries", "amount": 2, "unit": "tbsp", "allergens": []},
+        {"name": "Dark Chocolate Chips", "amount": 1, "unit": "tbsp", "allergens": ["dairy"]}
+      ],
+      "instructions": [
+        "Mix all ingredients",
+        "Store in airtight container"
+      ],
+      "nutrition": {
+        "calories": 280,
+        "protein": 8,
+        "carbs": 22,
+        "fats": 20,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 2,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "snack_005",
+      "name": "Cottage Cheese with Berries",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Cottage Cheese", "amount": 1, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Mixed Berries", "amount": 0.5, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Place cottage cheese in bowl",
+        "Top with berries"
+      ],
+      "nutrition": {
+        "calories": 180,
+        "protein": 24,
+        "carbs": 18,
+        "fats": 2,
+        "fiber": 3
+      },
+      "prepTimeMinutes": 2,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_006",
+      "name": "Breakfast Burrito",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Whole Wheat Tortilla", "amount": 1, "unit": "large", "allergens": ["wheat"]},
+        {"name": "Eggs", "amount": 2, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Black Beans", "amount": 0.25, "unit": "cup", "allergens": []},
+        {"name": "Cheese", "amount": 0.25, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Salsa", "amount": 2, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Scramble eggs",
+        "Warm tortilla",
+        "Add eggs, beans, cheese",
+        "Top with salsa",
+        "Roll burrito"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 24,
+        "carbs": 42,
+        "fats": 16,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_007",
+      "name": "Smoothie Bowl",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Frozen Berries", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Banana", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Greek Yogurt", "amount": 0.5, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Granola", "amount": 0.25, "unit": "cup", "allergens": ["wheat", "nuts"]},
+        {"name": "Chia Seeds", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Blend berries, banana, and yogurt",
+        "Pour into bowl",
+        "Top with granola and chia seeds"
+      ],
+      "nutrition": {
+        "calories": 340,
+        "protein": 16,
+        "carbs": 58,
+        "fats": 8,
+        "fiber": 10
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_008",
+      "name": "Egg White Omelet",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Egg Whites", "amount": 4, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Mushrooms", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Tomatoes", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Spinach", "amount": 1, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Sauté vegetables",
+        "Beat egg whites",
+        "Pour into pan",
+        "Add vegetables",
+        "Fold omelet"
+      ],
+      "nutrition": {
+        "calories": 140,
+        "protein": 20,
+        "carbs": 8,
+        "fats": 2,
+        "fiber": 3
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "lunch_006",
+      "name": "Salmon Salad",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Canned Salmon", "amount": 5, "unit": "oz", "allergens": ["fish"]},
+        {"name": "Mixed Greens", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Cucumber", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Avocado", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Lemon Juice", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Drain salmon",
+        "Arrange greens in bowl",
+        "Add salmon and vegetables",
+        "Drizzle with lemon juice"
+      ],
+      "nutrition": {
+        "calories": 360,
+        "protein": 32,
+        "carbs": 12,
+        "fats": 22,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "lunch_007",
+      "name": "Chicken Caesar Salad",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Romaine Lettuce", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Parmesan Cheese", "amount": 2, "unit": "tbsp", "allergens": ["dairy"]},
+        {"name": "Caesar Dressing", "amount": 2, "unit": "tbsp", "allergens": ["eggs", "dairy"]},
+        {"name": "Croutons", "amount": 0.25, "unit": "cup", "allergens": ["wheat"]}
+      ],
+      "instructions": [
+        "Grill chicken",
+        "Chop lettuce",
+        "Slice chicken",
+        "Toss with dressing",
+        "Top with cheese and croutons"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 44,
+        "carbs": 18,
+        "fats": 20,
+        "fiber": 3
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "lunch_008",
+      "name": "Veggie Burger",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Veggie Burger Patty", "amount": 1, "unit": "whole", "allergens": ["soy"]},
+        {"name": "Whole Wheat Bun", "amount": 1, "unit": "whole", "allergens": ["wheat"]},
+        {"name": "Lettuce", "amount": 2, "unit": "leaves", "allergens": []},
+        {"name": "Tomato", "amount": 2, "unit": "slices", "allergens": []},
+        {"name": "Avocado", "amount": 0.25, "unit": "whole", "allergens": []}
+      ],
+      "instructions": [
+        "Cook veggie patty",
+        "Toast bun",
+        "Assemble burger with toppings"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 22,
+        "carbs": 48,
+        "fats": 14,
+        "fiber": 12
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "dinner_006",
+      "name": "Grilled Steak with Broccoli",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Sirloin Steak", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Broccoli", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Olive Oil", "amount": 1, "unit": "tbsp", "allergens": []},
+        {"name": "Garlic", "amount": 2, "unit": "cloves", "allergens": []}
+      ],
+      "instructions": [
+        "Season steak",
+        "Grill to desired doneness",
+        "Steam broccoli",
+        "Sauté with garlic and oil"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 46,
+        "carbs": 14,
+        "fats": 20,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_007",
+      "name": "Baked Cod with Vegetables",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Cod Fillet", "amount": 6, "unit": "oz", "allergens": ["fish"]},
+        {"name": "Zucchini", "amount": 1, "unit": "medium", "allergens": []},
+        {"name": "Bell Peppers", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Lemon", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Herbs", "amount": 1, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Preheat oven to 375°F",
+        "Place cod and vegetables on sheet",
+        "Season with lemon and herbs",
+        "Bake for 20 minutes"
+      ],
+      "nutrition": {
+        "calories": 280,
+        "protein": 36,
+        "carbs": 12,
+        "fats": 8,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "dinner_008",
+      "name": "Chicken Fajitas",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Bell Peppers", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Onion", "amount": 0.5, "unit": "whole", "allergens": []},
+        {"name": "Corn Tortillas", "amount": 3, "unit": "whole", "allergens": []},
+        {"name": "Fajita Seasoning", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Slice chicken and vegetables",
+        "Sauté with seasoning",
+        "Warm tortillas",
+        "Serve fajita style"
+      ],
+      "nutrition": {
+        "calories": 440,
+        "protein": 42,
+        "carbs": 48,
+        "fats": 10,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "snack_006",
+      "name": "Protein Bar",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Oats", "amount": 1, "unit": "cup", "allergens": ["wheat"]},
+        {"name": "Protein Powder", "amount": 1, "unit": "scoop", "allergens": ["dairy"]},
+        {"name": "Peanut Butter", "amount": 0.25, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Honey", "amount": 2, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Mix all ingredients",
+        "Press into pan",
+        "Refrigerate for 2 hours",
+        "Cut into bars"
+      ],
+      "nutrition": {
+        "calories": 280,
+        "protein": 18,
+        "carbs": 32,
+        "fats": 10,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "snack_007",
+      "name": "Hummus with Veggies",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Hummus", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Carrots", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Celery", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Bell Peppers", "amount": 0.5, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Cut vegetables into sticks",
+        "Serve with hummus for dipping"
+      ],
+      "nutrition": {
+        "calories": 180,
+        "protein": 8,
+        "carbs": 24,
+        "fats": 8,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_009",
+      "name": "Chia Pudding",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Chia Seeds", "amount": 3, "unit": "tbsp", "allergens": []},
+        {"name": "Almond Milk", "amount": 1, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Honey", "amount": 1, "unit": "tbsp", "allergens": []},
+        {"name": "Berries", "amount": 0.5, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Mix chia seeds with milk",
+        "Add honey",
+        "Refrigerate overnight",
+        "Top with berries"
+      ],
+      "nutrition": {
+        "calories": 260,
+        "protein": 8,
+        "carbs": 32,
+        "fats": 12,
+        "fiber": 14
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_010",
+      "name": "Breakfast Sandwich",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "English Muffin", "amount": 1, "unit": "whole", "allergens": ["wheat"]},
+        {"name": "Egg", "amount": 1, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Turkey Sausage", "amount": 1, "unit": "patty", "allergens": []},
+        {"name": "Cheese", "amount": 1, "unit": "slice", "allergens": ["dairy"]}
+      ],
+      "instructions": [
+        "Toast English muffin",
+        "Cook egg and sausage",
+        "Assemble sandwich with cheese"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 26,
+        "carbs": 32,
+        "fats": 16,
+        "fiber": 2
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "lunch_009",
+      "name": "Lentil Soup",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Lentils", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Carrots", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Celery", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Vegetable Broth", "amount": 3, "unit": "cups", "allergens": []},
+        {"name": "Spices", "amount": 1, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Sauté vegetables",
+        "Add lentils and broth",
+        "Simmer for 30 minutes",
+        "Season to taste"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 18,
+        "carbs": 56,
+        "fats": 2,
+        "fiber": 16
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 35,
+      "servings": 1
+    },
+    {
+      "id": "lunch_010",
+      "name": "Chicken Quesadilla",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Whole Wheat Tortilla", "amount": 2, "unit": "whole", "allergens": ["wheat"]},
+        {"name": "Chicken Breast", "amount": 4, "unit": "oz", "allergens": []},
+        {"name": "Cheese", "amount": 0.5, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Bell Peppers", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Salsa", "amount": 2, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Cook and shred chicken",
+        "Place chicken and cheese on tortilla",
+        "Add peppers",
+        "Fold and cook until crispy",
+        "Serve with salsa"
+      ],
+      "nutrition": {
+        "calories": 460,
+        "protein": 38,
+        "carbs": 42,
+        "fats": 16,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_009",
+      "name": "Pork Tenderloin with Roasted Vegetables",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Pork Tenderloin", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Brussels Sprouts", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Carrots", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Olive Oil", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Preheat oven to 400°F",
+        "Season pork",
+        "Roast pork and vegetables for 25 minutes"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 42,
+        "carbs": 18,
+        "fats": 16,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 25,
+      "servings": 1
+    },
+    {
+      "id": "dinner_010",
+      "name": "Vegetarian Chili",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Black Beans", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Kidney Beans", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Tomatoes", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Bell Peppers", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Chili Spices", "amount": 2, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Sauté peppers",
+        "Add beans and tomatoes",
+        "Season with spices",
+        "Simmer for 30 minutes"
+      ],
+      "nutrition": {
+        "calories": 380,
+        "protein": 22,
+        "carbs": 68,
+        "fats": 4,
+        "fiber": 20
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 35,
+      "servings": 1
+    },
+    {
+      "id": "snack_008",
+      "name": "Rice Cakes with Peanut Butter",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Rice Cakes", "amount": 2, "unit": "whole", "allergens": []},
+        {"name": "Peanut Butter", "amount": 2, "unit": "tbsp", "allergens": ["nuts"]},
+        {"name": "Banana", "amount": 0.5, "unit": "whole", "allergens": []}
+      ],
+      "instructions": [
+        "Spread peanut butter on rice cakes",
+        "Top with banana slices"
+      ],
+      "nutrition": {
+        "calories": 260,
+        "protein": 10,
+        "carbs": 32,
+        "fats": 12,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 3,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "snack_009",
+      "name": "Edamame",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Edamame", "amount": 1, "unit": "cup", "allergens": ["soy"]},
+        {"name": "Sea Salt", "amount": 0.5, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Boil edamame for 5 minutes",
+        "Drain and sprinkle with salt"
+      ],
+      "nutrition": {
+        "calories": 180,
+        "protein": 16,
+        "carbs": 14,
+        "fats": 8,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 2,
+      "cookTimeMinutes": 5,
+      "servings": 1
+    },
+    {
+      "id": "snack_010",
+      "name": "Protein Muffin",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Oat Flour", "amount": 0.5, "unit": "cup", "allergens": ["wheat"]},
+        {"name": "Protein Powder", "amount": 1, "unit": "scoop", "allergens": ["dairy"]},
+        {"name": "Egg", "amount": 1, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Banana", "amount": 1, "unit": "whole", "allergens": []},
+        {"name": "Baking Powder", "amount": 0.5, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Mix all ingredients",
+        "Pour into muffin tin",
+        "Bake at 350°F for 20 minutes"
+      ],
+      "nutrition": {
+        "calories": 280,
+        "protein": 24,
+        "carbs": 36,
+        "fats": 6,
+        "fiber": 5
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_011",
+      "name": "Breakfast Quinoa",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Quinoa", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Almond Milk", "amount": 1, "unit": "cup", "allergens": ["nuts"]},
+        {"name": "Cinnamon", "amount": 0.5, "unit": "tsp", "allergens": []},
+        {"name": "Berries", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Almonds", "amount": 2, "unit": "tbsp", "allergens": ["nuts"]}
+      ],
+      "instructions": [
+        "Cook quinoa in almond milk",
+        "Add cinnamon",
+        "Top with berries and almonds"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 12,
+        "carbs": 48,
+        "fats": 10,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "lunch_011",
+      "name": "Greek Salad with Chicken",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Cucumber", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Tomatoes", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Feta Cheese", "amount": 0.25, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Olives", "amount": 0.25, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Grill chicken",
+        "Chop vegetables",
+        "Combine all ingredients",
+        "Drizzle with olive oil"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 44,
+        "carbs": 14,
+        "fats": 22,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_011",
+      "name": "Teriyaki Chicken Bowl",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Brown Rice", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Broccoli", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Teriyaki Sauce", "amount": 2, "unit": "tbsp", "allergens": ["soy"]},
+        {"name": "Sesame Seeds", "amount": 1, "unit": "tsp", "allergens": ["sesame"]}
+      ],
+      "instructions": [
+        "Cook rice",
+        "Grill chicken",
+        "Steam broccoli",
+        "Assemble bowl",
+        "Drizzle with teriyaki sauce"
+      ],
+      "nutrition": {
+        "calories": 480,
+        "protein": 44,
+        "carbs": 56,
+        "fats": 10,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_012",
+      "name": "Cottage Cheese Pancakes",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Cottage Cheese", "amount": 0.5, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Eggs", "amount": 2, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Oat Flour", "amount": 0.25, "unit": "cup", "allergens": ["wheat"]},
+        {"name": "Vanilla Extract", "amount": 0.5, "unit": "tsp", "allergens": []}
+      ],
+      "instructions": [
+        "Blend all ingredients",
+        "Cook pancakes on griddle",
+        "Flip when bubbles form"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 28,
+        "carbs": 28,
+        "fats": 10,
+        "fiber": 3
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 10,
+      "servings": 1
+    },
+    {
+      "id": "lunch_012",
+      "name": "Beef and Vegetable Stir Fry",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Lean Beef", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Mixed Vegetables", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Soy Sauce", "amount": 2, "unit": "tbsp", "allergens": ["soy"]},
+        {"name": "Ginger", "amount": 1, "unit": "tsp", "allergens": []},
+        {"name": "Brown Rice", "amount": 1, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Cook rice",
+        "Stir fry beef",
+        "Add vegetables",
+        "Season with soy sauce and ginger"
+      ],
+      "nutrition": {
+        "calories": 480,
+        "protein": 42,
+        "carbs": 52,
+        "fats": 12,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_012",
+      "name": "Baked Chicken Thighs with Sweet Potato",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Chicken Thighs", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Sweet Potato", "amount": 1, "unit": "large", "allergens": []},
+        {"name": "Green Beans", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Olive Oil", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Preheat oven to 400°F",
+        "Season chicken",
+        "Bake chicken and sweet potato for 35 minutes",
+        "Steam green beans"
+      ],
+      "nutrition": {
+        "calories": 520,
+        "protein": 42,
+        "carbs": 48,
+        "fats": 18,
+        "fiber": 8
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 35,
+      "servings": 1
+    },
+    {
+      "id": "snack_011",
+      "name": "Greek Yogurt with Honey and Nuts",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Greek Yogurt", "amount": 1, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Honey", "amount": 1, "unit": "tbsp", "allergens": []},
+        {"name": "Walnuts", "amount": 2, "unit": "tbsp", "allergens": ["nuts"]}
+      ],
+      "instructions": [
+        "Place yogurt in bowl",
+        "Drizzle with honey",
+        "Top with walnuts"
+      ],
+      "nutrition": {
+        "calories": 260,
+        "protein": 20,
+        "carbs": 24,
+        "fats": 10,
+        "fiber": 2
+      },
+      "prepTimeMinutes": 2,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    },
+    {
+      "id": "breakfast_013",
+      "name": "Veggie Frittata",
+      "category": "breakfast",
+      "ingredients": [
+        {"name": "Eggs", "amount": 3, "unit": "whole", "allergens": ["eggs"]},
+        {"name": "Spinach", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Mushrooms", "amount": 0.5, "unit": "cup", "allergens": []},
+        {"name": "Cheese", "amount": 0.25, "unit": "cup", "allergens": ["dairy"]},
+        {"name": "Tomatoes", "amount": 0.5, "unit": "cup", "allergens": []}
+      ],
+      "instructions": [
+        "Sauté vegetables",
+        "Beat eggs and pour over vegetables",
+        "Add cheese",
+        "Bake at 350°F for 20 minutes"
+      ],
+      "nutrition": {
+        "calories": 320,
+        "protein": 26,
+        "carbs": 10,
+        "fats": 20,
+        "fiber": 3
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "lunch_013",
+      "name": "Caprese Salad with Grilled Chicken",
+      "category": "lunch",
+      "ingredients": [
+        {"name": "Chicken Breast", "amount": 6, "unit": "oz", "allergens": []},
+        {"name": "Mozzarella", "amount": 4, "unit": "oz", "allergens": ["dairy"]},
+        {"name": "Tomatoes", "amount": 2, "unit": "medium", "allergens": []},
+        {"name": "Basil", "amount": 0.25, "unit": "cup", "allergens": []},
+        {"name": "Balsamic Vinegar", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Grill chicken",
+        "Slice tomatoes and mozzarella",
+        "Layer with basil",
+        "Drizzle with balsamic"
+      ],
+      "nutrition": {
+        "calories": 440,
+        "protein": 48,
+        "carbs": 12,
+        "fats": 22,
+        "fiber": 2
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 15,
+      "servings": 1
+    },
+    {
+      "id": "dinner_013",
+      "name": "Grilled Tilapia with Quinoa",
+      "category": "dinner",
+      "ingredients": [
+        {"name": "Tilapia Fillet", "amount": 6, "unit": "oz", "allergens": ["fish"]},
+        {"name": "Quinoa", "amount": 1, "unit": "cup", "allergens": []},
+        {"name": "Spinach", "amount": 2, "unit": "cups", "allergens": []},
+        {"name": "Lemon", "amount": 0.5, "unit": "whole", "allergens": []}
+      ],
+      "instructions": [
+        "Cook quinoa",
+        "Grill tilapia with lemon",
+        "Sauté spinach",
+        "Serve together"
+      ],
+      "nutrition": {
+        "calories": 420,
+        "protein": 42,
+        "carbs": 44,
+        "fats": 8,
+        "fiber": 6
+      },
+      "prepTimeMinutes": 10,
+      "cookTimeMinutes": 20,
+      "servings": 1
+    },
+    {
+      "id": "snack_012",
+      "name": "Celery with Peanut Butter",
+      "category": "snack",
+      "ingredients": [
+        {"name": "Celery", "amount": 4, "unit": "stalks", "allergens": []},
+        {"name": "Peanut Butter", "amount": 2, "unit": "tbsp", "allergens": ["nuts"]},
+        {"name": "Raisins", "amount": 1, "unit": "tbsp", "allergens": []}
+      ],
+      "instructions": [
+        "Cut celery into sticks",
+        "Fill with peanut butter",
+        "Top with raisins"
+      ],
+      "nutrition": {
+        "calories": 220,
+        "protein": 8,
+        "carbs": 20,
+        "fats": 14,
+        "fiber": 4
+      },
+      "prepTimeMinutes": 5,
+      "cookTimeMinutes": 0,
+      "servings": 1
+    }
+  ]
+}

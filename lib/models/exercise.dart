@@ -13,6 +13,7 @@ class Exercise {
   final List<String> equipment;
   final String? imageUrl;
   final String? videoUrl;
+  final String? gifUrl;
   final List<String> tips;
   final List<String> commonMistakes;
   final int caloriesBurned; // approximate calories per minute
@@ -32,6 +33,7 @@ class Exercise {
     required this.equipment,
     this.imageUrl,
     this.videoUrl,
+    this.gifUrl,
     required this.tips,
     required this.commonMistakes,
     required this.caloriesBurned,
@@ -53,6 +55,7 @@ class Exercise {
       equipment: List<String>.from(json['equipment']),
       imageUrl: json['imageUrl'],
       videoUrl: json['videoUrl'],
+      gifUrl: json['gifUrl'],
       tips: List<String>.from(json['tips']),
       commonMistakes: List<String>.from(json['commonMistakes']),
       caloriesBurned: json['caloriesBurned'],
@@ -75,6 +78,7 @@ class Exercise {
       'equipment': equipment,
       'imageUrl': imageUrl,
       'videoUrl': videoUrl,
+      'gifUrl': gifUrl,
       'tips': tips,
       'commonMistakes': commonMistakes,
       'caloriesBurned': caloriesBurned,
@@ -90,6 +94,7 @@ class WorkoutDay {
   final int estimatedDuration; // in minutes
   final String focusArea;
   final String difficulty;
+  final bool isRestDay;
 
   WorkoutDay({
     required this.day,
@@ -99,6 +104,7 @@ class WorkoutDay {
     required this.estimatedDuration,
     required this.focusArea,
     required this.difficulty,
+    this.isRestDay = false,
   });
 
   factory WorkoutDay.fromJson(Map<String, dynamic> json) {
@@ -112,6 +118,7 @@ class WorkoutDay {
       estimatedDuration: json['estimatedDuration'],
       focusArea: json['focusArea'],
       difficulty: json['difficulty'],
+      isRestDay: json['isRestDay'] ?? false,
     );
   }
 }

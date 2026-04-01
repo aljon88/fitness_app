@@ -1,0 +1,251 @@
+{
+  "programId": "flexibility_advanced",
+  "programName": "Flexibility - Advanced Program",
+  "goal": "flexibility",
+  "fitnessLevel": "advanced",
+  "duration": {
+    "days": 30,
+    "weeks": 4
+  },
+  "schedule": {
+    "workoutsPerWeek": 6,
+    "restDays": ["sunday"]
+  },
+  "overview": {
+    "focus": "Peak Flexibility & Advanced Holds",
+    "intensity": "Moderate to High",
+    "equipment": "None (bodyweight only)",
+    "description": "Elite flexibility with splits, backbends, and contortion work"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Full Body Advanced", "duration": 45, "calories": 110},
+    "tuesday": {"name": "Splits Training", "duration": 50, "calories": 120},
+    "wednesday": {"name": "Backbends & Spine", "duration": 45, "calories": 105},
+    "thursday": {"name": "Hip Mastery", "duration": 50, "calories": 115},
+    "friday": {"name": "Flow + Balance", "duration": 45, "calories": 110},
+    "saturday": {"name": "Active Recovery", "duration": 40, "calories": 90},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Advanced Foundation",
+      "weeks": "1-2",
+      "description": "Deep stretching and advanced holds",
+      "workouts": {
+        "monday": {
+          "name": "Full Body Advanced",
+          "duration": 45,
+          "calories": 110,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Deep Squats", "sets": 3, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Legs", "Mobility"], "notes": "Focus on depth and control"},
+            {"exerciseId": "lunges", "name": "Deep Lunges", "sets": 3, "reps": 12, "duration": null, "rest": 30, "targetMuscles": ["Legs", "Hip Flexors"], "notes": "Hold bottom position for 3 seconds"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 45, "rest": 30, "targetMuscles": ["Core"], "notes": "Maintain straight line"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 3, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Glutes", "Back"], "notes": "Hold at top for 2 seconds"}
+          ]
+        },
+        "tuesday": {
+          "name": "Splits Training",
+          "duration": 50,
+          "calories": 120,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Deep Lunges", "sets": 4, "reps": 10, "duration": null, "rest": 30, "targetMuscles": ["Hip Flexors", "Legs"], "notes": "Hold bottom position"},
+            {"exerciseId": "bodyweight_squats", "name": "Wide Squats", "sets": 4, "reps": 12, "duration": null, "rest": 30, "targetMuscles": ["Inner Thighs", "Hips"], "notes": "Wide stance for hip opening"},
+            {"exerciseId": "glute_bridges", "name": "Single Leg Bridges", "sets": 4, "reps": 10, "duration": null, "rest": 30, "targetMuscles": ["Glutes", "Hamstrings"], "notes": "10 each leg"}
+          ]
+        },
+        "wednesday": {
+          "name": "Backbends & Spine",
+          "duration": 45,
+          "calories": 105,
+          "exercises": [
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Back", "Glutes"], "notes": "Focus on spine extension"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 40, "rest": 30, "targetMuscles": ["Core"], "notes": "Engage core for spine stability"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 3, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Legs"], "notes": "Maintain spine alignment"}
+          ]
+        },
+        "thursday": {
+          "name": "Hip Mastery",
+          "duration": 50,
+          "calories": 115,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Walking Lunges", "sets": 4, "reps": 12, "duration": null, "rest": 30, "targetMuscles": ["Hips", "Legs"], "notes": "Deep hip flexor stretch"},
+            {"exerciseId": "bodyweight_squats", "name": "Deep Squats", "sets": 4, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Hips", "Legs"], "notes": "Hold bottom position"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Glutes", "Hips"], "notes": "Squeeze at top"}
+          ]
+        },
+        "friday": {
+          "name": "Flow + Balance",
+          "duration": 45,
+          "calories": 110,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 3, "reps": 12, "duration": null, "rest": 30, "targetMuscles": ["Legs", "Balance"], "notes": "Focus on balance"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 3, "reps": 15, "duration": null, "rest": 30, "targetMuscles": ["Legs"], "notes": "Controlled movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 45, "rest": 30, "targetMuscles": ["Core", "Balance"], "notes": "Maintain stability"}
+          ]
+        },
+        "saturday": {
+          "name": "Active Recovery",
+          "duration": 40,
+          "calories": 90,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Light Squats", "sets": 2, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "Easy pace"},
+            {"exerciseId": "lunges", "name": "Light Lunges", "sets": 2, "reps": 10, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "Gentle stretching"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 2, "reps": null, "duration": 30, "rest": 45, "targetMuscles": ["Core"], "notes": "Light hold"}
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Peak Flexibility",
+      "weeks": "2-3",
+      "description": "Full splits and deep backbends",
+      "workouts": {
+        "monday": {
+          "name": "Full Body Advanced",
+          "duration": 50,
+          "calories": 125,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Deep Squats", "sets": 4, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Legs", "Mobility"], "notes": "Maximum depth"},
+            {"exerciseId": "lunges", "name": "Deep Lunges", "sets": 4, "reps": 15, "duration": null, "rest": 25, "targetMuscles": ["Legs", "Hip Flexors"], "notes": "Hold bottom for 5 seconds"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 50, "rest": 25, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Glutes", "Back"], "notes": "Hold at top for 3 seconds"}
+          ]
+        },
+        "tuesday": {
+          "name": "Splits Training",
+          "duration": 55,
+          "calories": 135,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Deep Lunges", "sets": 5, "reps": 12, "duration": null, "rest": 25, "targetMuscles": ["Hip Flexors", "Legs"], "notes": "Maximum depth"},
+            {"exerciseId": "bodyweight_squats", "name": "Wide Squats", "sets": 5, "reps": 15, "duration": null, "rest": 25, "targetMuscles": ["Inner Thighs", "Hips"], "notes": "Extra wide stance"},
+            {"exerciseId": "glute_bridges", "name": "Single Leg Bridges", "sets": 5, "reps": 12, "duration": null, "rest": 25, "targetMuscles": ["Glutes", "Hamstrings"], "notes": "12 each leg"}
+          ]
+        },
+        "wednesday": {
+          "name": "Backbends & Spine",
+          "duration": 50,
+          "calories": 120,
+          "exercises": [
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 5, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Back", "Glutes"], "notes": "Deep spine extension"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 45, "rest": 25, "targetMuscles": ["Core"], "notes": "Maximum stability"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 4, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Legs"], "notes": "Perfect alignment"}
+          ]
+        },
+        "thursday": {
+          "name": "Hip Mastery",
+          "duration": 55,
+          "calories": 130,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Walking Lunges", "sets": 5, "reps": 15, "duration": null, "rest": 25, "targetMuscles": ["Hips", "Legs"], "notes": "Maximum hip opening"},
+            {"exerciseId": "bodyweight_squats", "name": "Deep Squats", "sets": 5, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Hips", "Legs"], "notes": "Hold bottom for 5 seconds"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 5, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Glutes", "Hips"], "notes": "Maximum squeeze"}
+          ]
+        },
+        "friday": {
+          "name": "Flow + Balance",
+          "duration": 50,
+          "calories": 125,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 4, "reps": 15, "duration": null, "rest": 25, "targetMuscles": ["Legs", "Balance"], "notes": "Perfect balance"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 4, "reps": 18, "duration": null, "rest": 25, "targetMuscles": ["Legs"], "notes": "Controlled flow"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 50, "rest": 25, "targetMuscles": ["Core", "Balance"], "notes": "Maximum stability"}
+          ]
+        },
+        "saturday": {
+          "name": "Active Recovery",
+          "duration": 45,
+          "calories": 100,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Light Squats", "sets": 3, "reps": 15, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "Easy pace"},
+            {"exerciseId": "lunges", "name": "Light Lunges", "sets": 3, "reps": 12, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "Gentle movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 35, "rest": 40, "targetMuscles": ["Core"], "notes": "Light hold"}
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Mastery",
+      "weeks": "3-4",
+      "description": "Contortion-style stretches and peak performance",
+      "workouts": {
+        "monday": {
+          "name": "Full Body Advanced",
+          "duration": 55,
+          "calories": 140,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Deep Squats", "sets": 5, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Legs", "Mobility"], "notes": "Maximum depth and control"},
+            {"exerciseId": "lunges", "name": "Deep Lunges", "sets": 5, "reps": 18, "duration": null, "rest": 20, "targetMuscles": ["Legs", "Hip Flexors"], "notes": "Hold bottom for 7 seconds"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 60, "rest": 20, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 5, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Glutes", "Back"], "notes": "Hold at top for 5 seconds"}
+          ]
+        },
+        "tuesday": {
+          "name": "Splits Training",
+          "duration": 60,
+          "calories": 150,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Deep Lunges", "sets": 6, "reps": 15, "duration": null, "rest": 20, "targetMuscles": ["Hip Flexors", "Legs"], "notes": "Maximum depth and hold"},
+            {"exerciseId": "bodyweight_squats", "name": "Wide Squats", "sets": 6, "reps": 18, "duration": null, "rest": 20, "targetMuscles": ["Inner Thighs", "Hips"], "notes": "Maximum width"},
+            {"exerciseId": "glute_bridges", "name": "Single Leg Bridges", "sets": 6, "reps": 15, "duration": null, "rest": 20, "targetMuscles": ["Glutes", "Hamstrings"], "notes": "15 each leg"}
+          ]
+        },
+        "wednesday": {
+          "name": "Backbends & Spine",
+          "duration": 55,
+          "calories": 135,
+          "exercises": [
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 6, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Back", "Glutes"], "notes": "Maximum spine extension"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 6, "reps": null, "duration": 50, "rest": 20, "targetMuscles": ["Core"], "notes": "Perfect stability"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 5, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Legs"], "notes": "Perfect form"}
+          ]
+        },
+        "thursday": {
+          "name": "Hip Mastery",
+          "duration": 60,
+          "calories": 145,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Walking Lunges", "sets": 6, "reps": 18, "duration": null, "rest": 20, "targetMuscles": ["Hips", "Legs"], "notes": "Maximum hip mobility"},
+            {"exerciseId": "bodyweight_squats", "name": "Deep Squats", "sets": 6, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Hips", "Legs"], "notes": "Hold bottom for 7 seconds"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 6, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Glutes", "Hips"], "notes": "Maximum activation"}
+          ]
+        },
+        "friday": {
+          "name": "Flow + Balance",
+          "duration": 55,
+          "calories": 140,
+          "exercises": [
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 5, "reps": 18, "duration": null, "rest": 20, "targetMuscles": ["Legs", "Balance"], "notes": "Perfect balance and control"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 5, "reps": 20, "duration": null, "rest": 20, "targetMuscles": ["Legs"], "notes": "Flowing movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 60, "rest": 20, "targetMuscles": ["Core", "Balance"], "notes": "Maximum stability"}
+          ]
+        },
+        "saturday": {
+          "name": "Active Recovery",
+          "duration": 50,
+          "calories": 110,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Light Squats", "sets": 3, "reps": 18, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "Easy pace"},
+            {"exerciseId": "lunges", "name": "Light Lunges", "sets": 3, "reps": 15, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "Gentle stretching"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 40, "rest": 35, "targetMuscles": ["Core"], "notes": "Light hold"}
+          ]
+        }
+      }
+    }
+  ],
+  "expectedResults": {
+    "flexibility": "Full splits (front and middle)",
+    "backbends": "Deep backbends with control",
+    "mobility": "Elite joint mobility",
+    "balance": "Superior balance and body control"
+  },
+  "nutrition": {
+    "dailyCalories": "2200-2400",
+    "protein": "120-140g",
+    "carbs": "240-260g",
+    "fats": "70-80g",
+    "focus": "Collagen peptides, omega-3, magnesium"
+  }
+}

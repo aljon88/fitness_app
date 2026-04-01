@@ -1,0 +1,125 @@
+{
+  "goal": "flexibility",
+  "fitnessLevel": "intermediate",
+  "duration": 60,
+  "calorieTargets": {
+    "workoutDay": 2200,
+    "restDay": 1900
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 145,
+      "carbs": 270,
+      "fats": 61
+    },
+    "restDay": {
+      "protein": 145,
+      "carbs": 200,
+      "fats": 59
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Balanced Breakfast Bowl",
+      "description": "Eggs, avocado, toast, and fruit",
+      "calories": 460,
+      "protein": 24,
+      "carbs": 52,
+      "fats": 18,
+      "allergens": ["eggs", "gluten"],
+      "ingredients": ["3 eggs", "1/2 avocado", "2 slices toast", "1 cup fruit"],
+      "prepTime": 15,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Smoothie Bowl",
+      "description": "Thick smoothie bowl with granola and fruits",
+      "calories": 440,
+      "protein": 22,
+      "carbs": 62,
+      "fats": 12,
+      "allergens": ["dairy"],
+      "ingredients": ["1 scoop protein powder", "Banana", "Berries", "Granola", "Milk"],
+      "prepTime": 8,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Chicken Buddha Bowl",
+      "description": "Chicken with quinoa, vegetables, and tahini",
+      "calories": 600,
+      "protein": 44,
+      "carbs": 68,
+      "fats": 14,
+      "allergens": [],
+      "ingredients": ["160g chicken", "1.5 cups quinoa", "Vegetables", "Tahini dressing"],
+      "prepTime": 25,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Salmon Salad",
+      "description": "Grilled salmon on mixed greens with quinoa",
+      "calories": 580,
+      "protein": 42,
+      "carbs": 58,
+      "fats": 18,
+      "allergens": ["seafood"],
+      "ingredients": ["150g salmon", "Mixed greens", "1 cup quinoa", "Vegetables", "Dressing"],
+      "prepTime": 22,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Turkey with Rice & Vegetables",
+      "description": "Lean turkey with brown rice and steamed vegetables",
+      "calories": 580,
+      "protein": 46,
+      "carbs": 68,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["170g turkey", "1.5 cups rice", "Mixed vegetables", "Herbs"],
+      "prepTime": 30,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Fish with Quinoa",
+      "description": "Baked white fish with quinoa and asparagus",
+      "calories": 560,
+      "protein": 44,
+      "carbs": 64,
+      "fats": 14,
+      "allergens": ["seafood"],
+      "ingredients": ["160g white fish", "1.5 cups quinoa", "1 cup asparagus", "Lemon"],
+      "prepTime": 28,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Protein Smoothie",
+      "description": "Light protein smoothie with fruits",
+      "calories": 240,
+      "protein": 20,
+      "carbs": 34,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1 scoop protein powder", "Banana", "Berries", "Milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Apple with Almond Butter",
+      "description": "Fresh apple with almond butter",
+      "calories": 200,
+      "protein": 6,
+      "carbs": 28,
+      "fats": 8,
+      "allergens": ["nuts"],
+      "ingredients": ["1 apple", "2 tbsp almond butter"],
+      "prepTime": 2,
+      "mealType": "snack"
+    }
+  ]
+}

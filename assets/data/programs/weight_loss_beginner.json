@@ -1,0 +1,781 @@
+{
+  "programId": "weight_loss_beginner",
+  "programName": "Weight Loss - Beginner Program",
+  "goal": "weight_loss",
+  "fitnessLevel": "beginner",
+  "duration": {
+    "days": 90,
+    "weeks": 13
+  },
+  "schedule": {
+    "workoutsPerWeek": 4,
+    "restDays": ["tuesday", "thursday", "sunday"]
+  },
+  "overview": {
+    "focus": "HIIT Cardio + Full Body Circuits",
+    "intensity": "Low to Moderate",
+    "equipment": "None (bodyweight only)",
+    "description": "Fat burning program focused on cardio and full body circuits for beginners"
+  },
+  "weeklyPattern": {
+    "monday": {
+      "name": "HIIT Cardio Day",
+      "duration": 25,
+      "calories": 200
+    },
+    "tuesday": {
+      "name": "REST",
+      "duration": 0,
+      "calories": 0
+    },
+    "wednesday": {
+      "name": "Lower Body + Cardio",
+      "duration": 25,
+      "calories": 180
+    },
+    "thursday": {
+      "name": "REST",
+      "duration": 0,
+      "calories": 0
+    },
+    "friday": {
+      "name": "Full Body Circuit",
+      "duration": 25,
+      "calories": 190
+    },
+    "saturday": {
+      "name": "Core + Cardio",
+      "duration": 25,
+      "calories": 180
+    },
+    "sunday": {
+      "name": "REST",
+      "duration": 0,
+      "calories": 0
+    }
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Foundation",
+      "weeks": "1-4",
+      "description": "Building cardio base and learning proper form",
+      "workouts": {
+        "monday": {
+          "name": "HIIT Cardio Day",
+          "duration": 25,
+          "calories": 200,
+          "exercises": [
+            {
+              "exerciseId": "jumping_jacks",
+              "name": "Jumping Jacks",
+              "sets": 3,
+              "reps": 20,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Keep rhythm steady, land softly"
+            },
+            {
+              "exerciseId": "high_knees",
+              "name": "High Knees",
+              "sets": 3,
+              "reps": null,
+              "duration": 30,
+              "rest": 30,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Drive knees up high, pump arms"
+            },
+            {
+              "exerciseId": "modified_burpees",
+              "name": "Modified Burpees",
+              "sets": 3,
+              "reps": 8,
+              "duration": null,
+              "rest": 45,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Step back instead of jump if needed"
+            },
+            {
+              "exerciseId": "mountain_climbers",
+              "name": "Mountain Climbers",
+              "sets": 3,
+              "reps": null,
+              "duration": 30,
+              "rest": 30,
+              "targetMuscles": ["Core", "Cardio"],
+              "notes": "Keep hips level, drive knees to chest"
+            },
+            {
+              "exerciseId": "running_in_place",
+              "name": "Running in Place",
+              "sets": 3,
+              "reps": null,
+              "duration": 45,
+              "rest": 30,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Lift knees, maintain pace"
+            }
+          ]
+        },
+        "wednesday": {
+          "name": "Lower Body + Cardio",
+          "duration": 25,
+          "calories": 180,
+          "exercises": [
+            {
+              "exerciseId": "bodyweight_squats",
+              "name": "Bodyweight Squats",
+              "sets": 3,
+              "reps": 15,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Quads", "Glutes"],
+              "notes": "Full depth, knees tracking over toes"
+            },
+            {
+              "exerciseId": "walking_lunges",
+              "name": "Walking Lunges",
+              "sets": 3,
+              "reps": 10,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Quads", "Glutes", "Hamstrings"],
+              "notes": "10 reps each leg, maintain balance"
+            },
+            {
+              "exerciseId": "jump_squats",
+              "name": "Jump Squats",
+              "sets": 3,
+              "reps": 10,
+              "duration": null,
+              "rest": 45,
+              "targetMuscles": ["Quads", "Glutes", "Power"],
+              "notes": "Light intensity, soft landing"
+            },
+            {
+              "exerciseId": "calf_raises",
+              "name": "Calf Raises",
+              "sets": 3,
+              "reps": 15,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Calves"],
+              "notes": "Full range of motion, squeeze at top"
+            },
+            {
+              "exerciseId": "butt_kicks",
+              "name": "Butt Kicks",
+              "sets": 3,
+              "reps": null,
+              "duration": 30,
+              "rest": 30,
+              "targetMuscles": ["Hamstrings", "Cardio"],
+              "notes": "Kick heels to glutes, maintain rhythm"
+            }
+          ]
+        },
+        "friday": {
+          "name": "Full Body Circuit",
+          "duration": 25,
+          "calories": 190,
+          "exercises": [
+            {
+              "exerciseId": "knee_pushups",
+              "name": "Knee Push-ups",
+              "sets": 3,
+              "reps": 10,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Chest", "Triceps"],
+              "notes": "Straight body line, full range"
+            },
+            {
+              "exerciseId": "bodyweight_squats",
+              "name": "Bodyweight Squats",
+              "sets": 3,
+              "reps": 15,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Legs"],
+              "notes": "Full depth, controlled movement"
+            },
+            {
+              "exerciseId": "plank_hold",
+              "name": "Plank Hold",
+              "sets": 3,
+              "reps": null,
+              "duration": 20,
+              "rest": 30,
+              "targetMuscles": ["Core"],
+              "notes": "Flat back, engaged core"
+            },
+            {
+              "exerciseId": "jumping_jacks",
+              "name": "Jumping Jacks",
+              "sets": 3,
+              "reps": 20,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Steady rhythm"
+            },
+            {
+              "exerciseId": "mountain_climbers",
+              "name": "Mountain Climbers",
+              "sets": 3,
+              "reps": null,
+              "duration": 30,
+              "rest": 30,
+              "targetMuscles": ["Core", "Cardio"],
+              "notes": "Keep hips level"
+            }
+          ]
+        },
+        "saturday": {
+          "name": "Core + Cardio",
+          "duration": 25,
+          "calories": 180,
+          "exercises": [
+            {
+              "exerciseId": "crunches",
+              "name": "Crunches",
+              "sets": 3,
+              "reps": 15,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Abs"],
+              "notes": "Controlled movement, don't pull neck"
+            },
+            {
+              "exerciseId": "plank_hold",
+              "name": "Plank Hold",
+              "sets": 3,
+              "reps": null,
+              "duration": 20,
+              "rest": 30,
+              "targetMuscles": ["Core"],
+              "notes": "Maintain straight line"
+            },
+            {
+              "exerciseId": "bicycle_crunches",
+              "name": "Bicycle Crunches",
+              "sets": 3,
+              "reps": 12,
+              "duration": null,
+              "rest": 30,
+              "targetMuscles": ["Obliques", "Abs"],
+              "notes": "12 reps each side, controlled rotation"
+            },
+            {
+              "exerciseId": "high_knees",
+              "name": "High Knees",
+              "sets": 3,
+              "reps": null,
+              "duration": 30,
+              "rest": 30,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Drive knees high"
+            },
+            {
+              "exerciseId": "modified_burpees",
+              "name": "Modified Burpees",
+              "sets": 3,
+              "reps": 8,
+              "duration": null,
+              "rest": 45,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Step back version"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Building",
+      "weeks": "5-8",
+      "description": "Increase reps by 3-5, add 1 more set to key exercises, reduce rest to 25 seconds",
+      "workouts": {
+        "monday": {
+          "name": "HIIT Cardio Day",
+          "duration": 30,
+          "calories": 230,
+          "exercises": [
+            {
+              "exerciseId": "jumping_jacks",
+              "name": "Jumping Jacks",
+              "sets": 4,
+              "reps": 25,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Keep rhythm steady, land softly"
+            },
+            {
+              "exerciseId": "high_knees",
+              "name": "High Knees",
+              "sets": 4,
+              "reps": null,
+              "duration": 40,
+              "rest": 25,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Drive knees up high, pump arms"
+            },
+            {
+              "exerciseId": "full_burpees",
+              "name": "Full Burpees",
+              "sets": 4,
+              "reps": 10,
+              "duration": null,
+              "rest": 40,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Full jump at top"
+            },
+            {
+              "exerciseId": "mountain_climbers",
+              "name": "Mountain Climbers",
+              "sets": 4,
+              "reps": null,
+              "duration": 40,
+              "rest": 25,
+              "targetMuscles": ["Core", "Cardio"],
+              "notes": "Keep hips level, drive knees to chest"
+            },
+            {
+              "exerciseId": "running_in_place",
+              "name": "Running in Place",
+              "sets": 4,
+              "reps": null,
+              "duration": 60,
+              "rest": 25,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Lift knees, maintain pace"
+            }
+          ]
+        },
+        "wednesday": {
+          "name": "Lower Body + Cardio",
+          "duration": 28,
+          "calories": 220,
+          "exercises": [
+            {
+              "exerciseId": "bodyweight_squats",
+              "name": "Bodyweight Squats",
+              "sets": 4,
+              "reps": 20,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Quads", "Glutes"],
+              "notes": "Full depth, knees tracking over toes"
+            },
+            {
+              "exerciseId": "walking_lunges",
+              "name": "Walking Lunges",
+              "sets": 4,
+              "reps": 12,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Quads", "Glutes", "Hamstrings"],
+              "notes": "12 reps each leg, maintain balance"
+            },
+            {
+              "exerciseId": "jump_squats",
+              "name": "Jump Squats",
+              "sets": 4,
+              "reps": 15,
+              "duration": null,
+              "rest": 40,
+              "targetMuscles": ["Quads", "Glutes", "Power"],
+              "notes": "Moderate intensity, explosive jump"
+            },
+            {
+              "exerciseId": "calf_raises",
+              "name": "Calf Raises",
+              "sets": 4,
+              "reps": 20,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Calves"],
+              "notes": "Full range of motion, squeeze at top"
+            },
+            {
+              "exerciseId": "butt_kicks",
+              "name": "Butt Kicks",
+              "sets": 4,
+              "reps": null,
+              "duration": 40,
+              "rest": 25,
+              "targetMuscles": ["Hamstrings", "Cardio"],
+              "notes": "Kick heels to glutes, maintain rhythm"
+            }
+          ]
+        },
+        "friday": {
+          "name": "Full Body Circuit",
+          "duration": 28,
+          "calories": 220,
+          "exercises": [
+            {
+              "exerciseId": "knee_pushups",
+              "name": "Knee Push-ups",
+              "sets": 4,
+              "reps": 15,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Chest", "Triceps"],
+              "notes": "Straight body line, full range"
+            },
+            {
+              "exerciseId": "bodyweight_squats",
+              "name": "Bodyweight Squats",
+              "sets": 4,
+              "reps": 20,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Legs"],
+              "notes": "Full depth, controlled movement"
+            },
+            {
+              "exerciseId": "plank_hold",
+              "name": "Plank Hold",
+              "sets": 4,
+              "reps": null,
+              "duration": 30,
+              "rest": 25,
+              "targetMuscles": ["Core"],
+              "notes": "Flat back, engaged core"
+            },
+            {
+              "exerciseId": "jumping_jacks",
+              "name": "Jumping Jacks",
+              "sets": 4,
+              "reps": 25,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Steady rhythm"
+            },
+            {
+              "exerciseId": "mountain_climbers",
+              "name": "Mountain Climbers",
+              "sets": 4,
+              "reps": null,
+              "duration": 40,
+              "rest": 25,
+              "targetMuscles": ["Core", "Cardio"],
+              "notes": "Keep hips level"
+            }
+          ]
+        },
+        "saturday": {
+          "name": "Core + Cardio",
+          "duration": 28,
+          "calories": 210,
+          "exercises": [
+            {
+              "exerciseId": "crunches",
+              "name": "Crunches",
+              "sets": 4,
+              "reps": 20,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Abs"],
+              "notes": "Controlled movement, don't pull neck"
+            },
+            {
+              "exerciseId": "plank_hold",
+              "name": "Plank Hold",
+              "sets": 4,
+              "reps": null,
+              "duration": 30,
+              "rest": 25,
+              "targetMuscles": ["Core"],
+              "notes": "Maintain straight line"
+            },
+            {
+              "exerciseId": "bicycle_crunches",
+              "name": "Bicycle Crunches",
+              "sets": 4,
+              "reps": 15,
+              "duration": null,
+              "rest": 25,
+              "targetMuscles": ["Obliques", "Abs"],
+              "notes": "15 reps each side, controlled rotation"
+            },
+            {
+              "exerciseId": "high_knees",
+              "name": "High Knees",
+              "sets": 4,
+              "reps": null,
+              "duration": 40,
+              "rest": 25,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Drive knees high"
+            },
+            {
+              "exerciseId": "full_burpees",
+              "name": "Full Burpees",
+              "sets": 4,
+              "reps": 10,
+              "duration": null,
+              "rest": 40,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Full jump version"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Intensification",
+      "weeks": "9-13",
+      "description": "Increase intensity further, add more cardio intervals, longer duration, minimal rest",
+      "workouts": {
+        "monday": {
+          "name": "HIIT Cardio Day",
+          "duration": 35,
+          "calories": 270,
+          "exercises": [
+            {
+              "exerciseId": "jumping_jacks",
+              "name": "Jumping Jacks",
+              "sets": 5,
+              "reps": 30,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Maximum intensity, explosive movement"
+            },
+            {
+              "exerciseId": "high_knees",
+              "name": "High Knees",
+              "sets": 5,
+              "reps": null,
+              "duration": 50,
+              "rest": 20,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Drive knees up high, maximum speed"
+            },
+            {
+              "exerciseId": "full_burpees",
+              "name": "Full Burpees",
+              "sets": 5,
+              "reps": 12,
+              "duration": null,
+              "rest": 35,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Full explosive jump"
+            },
+            {
+              "exerciseId": "mountain_climbers",
+              "name": "Mountain Climbers",
+              "sets": 5,
+              "reps": null,
+              "duration": 50,
+              "rest": 20,
+              "targetMuscles": ["Core", "Cardio"],
+              "notes": "Maximum speed, maintain form"
+            },
+            {
+              "exerciseId": "running_in_place",
+              "name": "Running in Place",
+              "sets": 5,
+              "reps": null,
+              "duration": 75,
+              "rest": 20,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Sprint pace intervals"
+            }
+          ]
+        },
+        "wednesday": {
+          "name": "Lower Body + Cardio",
+          "duration": 32,
+          "calories": 250,
+          "exercises": [
+            {
+              "exerciseId": "bodyweight_squats",
+              "name": "Bodyweight Squats",
+              "sets": 5,
+              "reps": 25,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Quads", "Glutes"],
+              "notes": "Deep squats, explosive rise"
+            },
+            {
+              "exerciseId": "walking_lunges",
+              "name": "Walking Lunges",
+              "sets": 5,
+              "reps": 15,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Quads", "Glutes", "Hamstrings"],
+              "notes": "15 reps each leg, controlled movement"
+            },
+            {
+              "exerciseId": "jump_squats",
+              "name": "Jump Squats",
+              "sets": 5,
+              "reps": 18,
+              "duration": null,
+              "rest": 35,
+              "targetMuscles": ["Quads", "Glutes", "Power"],
+              "notes": "Maximum height, explosive power"
+            },
+            {
+              "exerciseId": "calf_raises",
+              "name": "Calf Raises",
+              "sets": 5,
+              "reps": 25,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Calves"],
+              "notes": "Full range, hold at top"
+            },
+            {
+              "exerciseId": "butt_kicks",
+              "name": "Butt Kicks",
+              "sets": 5,
+              "reps": null,
+              "duration": 45,
+              "rest": 20,
+              "targetMuscles": ["Hamstrings", "Cardio"],
+              "notes": "Maximum speed"
+            }
+          ]
+        },
+        "friday": {
+          "name": "Full Body Circuit",
+          "duration": 32,
+          "calories": 260,
+          "exercises": [
+            {
+              "exerciseId": "standard_pushups",
+              "name": "Standard Push-ups",
+              "sets": 5,
+              "reps": 15,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Chest", "Triceps"],
+              "notes": "Full push-ups, chest to ground"
+            },
+            {
+              "exerciseId": "bodyweight_squats",
+              "name": "Bodyweight Squats",
+              "sets": 5,
+              "reps": 25,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Legs"],
+              "notes": "Deep squats, explosive"
+            },
+            {
+              "exerciseId": "plank_hold",
+              "name": "Plank Hold",
+              "sets": 5,
+              "reps": null,
+              "duration": 35,
+              "rest": 20,
+              "targetMuscles": ["Core"],
+              "notes": "Flat back, maximum tension"
+            },
+            {
+              "exerciseId": "jumping_jacks",
+              "name": "Jumping Jacks",
+              "sets": 5,
+              "reps": 30,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "High intensity"
+            },
+            {
+              "exerciseId": "mountain_climbers",
+              "name": "Mountain Climbers",
+              "sets": 5,
+              "reps": null,
+              "duration": 45,
+              "rest": 20,
+              "targetMuscles": ["Core", "Cardio"],
+              "notes": "Maximum speed"
+            }
+          ]
+        },
+        "saturday": {
+          "name": "Core + Cardio",
+          "duration": 32,
+          "calories": 250,
+          "exercises": [
+            {
+              "exerciseId": "crunches",
+              "name": "Crunches",
+              "sets": 5,
+              "reps": 20,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Abs"],
+              "notes": "Controlled movement, full contraction"
+            },
+            {
+              "exerciseId": "plank_hold",
+              "name": "Plank Hold",
+              "sets": 5,
+              "reps": null,
+              "duration": 35,
+              "rest": 20,
+              "targetMuscles": ["Core"],
+              "notes": "Maximum tension"
+            },
+            {
+              "exerciseId": "bicycle_crunches",
+              "name": "Bicycle Crunches",
+              "sets": 5,
+              "reps": 18,
+              "duration": null,
+              "rest": 20,
+              "targetMuscles": ["Obliques", "Abs"],
+              "notes": "18 reps each side, controlled rotation"
+            },
+            {
+              "exerciseId": "high_knees",
+              "name": "High Knees",
+              "sets": 5,
+              "reps": null,
+              "duration": 45,
+              "rest": 20,
+              "targetMuscles": ["Legs", "Cardio"],
+              "notes": "Maximum intensity"
+            },
+            {
+              "exerciseId": "full_burpees",
+              "name": "Full Burpees",
+              "sets": 5,
+              "reps": 12,
+              "duration": null,
+              "rest": 35,
+              "targetMuscles": ["Full Body", "Cardio"],
+              "notes": "Full explosive movement"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "expectedResults": {
+    "weightLoss": "8-12 kg (with proper diet)",
+    "bodyFat": "-4-6%",
+    "fitnessLevel": "Improved cardio endurance",
+    "strength": "Basic strength foundation"
+  },
+  "nutrition": {
+    "dailyCalories": "1800-2000",
+    "protein": "100-120g",
+    "carbs": "180-200g",
+    "fats": "50-60g",
+    "workoutDayAdjustment": "+200 calories",
+    "restDayAdjustment": "Baseline calories"
+  }
+}

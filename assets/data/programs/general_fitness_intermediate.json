@@ -1,0 +1,245 @@
+{
+  "programId": "general_fitness_intermediate",
+  "programName": "General Fitness - Intermediate Program",
+  "goal": "general_fitness",
+  "fitnessLevel": "intermediate",
+  "duration": {
+    "days": 60,
+    "weeks": 9
+  },
+  "schedule": {
+    "workoutsPerWeek": 5,
+    "restDays": ["wednesday", "sunday"]
+  },
+  "overview": {
+    "focus": "Well-Rounded Conditioning",
+    "intensity": "Moderate to High",
+    "equipment": "None (bodyweight only)",
+    "description": "Balanced approach combining HIIT, strength, and flexibility"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Full Body Strength", "duration": 40, "calories": 200},
+    "tuesday": {"name": "HIIT Cardio + Core", "duration": 30, "calories": 220},
+    "wednesday": {"name": "REST", "duration": 0, "calories": 0},
+    "thursday": {"name": "Upper Body + Core", "duration": 35, "calories": 180},
+    "friday": {"name": "Lower Body + Cardio", "duration": 40, "calories": 210},
+    "saturday": {"name": "Active Recovery + Flexibility", "duration": 25, "calories": 100},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Building Capacity",
+      "weeks": "1-3",
+      "description": "Increasing volume and work capacity",
+      "workouts": {
+        "monday": {
+          "name": "Full Body Strength",
+          "duration": 40,
+          "calories": 200,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 4, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range of motion"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 4, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "Deep squats"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 4, "reps": 10, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "10 each leg"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 35, "rest": 40, "targetMuscles": ["Core"], "notes": "Maintain form"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 15, "duration": null, "rest": 40, "targetMuscles": ["Glutes"], "notes": "Squeeze at top"}
+          ]
+        },
+        "tuesday": {
+          "name": "HIIT Cardio + Core",
+          "duration": 30,
+          "calories": 220,
+          "exercises": [
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 4, "reps": 25, "duration": null, "rest": 30, "targetMuscles": ["Full Body"], "notes": "High intensity"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 4, "reps": null, "duration": 40, "rest": 30, "targetMuscles": ["Legs", "Cardio"], "notes": "Drive knees high"},
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 4, "reps": 10, "duration": null, "rest": 45, "targetMuscles": ["Full Body"], "notes": "Full movement"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 4, "reps": null, "duration": 40, "rest": 30, "targetMuscles": ["Core", "Cardio"], "notes": "Keep hips level"},
+            {"exerciseId": "crunches", "name": "Crunches", "sets": 4, "reps": 20, "duration": null, "rest": 30, "targetMuscles": ["Abs"], "notes": "Controlled movement"}
+          ]
+        },
+        "thursday": {
+          "name": "Upper Body + Core",
+          "duration": 35,
+          "calories": 180,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 4, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range"},
+            {"exerciseId": "knee_pushups", "name": "Knee Push-ups", "sets": 4, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Chest"], "notes": "Maintain form"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 40, "rest": 40, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "crunches", "name": "Crunches", "sets": 4, "reps": 20, "duration": null, "rest": 30, "targetMuscles": ["Abs"], "notes": "Focus on abs"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 4, "reps": null, "duration": 35, "rest": 30, "targetMuscles": ["Core"], "notes": "Steady pace"}
+          ]
+        },
+        "friday": {
+          "name": "Lower Body + Cardio",
+          "duration": 40,
+          "calories": 210,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 4, "reps": 18, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "Deep squats"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 4, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "12 each leg"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Glutes"], "notes": "Hold at top"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 4, "reps": null, "duration": 40, "rest": 30, "targetMuscles": ["Legs", "Cardio"], "notes": "Maximum intensity"},
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 4, "reps": 25, "duration": null, "rest": 30, "targetMuscles": ["Full Body"], "notes": "Steady rhythm"}
+          ]
+        },
+        "saturday": {
+          "name": "Active Recovery + Flexibility",
+          "duration": 25,
+          "calories": 100,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Light Squats", "sets": 3, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "Easy pace"},
+            {"exerciseId": "lunges", "name": "Light Lunges", "sets": 3, "reps": 10, "duration": null, "rest": 45, "targetMuscles": ["Legs"], "notes": "Gentle movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 30, "rest": 45, "targetMuscles": ["Core"], "notes": "Light hold"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 3, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Glutes"], "notes": "Gentle stretch"}
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Intensity Focus",
+      "weeks": "4-6",
+      "description": "Adding intensity and advanced movements",
+      "workouts": {
+        "monday": {
+          "name": "Full Body Strength",
+          "duration": 45,
+          "calories": 230,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 40, "targetMuscles": ["Chest", "Triceps"], "notes": "Explosive movement"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 5, "reps": 20, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "Deep and controlled"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 5, "reps": 12, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "12 each leg"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 45, "rest": 35, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 5, "reps": 18, "duration": null, "rest": 35, "targetMuscles": ["Glutes"], "notes": "Hold at top"}
+          ]
+        },
+        "tuesday": {
+          "name": "HIIT Cardio + Core",
+          "duration": 35,
+          "calories": 250,
+          "exercises": [
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 5, "reps": 30, "duration": null, "rest": 25, "targetMuscles": ["Full Body"], "notes": "Maximum intensity"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 5, "reps": null, "duration": 45, "rest": 25, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 5, "reps": 12, "duration": null, "rest": 40, "targetMuscles": ["Full Body"], "notes": "Explosive jump"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 45, "rest": 25, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum speed"},
+            {"exerciseId": "crunches", "name": "Crunches", "sets": 5, "reps": 25, "duration": null, "rest": 25, "targetMuscles": ["Abs"], "notes": "Full contraction"}
+          ]
+        },
+        "thursday": {
+          "name": "Upper Body + Core",
+          "duration": 40,
+          "calories": 210,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 5, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range"},
+            {"exerciseId": "knee_pushups", "name": "Knee Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 40, "targetMuscles": ["Chest"], "notes": "Controlled tempo"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 50, "rest": 35, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "crunches", "name": "Crunches", "sets": 5, "reps": 25, "duration": null, "rest": 25, "targetMuscles": ["Abs"], "notes": "Focus on abs"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 40, "rest": 25, "targetMuscles": ["Core"], "notes": "High intensity"}
+          ]
+        },
+        "friday": {
+          "name": "Lower Body + Cardio",
+          "duration": 45,
+          "calories": 240,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 5, "reps": 22, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "Maximum depth"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 5, "reps": 15, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "15 each leg"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 5, "reps": 20, "duration": null, "rest": 35, "targetMuscles": ["Glutes"], "notes": "Maximum squeeze"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 5, "reps": null, "duration": 45, "rest": 25, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 5, "reps": 30, "duration": null, "rest": 25, "targetMuscles": ["Full Body"], "notes": "High intensity"}
+          ]
+        },
+        "saturday": {
+          "name": "Active Recovery + Flexibility",
+          "duration": 30,
+          "calories": 120,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Light Squats", "sets": 3, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "Easy pace"},
+            {"exerciseId": "lunges", "name": "Light Lunges", "sets": 3, "reps": 12, "duration": null, "rest": 40, "targetMuscles": ["Legs"], "notes": "Gentle movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 35, "rest": 40, "targetMuscles": ["Core"], "notes": "Light hold"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 3, "reps": 15, "duration": null, "rest": 40, "targetMuscles": ["Glutes"], "notes": "Gentle stretch"}
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Peak Performance",
+      "weeks": "7-9",
+      "description": "Peak conditioning and consolidation",
+      "workouts": {
+        "monday": {
+          "name": "Full Body Strength",
+          "duration": 50,
+          "calories": 260,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 6, "reps": 18, "duration": null, "rest": 35, "targetMuscles": ["Chest", "Triceps"], "notes": "Maximum intensity"},
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 6, "reps": 25, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "Deep and explosive"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 6, "reps": 15, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "15 each leg"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 6, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 6, "reps": 22, "duration": null, "rest": 30, "targetMuscles": ["Glutes"], "notes": "Maximum squeeze"}
+          ]
+        },
+        "tuesday": {
+          "name": "HIIT Cardio + Core",
+          "duration": 40,
+          "calories": 280,
+          "exercises": [
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 6, "reps": 35, "duration": null, "rest": 20, "targetMuscles": ["Full Body"], "notes": "Maximum intensity"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 6, "reps": null, "duration": 50, "rest": 20, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 6, "reps": 15, "duration": null, "rest": 35, "targetMuscles": ["Full Body"], "notes": "Explosive movement"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 50, "rest": 20, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum speed"},
+            {"exerciseId": "crunches", "name": "Crunches", "sets": 6, "reps": 30, "duration": null, "rest": 20, "targetMuscles": ["Abs"], "notes": "Full contraction"}
+          ]
+        },
+        "thursday": {
+          "name": "Upper Body + Core",
+          "duration": 45,
+          "calories": 240,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 6, "reps": 20, "duration": null, "rest": 35, "targetMuscles": ["Chest", "Triceps"], "notes": "Maximum effort"},
+            {"exerciseId": "knee_pushups", "name": "Knee Push-ups", "sets": 6, "reps": 18, "duration": null, "rest": 35, "targetMuscles": ["Chest"], "notes": "Controlled tempo"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 6, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core"], "notes": "Maximum tension"},
+            {"exerciseId": "crunches", "name": "Crunches", "sets": 6, "reps": 30, "duration": null, "rest": 20, "targetMuscles": ["Abs"], "notes": "Full contraction"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 45, "rest": 20, "targetMuscles": ["Core"], "notes": "Maximum intensity"}
+          ]
+        },
+        "friday": {
+          "name": "Lower Body + Cardio",
+          "duration": 50,
+          "calories": 270,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 6, "reps": 25, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "Maximum depth"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 6, "reps": 18, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "18 each leg"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 6, "reps": 25, "duration": null, "rest": 30, "targetMuscles": ["Glutes"], "notes": "Maximum activation"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 6, "reps": null, "duration": 50, "rest": 20, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 6, "reps": 35, "duration": null, "rest": 20, "targetMuscles": ["Full Body"], "notes": "Maximum intensity"}
+          ]
+        },
+        "saturday": {
+          "name": "Active Recovery + Flexibility",
+          "duration": 35,
+          "calories": 140,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Light Squats", "sets": 4, "reps": 20, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "Easy pace"},
+            {"exerciseId": "lunges", "name": "Light Lunges", "sets": 4, "reps": 15, "duration": null, "rest": 35, "targetMuscles": ["Legs"], "notes": "Gentle movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 40, "rest": 35, "targetMuscles": ["Core"], "notes": "Light hold"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 18, "duration": null, "rest": 35, "targetMuscles": ["Glutes"], "notes": "Gentle stretch"}
+          ]
+        }
+      }
+    }
+  ],
+  "expectedResults": {
+    "cardio": "High cardiovascular endurance",
+    "strength": "Significant strength gains",
+    "flexibility": "Improved mobility",
+    "overall": "Well-rounded athletic fitness"
+  },
+  "nutrition": {
+    "dailyCalories": "2400-2600",
+    "protein": "150-170g",
+    "carbs": "270-290g",
+    "fats": "70-80g",
+    "focus": "Performance nutrition, balanced macros"
+  }
+}

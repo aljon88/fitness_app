@@ -1,0 +1,125 @@
+{
+  "goal": "strength",
+  "fitnessLevel": "advanced",
+  "duration": 30,
+  "calorieTargets": {
+    "workoutDay": 2900,
+    "restDay": 2500
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 200,
+      "carbs": 350,
+      "fats": 77
+    },
+    "restDay": {
+      "protein": 200,
+      "carbs": 280,
+      "fats": 72
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Powerlifter Breakfast",
+      "description": "Massive breakfast with steak, eggs, potatoes, and pancakes",
+      "calories": 760,
+      "protein": 56,
+      "carbs": 84,
+      "fats": 26,
+      "allergens": ["eggs", "gluten", "dairy"],
+      "ingredients": ["200g steak", "5 eggs", "1.5 cups potatoes", "2 pancakes", "Butter"],
+      "prepTime": 35,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Mega Protein Bowl",
+      "description": "Eggs, sausage, rice, beans, and avocado",
+      "calories": 720,
+      "protein": 52,
+      "carbs": 78,
+      "fats": 24,
+      "allergens": ["eggs"],
+      "ingredients": ["5 eggs", "3 sausages", "1 cup rice", "1 cup beans", "1/2 avocado"],
+      "prepTime": 25,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Quad Protein Feast",
+      "description": "Chicken, beef, fish, and beans with double rice",
+      "calories": 920,
+      "protein": 78,
+      "carbs": 108,
+      "fats": 20,
+      "allergens": ["seafood"],
+      "ingredients": ["150g chicken", "100g beef", "100g fish", "1 cup beans", "2.5 cups rice"],
+      "prepTime": 45,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Steak & Pasta Power",
+      "description": "Large steak with pasta and vegetables",
+      "calories": 880,
+      "protein": 70,
+      "carbs": 102,
+      "fats": 22,
+      "allergens": ["gluten"],
+      "ingredients": ["220g steak", "2.5 cups pasta", "Vegetables", "Olive oil"],
+      "prepTime": 40,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Double Steak Dinner",
+      "description": "Two steaks with potato, rice, and vegetables",
+      "calories": 940,
+      "protein": 74,
+      "carbs": 98,
+      "fats": 28,
+      "allergens": ["dairy"],
+      "ingredients": ["280g steak", "1 large potato", "1 cup rice", "Vegetables", "Butter"],
+      "prepTime": 45,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Salmon & Double Carbs",
+      "description": "Large salmon with rice and sweet potato",
+      "calories": 880,
+      "protein": 66,
+      "carbs": 96,
+      "fats": 24,
+      "allergens": ["seafood"],
+      "ingredients": ["220g salmon", "1.5 cups rice", "1 large sweet potato", "Vegetables"],
+      "prepTime": 38,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Mass Shake",
+      "description": "High-calorie protein shake",
+      "calories": 520,
+      "protein": 42,
+      "carbs": 62,
+      "fats": 12,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["2 scoops protein powder", "1 cup oats", "2 tbsp peanut butter", "2 bananas", "Milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Chicken & Sweet Potato",
+      "description": "Quick chicken and sweet potato snack",
+      "calories": 420,
+      "protein": 42,
+      "carbs": 48,
+      "fats": 6,
+      "allergens": [],
+      "ingredients": ["150g chicken", "1 sweet potato"],
+      "prepTime": 20,
+      "mealType": "snack"
+    }
+  ]
+}

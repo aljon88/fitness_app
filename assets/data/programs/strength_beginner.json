@@ -1,0 +1,63 @@
+{
+  "programId": "strength_beginner",
+  "programName": "Strength - Beginner Program",
+  "goal": "strength",
+  "fitnessLevel": "beginner",
+  "duration": {
+    "days": 90,
+    "weeks": 13
+  },
+  "schedule": {
+    "workoutsPerWeek": 4,
+    "restDays": ["tuesday", "thursday", "sunday"]
+  },
+  "overview": {
+    "focus": "Compound Movements & Strength Foundation",
+    "intensity": "Low to Moderate",
+    "equipment": "None (bodyweight only)",
+    "description": "Building foundational strength with compound bodyweight movements"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Push Strength", "duration": 30, "calories": 160},
+    "tuesday": {"name": "REST", "duration": 0, "calories": 0},
+    "wednesday": {"name": "Lower Body Strength", "duration": 30, "calories": 170},
+    "thursday": {"name": "REST", "duration": 0, "calories": 0},
+    "friday": {"name": "Pull Strength", "duration": 30, "calories": 150},
+    "saturday": {"name": "Full Body Power", "duration": 30, "calories": 165},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Foundation",
+      "weeks": "1-4",
+      "description": "Learning compound movements and building strength base"
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Progressive Overload",
+      "weeks": "5-9",
+      "description": "Increasing intensity and volume for strength gains"
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Consolidation",
+      "weeks": "10-13",
+      "description": "Solidifying strength gains and preparing for intermediate"
+    }
+  ],
+  "expectedResults": {
+    "strength": "50-70% increase in compound movements",
+    "muscleGain": "2-3 kg lean mass",
+    "bodyComposition": "Improved muscle tone",
+    "fitnessLevel": "Strong foundation"
+  },
+  "nutrition": {
+    "dailyCalories": "2300-2500",
+    "protein": "150-170g",
+    "carbs": "260-280g",
+    "fats": "70-80g",
+    "workoutDayAdjustment": "+300 calories",
+    "restDayAdjustment": "Baseline calories"
+  }
+}

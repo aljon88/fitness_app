@@ -1,0 +1,205 @@
+{
+  "programId": "weight_loss_advanced",
+  "programName": "Weight Loss - Advanced Program",
+  "goal": "weight_loss",
+  "fitnessLevel": "advanced",
+  "duration": {
+    "days": 30,
+    "weeks": 4
+  },
+  "schedule": {
+    "workoutsPerWeek": 6,
+    "restDays": ["sunday"]
+  },
+  "overview": {
+    "focus": "Extreme HIIT + Metabolic Destruction",
+    "intensity": "Very High",
+    "equipment": "None (bodyweight only)",
+    "description": "Maximum intensity fat burning for rapid results"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "HIIT Inferno", "duration": 40, "calories": 350},
+    "tuesday": {"name": "Metabolic Mayhem", "duration": 40, "calories": 360},
+    "wednesday": {"name": "Cardio Chaos", "duration": 40, "calories": 340},
+    "thursday": {"name": "Full Body Burn", "duration": 40, "calories": 350},
+    "friday": {"name": "HIIT Peak", "duration": 40, "calories": 370},
+    "saturday": {"name": "Conditioning Blast", "duration": 35, "calories": 320},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Shock Phase",
+      "weeks": "1-2",
+      "description": "Extreme intensity to shock the system",
+      "workouts": {
+        "monday": {
+          "name": "HIIT Inferno",
+          "duration": 40,
+          "calories": 350,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 5, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Full Body", "Cardio"], "notes": "Full explosive movement"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 5, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "plyometric_pushups", "name": "Plyometric Push-ups", "sets": 4, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Explosive push off ground"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Legs", "Cardio"], "notes": "Maximum speed"}
+          ]
+        },
+        "tuesday": {
+          "name": "Metabolic Mayhem",
+          "duration": 40,
+          "calories": 360,
+          "exercises": [
+            {"exerciseId": "box_jumps", "name": "Box Jumps", "sets": 5, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Jump squats if no box"},
+            {"exerciseId": "clap_pushups", "name": "Clap Push-ups", "sets": 4, "reps": 8, "duration": null, "rest": 75, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Explosive clap at top"},
+            {"exerciseId": "tuck_jumps", "name": "Tuck Jumps", "sets": 4, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Quads", "Core", "Power"], "notes": "Bring knees to chest"},
+            {"exerciseId": "burpee_broad_jumps", "name": "Burpee Broad Jumps", "sets": 4, "reps": 10, "duration": null, "rest": 75, "targetMuscles": ["Full Body", "Power"], "notes": "Burpee then jump forward"},
+            {"exerciseId": "plank_jacks", "name": "Plank Jacks", "sets": 4, "reps": 30, "duration": null, "rest": 45, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum tempo"}
+          ]
+        },
+        "wednesday": {
+          "name": "Cardio Chaos",
+          "duration": 40,
+          "calories": 340,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 5, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Full Body", "Cardio"], "notes": "Full explosive movement"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 5, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Legs", "Cardio"], "notes": "Maximum speed"},
+            {"exerciseId": "plank_up_downs", "name": "Plank Up-Downs", "sets": 4, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Core", "Shoulders"], "notes": "Alternate arms, fast tempo"}
+          ]
+        },
+        "thursday": {
+          "name": "Full Body Burn",
+          "duration": 40,
+          "calories": 350,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 5, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Full Body", "Cardio"], "notes": "Full explosive movement"},
+            {"exerciseId": "pushups", "name": "Push-ups", "sets": 5, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range, explosive"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 5, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Quads", "Glutes"], "notes": "Maximum height"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "bicycle_crunches", "name": "Bicycle Crunches", "sets": 4, "reps": 30, "duration": null, "rest": 40, "targetMuscles": ["Obliques", "Abs"], "notes": "30 each side, fast tempo"}
+          ]
+        },
+        "friday": {
+          "name": "HIIT Peak",
+          "duration": 40,
+          "calories": 370,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 5, "reps": 18, "duration": null, "rest": 45, "targetMuscles": ["Full Body", "Cardio"], "notes": "Maximum explosive power"},
+            {"exerciseId": "tuck_jumps", "name": "Tuck Jumps", "sets": 5, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Quads", "Core", "Power"], "notes": "Bring knees to chest"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum intensity"},
+            {"exerciseId": "plyometric_pushups", "name": "Plyometric Push-ups", "sets": 4, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Explosive push"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace"}
+          ]
+        },
+        "saturday": {
+          "name": "Conditioning Blast",
+          "duration": 35,
+          "calories": 320,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 5, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Full Body", "Cardio"], "notes": "Full explosive movement"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 5, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "plank_jacks", "name": "Plank Jacks", "sets": 4, "reps": 30, "duration": null, "rest": 40, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum tempo"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": null, "duration": 60, "rest": 30, "targetMuscles": ["Core", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "pushups", "name": "Push-ups", "sets": 4, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range, explosive"}
+          ]
+        }
+      }
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Peak Burn",
+      "weeks": "3-4",
+      "description": "Maximum fat burning protocols",
+      "workouts": {
+        "monday": {
+          "name": "HIIT Inferno",
+          "duration": 42,
+          "calories": 390,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 6, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Full Body", "Cardio"], "notes": "Maximum explosive power, elite intensity"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 6, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height, explosive"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum intensity"},
+            {"exerciseId": "plyometric_pushups", "name": "Plyometric Push-ups", "sets": 5, "reps": 12, "duration": null, "rest": 55, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Explosive, maximum power"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace, maximum speed"}
+          ]
+        },
+        "tuesday": {
+          "name": "Metabolic Mayhem",
+          "duration": 42,
+          "calories": 400,
+          "exercises": [
+            {"exerciseId": "box_jumps", "name": "Box Jumps", "sets": 6, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "clap_pushups", "name": "Clap Push-ups", "sets": 5, "reps": 10, "duration": null, "rest": 70, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Explosive clap, maximum power"},
+            {"exerciseId": "tuck_jumps", "name": "Tuck Jumps", "sets": 5, "reps": 15, "duration": null, "rest": 55, "targetMuscles": ["Quads", "Core", "Power"], "notes": "Maximum height, knees to chest"},
+            {"exerciseId": "burpee_broad_jumps", "name": "Burpee Broad Jumps", "sets": 5, "reps": 12, "duration": null, "rest": 70, "targetMuscles": ["Full Body", "Power"], "notes": "Maximum distance"},
+            {"exerciseId": "plank_jacks", "name": "Plank Jacks", "sets": 5, "reps": 35, "duration": null, "rest": 40, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum tempo"}
+          ]
+        },
+        "wednesday": {
+          "name": "Cardio Chaos",
+          "duration": 42,
+          "calories": 380,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 6, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Full Body", "Cardio"], "notes": "Maximum explosive power"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum intensity"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 6, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Legs", "Cardio"], "notes": "Sprint pace"},
+            {"exerciseId": "plank_up_downs", "name": "Plank Up-Downs", "sets": 5, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Core", "Shoulders"], "notes": "Maximum tempo"}
+          ]
+        },
+        "thursday": {
+          "name": "Full Body Burn",
+          "duration": 42,
+          "calories": 390,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 6, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Full Body", "Cardio"], "notes": "Maximum explosive power"},
+            {"exerciseId": "pushups", "name": "Push-ups", "sets": 6, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range, explosive rise"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 6, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Quads", "Glutes"], "notes": "Maximum height"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum intensity"},
+            {"exerciseId": "bicycle_crunches", "name": "Bicycle Crunches", "sets": 5, "reps": 35, "duration": null, "rest": 35, "targetMuscles": ["Obliques", "Abs"], "notes": "35 each side, maximum tempo"}
+          ]
+        },
+        "friday": {
+          "name": "HIIT Peak",
+          "duration": 42,
+          "calories": 410,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 6, "reps": 20, "duration": null, "rest": 40, "targetMuscles": ["Full Body", "Cardio"], "notes": "Elite intensity, maximum power"},
+            {"exerciseId": "tuck_jumps", "name": "Tuck Jumps", "sets": 6, "reps": 18, "duration": null, "rest": 55, "targetMuscles": ["Quads", "Core", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Core", "Cardio"], "notes": "Sprint pace, elite intensity"},
+            {"exerciseId": "plyometric_pushups", "name": "Plyometric Push-ups", "sets": 5, "reps": 12, "duration": null, "rest": 55, "targetMuscles": ["Chest", "Triceps", "Power"], "notes": "Maximum explosive power"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Legs", "Cardio"], "notes": "Maximum speed"}
+          ]
+        },
+        "saturday": {
+          "name": "Conditioning Blast",
+          "duration": 38,
+          "calories": 360,
+          "exercises": [
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 6, "reps": 18, "duration": null, "rest": 40, "targetMuscles": ["Full Body", "Cardio"], "notes": "Maximum explosive power"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 6, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Quads", "Glutes", "Power"], "notes": "Maximum height"},
+            {"exerciseId": "plank_jacks", "name": "Plank Jacks", "sets": 5, "reps": 35, "duration": null, "rest": 35, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum tempo"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 6, "reps": null, "duration": 70, "rest": 25, "targetMuscles": ["Core", "Cardio"], "notes": "Maximum intensity"},
+            {"exerciseId": "pushups", "name": "Push-ups", "sets": 5, "reps": 25, "duration": null, "rest": 40, "targetMuscles": ["Chest", "Triceps"], "notes": "Full range, explosive"}
+          ]
+        }
+      }
+    }
+  ],
+  "expectedResults": {
+    "weightLoss": "6-10 kg (with strict diet)",
+    "bodyFat": "-4-6%",
+    "fitnessLevel": "Elite cardio conditioning",
+    "strength": "Maintained with improved endurance"
+  },
+  "nutrition": {
+    "dailyCalories": "1500-1700",
+    "protein": "140-160g",
+    "carbs": "130-150g",
+    "fats": "40-50g",
+    "workoutDayAdjustment": "+300 calories",
+    "restDayAdjustment": "Baseline calories"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "goal": "general_fitness",
+  "fitnessLevel": "advanced",
+  "duration": 30,
+  "calorieTargets": {
+    "workoutDay": 2600,
+    "restDay": 2200
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 175,
+      "carbs": 320,
+      "fats": 69
+    },
+    "restDay": {
+      "protein": 175,
+      "carbs": 250,
+      "fats": 67
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Athlete Breakfast",
+      "description": "Eggs, turkey, potatoes, and toast",
+      "calories": 600,
+      "protein": 42,
+      "carbs": 68,
+      "fats": 18,
+      "allergens": ["eggs", "gluten"],
+      "ingredients": ["4 eggs", "2 turkey sausages", "1 cup potatoes", "2 slices toast"],
+      "prepTime": 20,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Protein Pancake Stack",
+      "description": "High-protein pancakes with toppings",
+      "calories": 580,
+      "protein": 38,
+      "carbs": 72,
+      "fats": 14,
+      "allergens": ["eggs", "dairy", "gluten"],
+      "ingredients": ["Oats", "3 eggs", "2 scoops protein powder", "Berries", "Milk"],
+      "prepTime": 18,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Double Chicken Bowl",
+      "description": "Extra chicken with rice and vegetables",
+      "calories": 720,
+      "protein": 60,
+      "carbs": 84,
+      "fats": 14,
+      "allergens": [],
+      "ingredients": ["220g chicken", "2 cups rice", "Vegetables", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Beef & Quinoa Bowl",
+      "description": "Lean beef with quinoa and vegetables",
+      "calories": 700,
+      "protein": 56,
+      "carbs": 80,
+      "fats": 16,
+      "allergens": [],
+      "ingredients": ["190g beef", "2 cups quinoa", "Vegetables"],
+      "prepTime": 32,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Salmon Power Meal",
+      "description": "Large salmon with rice and vegetables",
+      "calories": 700,
+      "protein": 54,
+      "carbs": 76,
+      "fats": 20,
+      "allergens": ["seafood"],
+      "ingredients": ["190g salmon", "1.5 cups rice", "Vegetables", "Lemon"],
+      "prepTime": 32,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken Pasta",
+      "description": "Chicken with pasta and vegetables",
+      "calories": 680,
+      "protein": 52,
+      "carbs": 80,
+      "fats": 16,
+      "allergens": ["gluten"],
+      "ingredients": ["180g chicken", "2 cups pasta", "Vegetables", "Olive oil"],
+      "prepTime": 28,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Protein Shake",
+      "description": "Protein shake with banana and oats",
+      "calories": 320,
+      "protein": 28,
+      "carbs": 40,
+      "fats": 6,
+      "allergens": ["dairy"],
+      "ingredients": ["1.5 scoops protein powder", "1 banana", "1/4 cup oats", "Milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Greek Yogurt with Berries",
+      "description": "Yogurt with fresh berries",
+      "calories": 220,
+      "protein": 20,
+      "carbs": 30,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1 cup Greek yogurt", "1 cup berries", "Honey"],
+      "prepTime": 2,
+      "mealType": "snack"
+    }
+  ]
+}

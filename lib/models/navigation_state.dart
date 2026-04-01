@@ -98,6 +98,7 @@ enum NavigationScreen {
   workoutDetail,
   workoutSession,
   mealPlan,
+  profile,
 }
 
 /// Navigation transition types

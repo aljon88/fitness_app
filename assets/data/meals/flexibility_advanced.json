@@ -1,0 +1,125 @@
+{
+  "goal": "flexibility",
+  "fitnessLevel": "advanced",
+  "duration": 30,
+  "calorieTargets": {
+    "workoutDay": 2300,
+    "restDay": 2000
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 150,
+      "carbs": 290,
+      "fats": 64
+    },
+    "restDay": {
+      "protein": 150,
+      "carbs": 220,
+      "fats": 62
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Balanced Power Breakfast",
+      "description": "Eggs, turkey, sweet potato, and toast",
+      "calories": 540,
+      "protein": 36,
+      "carbs": 62,
+      "fats": 16,
+      "allergens": ["eggs", "gluten"],
+      "ingredients": ["4 eggs", "2 turkey sausages", "1 sweet potato", "2 slices toast"],
+      "prepTime": 20,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Protein Smoothie Bowl",
+      "description": "Thick smoothie bowl with toppings",
+      "calories": 500,
+      "protein": 30,
+      "carbs": 66,
+      "fats": 12,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["2 scoops protein powder", "Banana", "Berries", "Granola", "Almond butter", "Milk"],
+      "prepTime": 10,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Chicken & Rice Power Bowl",
+      "description": "Grilled chicken with rice and vegetables",
+      "calories": 660,
+      "protein": 52,
+      "carbs": 78,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["190g chicken", "1.5 cups rice", "Vegetables", "Olive oil"],
+      "prepTime": 28,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Salmon Bowl",
+      "description": "Baked salmon with quinoa and vegetables",
+      "calories": 640,
+      "protein": 48,
+      "carbs": 72,
+      "fats": 18,
+      "allergens": ["seafood"],
+      "ingredients": ["170g salmon", "1.5 cups quinoa", "Vegetables", "Lemon"],
+      "prepTime": 30,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Turkey with Double Carbs",
+      "description": "Turkey with rice and sweet potato",
+      "calories": 640,
+      "protein": 50,
+      "carbs": 78,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["180g turkey", "1 cup rice", "1 sweet potato", "Vegetables"],
+      "prepTime": 35,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken Pasta",
+      "description": "Grilled chicken with pasta and vegetables",
+      "calories": 620,
+      "protein": 48,
+      "carbs": 74,
+      "fats": 14,
+      "allergens": ["gluten"],
+      "ingredients": ["170g chicken", "1.5 cups pasta", "Vegetables", "Olive oil"],
+      "prepTime": 28,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Protein Shake",
+      "description": "Protein shake with banana",
+      "calories": 280,
+      "protein": 26,
+      "carbs": 36,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1.5 scoops protein powder", "1 banana", "Milk"],
+      "prepTime": 3,
+      "mealType": "snack"
+    },
+    {
+      "name": "Greek Yogurt with Honey",
+      "description": "Yogurt with honey and berries",
+      "calories": 220,
+      "protein": 20,
+      "carbs": 32,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1 cup Greek yogurt", "1 tbsp honey", "1/2 cup berries"],
+      "prepTime": 2,
+      "mealType": "snack"
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "programId": "strength_advanced",
+  "programName": "Strength - Advanced Program",
+  "goal": "strength",
+  "fitnessLevel": "advanced",
+  "duration": {
+    "days": 30,
+    "weeks": 4
+  },
+  "schedule": {
+    "workoutsPerWeek": 6,
+    "restDays": ["sunday"]
+  },
+  "overview": {
+    "focus": "Explosive Training & Maximum Strength",
+    "intensity": "Very High",
+    "equipment": "None (bodyweight only)",
+    "description": "Elite strength development with advanced calisthenics"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Explosive Push", "duration": 40, "calories": 210},
+    "tuesday": {"name": "Explosive Pull", "duration": 40, "calories": 200},
+    "wednesday": {"name": "Leg Power", "duration": 40, "calories": 230},
+    "thursday": {"name": "Skill Work", "duration": 40, "calories": 180},
+    "friday": {"name": "Max Strength", "duration": 40, "calories": 220},
+    "saturday": {"name": "Power Endurance", "duration": 35, "calories": 200},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Explosive Phase",
+      "weeks": "1-2",
+      "description": "Maximum explosive power development"
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Peak Strength",
+      "weeks": "3-4",
+      "description": "Peak strength and advanced skills"
+    }
+  ],
+  "expectedResults": {
+    "strength": "70-100% increase",
+    "power": "Elite explosive power",
+    "skills": "Advanced calisthenics skills",
+    "fitnessLevel": "Elite strength athlete"
+  },
+  "nutrition": {
+    "dailyCalories": "2800-3000",
+    "protein": "190-210g",
+    "carbs": "310-330g",
+    "fats": "80-90g",
+    "workoutDayAdjustment": "+400 calories",
+    "restDayAdjustment": "Baseline calories"
+  }
+}

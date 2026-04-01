@@ -1,0 +1,404 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-03-31",
+  "totalExercises": 12,
+  "exercises": [
+    {
+      "exerciseId": "jumping_jacks",
+      "name": "Jumping Jacks",
+      "category": "cardio",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Legs", "Shoulders"],
+      "secondaryMuscles": ["Core", "Calves"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Jumping-Jacks.gif",
+      "instructions": [
+        "Stand with feet together and arms at your sides",
+        "Jump while spreading your legs shoulder-width apart and raising your arms overhead",
+        "Jump back to the starting position with feet together and arms at sides",
+        "Maintain a steady rhythm throughout the movement",
+        "Land softly on the balls of your feet"
+      ],
+      "tips": [
+        "Land softly to reduce impact on joints",
+        "Keep your core engaged throughout",
+        "Breathe steadily - exhale on the jump up",
+        "Start slow and gradually increase speed"
+      ],
+      "commonMistakes": [
+        "Landing too hard on heels",
+        "Holding breath during movement",
+        "Moving too fast without control",
+        "Not fully extending arms overhead"
+      ],
+      "modifications": {
+        "easier": "Step side to side instead of jumping",
+        "harder": "Add a squat at the bottom position"
+      }
+    },
+    {
+      "exerciseId": "bodyweight_squats",
+      "name": "Bodyweight Squats",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Hamstrings", "Core", "Calves"],
+      "gifUrl": "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHZ2ZThtbHlycms0azQ4dHVtODg5bmZ6N2RkcmY5Z2k2cG01aG5hcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RTNDA7OxcwuOMcCPhL/giphy.gif",
+      "instructions": [
+        "Stand with feet shoulder-width apart, toes slightly pointed out",
+        "Keep your chest up and core engaged",
+        "Lower your body by bending knees and pushing hips back as if sitting in a chair",
+        "Go down until thighs are parallel to the ground or as low as comfortable",
+        "Push through your heels to return to starting position"
+      ],
+      "tips": [
+        "Keep your knees tracking over your toes",
+        "Don't let knees cave inward",
+        "Keep your weight on your heels",
+        "Maintain a neutral spine throughout"
+      ],
+      "commonMistakes": [
+        "Knees caving inward",
+        "Leaning too far forward",
+        "Not going deep enough",
+        "Rising onto toes"
+      ],
+      "modifications": {
+        "easier": "Hold onto a chair or wall for support",
+        "harder": "Add a pause at the bottom or do jump squats"
+      }
+    },
+    {
+      "exerciseId": "standard_pushups",
+      "name": "Standard Push-ups",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Triceps"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Push-up.gif",
+      "instructions": [
+        "Start in a plank position with hands slightly wider than shoulder-width",
+        "Keep your body in a straight line from head to heels",
+        "Lower your chest toward the ground by bending elbows",
+        "Go down until chest nearly touches the floor",
+        "Push back up to starting position"
+      ],
+      "tips": [
+        "Keep your core tight throughout",
+        "Don't let hips sag or pike up",
+        "Elbows should be at 45-degree angle",
+        "Breathe in going down, out going up"
+      ],
+      "commonMistakes": [
+        "Sagging hips",
+        "Flaring elbows out too wide",
+        "Not going low enough",
+        "Head dropping down"
+      ],
+      "modifications": {
+        "easier": "Do knee push-ups or incline push-ups",
+        "harder": "Elevate feet or add a clap"
+      }
+    },
+    {
+      "exerciseId": "knee_pushups",
+      "name": "Knee Push-ups",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Triceps"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Knee-Push-up.gif",
+      "instructions": [
+        "Start on hands and knees with hands slightly wider than shoulders",
+        "Keep your body in a straight line from head to knees",
+        "Cross your ankles behind you",
+        "Lower your chest toward the ground by bending elbows",
+        "Push back up to starting position"
+      ],
+      "tips": [
+        "Maintain straight line from head to knees",
+        "Don't let hips sag",
+        "Keep core engaged",
+        "Full range of motion is important"
+      ],
+      "commonMistakes": [
+        "Hips sagging or piking",
+        "Not going low enough",
+        "Elbows flaring too wide",
+        "Rushing the movement"
+      ],
+      "modifications": {
+        "easier": "Do wall push-ups or incline push-ups",
+        "harder": "Progress to standard push-ups"
+      }
+    },
+    {
+      "exerciseId": "plank_hold",
+      "name": "Plank Hold",
+      "category": "core",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Abs"],
+      "secondaryMuscles": ["Shoulders", "Back", "Glutes"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Plank.gif",
+      "instructions": [
+        "Start in a forearm plank position with elbows under shoulders",
+        "Keep your body in a straight line from head to heels",
+        "Engage your core and squeeze your glutes",
+        "Hold this position without letting hips sag or pike up",
+        "Breathe steadily throughout the hold"
+      ],
+      "tips": [
+        "Keep your neck neutral - don't look up",
+        "Squeeze glutes to protect lower back",
+        "Don't hold your breath",
+        "Focus on quality over duration"
+      ],
+      "commonMistakes": [
+        "Hips sagging down",
+        "Hips piking up too high",
+        "Holding breath",
+        "Shoulders hunched"
+      ],
+      "modifications": {
+        "easier": "Do plank on knees or against a wall",
+        "harder": "Lift one leg or add shoulder taps"
+      }
+    },
+    {
+      "exerciseId": "lunges",
+      "name": "Lunges",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Hamstrings", "Calves", "Core"],
+      "gifUrl": "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanFkZ2QzenhpYnpmbmt1Znp2NGN4dXRjZXVqbTEzcDcycGVoNWlveiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fwc6V94SqLzS6k31i7/giphy.gif",
+      "instructions": [
+        "Stand with feet hip-width apart",
+        "Step forward with one leg, landing heel first",
+        "Lower your body until both knees are bent at 90 degrees",
+        "Front knee should be directly over ankle",
+        "Push through front heel to return to starting position"
+      ],
+      "tips": [
+        "Keep your torso upright",
+        "Don't let front knee go past toes",
+        "Back knee should hover just above ground",
+        "Maintain balance throughout"
+      ],
+      "commonMistakes": [
+        "Front knee going past toes",
+        "Leaning too far forward",
+        "Not going deep enough",
+        "Losing balance"
+      ],
+      "modifications": {
+        "easier": "Hold onto a wall or chair for balance",
+        "harder": "Add a jump or hold weights"
+      }
+    },
+    {
+      "exerciseId": "walking_lunges",
+      "name": "Walking Lunges",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Hamstrings", "Calves", "Core"],
+      "gifUrl": "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExanFkZ2QzenhpYnpmbmt1Znp2NGN4dXRjZXVqbTEzcDcycGVoNWlveiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/fwc6V94SqLzS6k31i7/giphy.gif",
+      "instructions": [
+        "Stand with feet hip-width apart",
+        "Step forward with one leg into a lunge position",
+        "Lower your body until both knees are bent at 90 degrees",
+        "Push through front heel and bring back leg forward into next lunge",
+        "Continue walking forward, alternating legs"
+      ],
+      "tips": [
+        "Keep your torso upright throughout the movement",
+        "Don't let front knee go past toes",
+        "Take controlled steps, don't rush",
+        "Maintain balance and control"
+      ],
+      "commonMistakes": [
+        "Front knee going past toes",
+        "Leaning too far forward",
+        "Taking steps that are too small or too large",
+        "Losing balance and rushing"
+      ],
+      "modifications": {
+        "easier": "Hold onto a wall or do stationary lunges",
+        "harder": "Add weights or increase walking distance"
+      }
+    },
+    {
+      "exerciseId": "mountain_climbers",
+      "name": "Mountain Climbers",
+      "category": "cardio",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Shoulders"],
+      "secondaryMuscles": ["Legs", "Chest"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Mountain-Climber.gif",
+      "instructions": [
+        "Start in a high plank position with hands under shoulders",
+        "Keep your body in a straight line",
+        "Drive one knee toward your chest",
+        "Quickly switch legs, bringing the other knee forward",
+        "Continue alternating legs in a running motion"
+      ],
+      "tips": [
+        "Keep hips level - don't let them bounce",
+        "Maintain plank position throughout",
+        "Land softly on the balls of your feet",
+        "Start slow and build speed"
+      ],
+      "commonMistakes": [
+        "Hips bouncing up and down",
+        "Not bringing knees far enough forward",
+        "Shoulders moving forward",
+        "Going too fast and losing form"
+      ],
+      "modifications": {
+        "easier": "Slow down the pace or elevate hands",
+        "harder": "Increase speed or add a twist"
+      }
+    },
+    {
+      "exerciseId": "burpees",
+      "name": "Burpees",
+      "category": "cardio",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Full Body"],
+      "secondaryMuscles": ["Chest", "Legs", "Core", "Shoulders"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Burpee.gif",
+      "instructions": [
+        "Start standing with feet shoulder-width apart",
+        "Drop into a squat and place hands on the ground",
+        "Jump or step feet back into a plank position",
+        "Perform a push-up (optional for beginners)",
+        "Jump or step feet back to squat position",
+        "Explosively jump up with arms overhead"
+      ],
+      "tips": [
+        "Land softly to protect joints",
+        "Keep core engaged throughout",
+        "Maintain good push-up form",
+        "Pace yourself - quality over speed"
+      ],
+      "commonMistakes": [
+        "Sagging hips in plank",
+        "Landing too hard on jump",
+        "Skipping the push-up",
+        "Not fully extending on jump"
+      ],
+      "modifications": {
+        "easier": "Step back instead of jumping, skip the push-up",
+        "harder": "Add a tuck jump or do a full push-up"
+      }
+    },
+    {
+      "exerciseId": "high_knees",
+      "name": "High Knees",
+      "category": "cardio",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Legs", "Hip Flexors"],
+      "secondaryMuscles": ["Core", "Calves"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/High-Knee.gif",
+      "instructions": [
+        "Stand with feet hip-width apart",
+        "Drive one knee up toward your chest",
+        "Quickly switch legs, bringing the other knee up",
+        "Pump your arms in running motion",
+        "Continue alternating legs at a quick pace"
+      ],
+      "tips": [
+        "Drive knees up to hip height or higher",
+        "Stay on the balls of your feet",
+        "Keep your core engaged",
+        "Maintain an upright posture"
+      ],
+      "commonMistakes": [
+        "Not lifting knees high enough",
+        "Leaning too far forward or back",
+        "Landing on heels",
+        "Not using arms"
+      ],
+      "modifications": {
+        "easier": "March in place with lower knee lift",
+        "harder": "Increase speed or add a hop"
+      }
+    },
+    {
+      "exerciseId": "crunches",
+      "name": "Crunches",
+      "category": "core",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Abs", "Core"],
+      "secondaryMuscles": ["Hip Flexors"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Crunch.gif",
+      "instructions": [
+        "Lie on your back with knees bent and feet flat on floor",
+        "Place hands behind your head or across chest",
+        "Engage your core and lift shoulder blades off the ground",
+        "Curl up toward your knees, keeping lower back on floor",
+        "Lower back down with control"
+      ],
+      "tips": [
+        "Don't pull on your neck",
+        "Focus on using abs, not momentum",
+        "Keep lower back pressed to floor",
+        "Exhale as you crunch up"
+      ],
+      "commonMistakes": [
+        "Pulling on neck with hands",
+        "Using momentum instead of abs",
+        "Not engaging core fully",
+        "Coming up too high"
+      ],
+      "modifications": {
+        "easier": "Do partial crunches or hold at top",
+        "harder": "Add a twist or hold a weight"
+      }
+    },
+    {
+      "exerciseId": "glute_bridges",
+      "name": "Glute Bridges",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Glutes", "Hamstrings"],
+      "secondaryMuscles": ["Core", "Lower Back"],
+      "gifUrl": "https://fitnessprogramer.com/wp-content/uploads/2021/02/Glute-Bridge.gif",
+      "instructions": [
+        "Lie on your back with knees bent and feet flat on floor",
+        "Place arms at your sides, palms down",
+        "Engage your core and squeeze your glutes",
+        "Lift your hips up until body forms a straight line from knees to shoulders",
+        "Hold at the top, then lower back down with control"
+      ],
+      "tips": [
+        "Squeeze glutes hard at the top",
+        "Don't arch your lower back excessively",
+        "Keep core engaged throughout",
+        "Push through your heels"
+      ],
+      "commonMistakes": [
+        "Overarching lower back",
+        "Not squeezing glutes at top",
+        "Pushing through toes instead of heels",
+        "Rushing the movement"
+      ],
+      "modifications": {
+        "easier": "Reduce range of motion",
+        "harder": "Single-leg bridges or add a pause at top"
+      }
+    }
+  ]
+}

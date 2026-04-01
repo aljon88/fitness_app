@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart'; // REMOVED - not using Google Sign-In
 import 'package:flutter/material.dart';
+import '../models/user_profile.dart';
+import 'user_profile_service.dart';
 
 class FirebaseAuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final GoogleSignIn _googleSignIn = GoogleSignIn(); // REMOVED - not using Google Sign-In
   
   User? get currentUser => _auth.currentUser;
   bool get isAuthenticated => currentUser != null;
@@ -62,8 +64,13 @@ class FirebaseAuthService extends ChangeNotifier {
         password: password,
       );
 
+      print('🔐 Login successful for: $email (UID: ${credential.user!.uid})');
+      
       // Check if user has completed onboarding
       bool hasCompletedOnboarding = await this.hasCompletedOnboarding(credential.user!.uid);
+      
+      print('📋 Onboarding status: $hasCompletedOnboarding');
+      print('🚪 Needs onboarding: ${!hasCompletedOnboarding}');
 
       return AuthResult(
         success: true,
@@ -105,13 +112,21 @@ class FirebaseAuthService extends ChangeNotifier {
   // Sign out
   Future<void> signOut() async {
     try {
-      // Only sign out from Firebase (skip Google sign out for now)
+      print('🚪 Signing out user: ${currentUser?.email}');
+      
+      // Clear UserProfileService cache
+      final profileService = UserProfileService();
+      await profileService.clearProfile();
+      print('✅ Cleared UserProfileService cache');
+      
+      // Sign out from Firebase
       await _auth.signOut();
+      print('✅ Signed out from Firebase');
       
       // Notify listeners
       notifyListeners();
     } catch (e) {
-      print('Firebase sign out error: $e');
+      print('❌ Sign out error: $e');
       throw e;
     }
   }
@@ -131,13 +146,20 @@ class FirebaseAuthService extends ChangeNotifier {
   // Check if user has completed onboarding
   Future<bool> hasCompletedOnboarding(String uid) async {
     try {
+      print('🔍 Checking onboarding status for UID: $uid');
       DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
       if (doc.exists) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return data['onboardingCompleted'] ?? false;
+        print('   Document exists. Keys: ${data.keys.toList()}');
+        bool completed = data['onboardingCompleted'] ?? false;
+        print('   onboardingCompleted value: $completed');
+        return completed;
+      } else {
+        print('   ⚠️ Document does not exist');
       }
       return false;
     } catch (e) {
+      print('   ❌ Error checking onboarding: $e');
       return false;
     }
   }
@@ -145,11 +167,30 @@ class FirebaseAuthService extends ChangeNotifier {
   // Complete onboarding and save profile
   Future<void> completeOnboarding(Map<String, dynamic> profile) async {
     if (currentUser != null) {
-      await _firestore.collection('users').doc(currentUser!.uid).update({
-        'onboardingCompleted': true,
-        'profile': profile,
-        'updatedAt': FieldValue.serverTimestamp(),
-      });
+      try {
+        // Save to Firebase using set with merge to create or update
+        await _firestore.collection('users').doc(currentUser!.uid).set({
+          'onboardingCompleted': true,
+          'profile': profile,
+          'updatedAt': FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true));
+        
+        print('✅ Profile saved to Firebase for UID: ${currentUser!.uid}');
+        print('   Profile data: ${profile.keys.toList()}');
+        
+        // Also save to local UserProfileService
+        final userProfile = UserProfile.fromOnboarding(profile);
+        final profileService = UserProfileService();
+        await profileService.saveUserProfile(userProfile);
+        
+        print('✅ Profile saved to local UserProfileService');
+      } catch (e) {
+        print('❌ Error saving profile to Firebase: $e');
+        // Still save locally even if Firebase fails
+        final userProfile = UserProfile.fromOnboarding(profile);
+        final profileService = UserProfileService();
+        await profileService.saveUserProfile(userProfile);
+      }
     }
   }
 
@@ -157,14 +198,30 @@ class FirebaseAuthService extends ChangeNotifier {
   Future<Map<String, dynamic>?> getUserProfile() async {
     if (currentUser != null) {
       try {
+        print('🔍 Getting profile from Firebase for UID: ${currentUser!.uid}');
         DocumentSnapshot doc = await _firestore.collection('users').doc(currentUser!.uid).get();
+        
         if (doc.exists) {
+          print('✅ Firebase document exists');
           Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-          return data['profile'] as Map<String, dynamic>?;
+          print('   Document keys: ${data.keys.toList()}');
+          
+          if (data.containsKey('profile')) {
+            Map<String, dynamic>? profile = data['profile'] as Map<String, dynamic>?;
+            print('   Profile found with keys: ${profile?.keys.toList()}');
+            return profile;
+          } else {
+            print('⚠️ Document exists but no "profile" field found');
+            return null;
+          }
+        } else {
+          print('⚠️ Firebase document does not exist for UID: ${currentUser!.uid}');
         }
       } catch (e) {
-        print('Error getting user profile: $e');
+        print('❌ Error getting user profile from Firebase: $e');
       }
+    } else {
+      print('⚠️ No current user, cannot get profile');
     }
     return null;
   }

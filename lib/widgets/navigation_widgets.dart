@@ -395,6 +395,9 @@ class MainNavigationBar extends StatelessWidget {
       case NavigationScreen.mealPlan:
         navigationService.navigateToMealPlan();
         break;
+      case NavigationScreen.profile:
+        navigationService.navigateToUserProfile();
+        break;
       default:
         break;
     }

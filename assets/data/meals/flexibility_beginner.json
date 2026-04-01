@@ -1,0 +1,125 @@
+{
+  "goal": "flexibility",
+  "fitnessLevel": "beginner",
+  "duration": 90,
+  "calorieTargets": {
+    "workoutDay": 2000,
+    "restDay": 1700
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 130,
+      "carbs": 250,
+      "fats": 56
+    },
+    "restDay": {
+      "protein": 130,
+      "carbs": 180,
+      "fats": 53
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Light Oatmeal Bowl",
+      "description": "Oats with berries and honey",
+      "calories": 380,
+      "protein": 12,
+      "carbs": 68,
+      "fats": 8,
+      "allergens": [],
+      "ingredients": ["1 cup oats", "1 cup berries", "1 tbsp honey", "Cinnamon"],
+      "prepTime": 10,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Yogurt Parfait",
+      "description": "Greek yogurt with granola and fruits",
+      "calories": 360,
+      "protein": 20,
+      "carbs": 52,
+      "fats": 8,
+      "allergens": ["dairy"],
+      "ingredients": ["1 cup Greek yogurt", "1/2 cup granola", "1 cup fruits", "Honey"],
+      "prepTime": 5,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Chicken Salad Bowl",
+      "description": "Grilled chicken with mixed greens and quinoa",
+      "calories": 500,
+      "protein": 40,
+      "carbs": 52,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["150g chicken", "Mixed greens", "1 cup quinoa", "Vegetables", "Vinaigrette"],
+      "prepTime": 20,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Tuna Wrap",
+      "description": "Tuna salad in whole wheat wrap",
+      "calories": 480,
+      "protein": 36,
+      "carbs": 54,
+      "fats": 12,
+      "allergens": ["seafood", "gluten"],
+      "ingredients": ["1 can tuna", "1 wrap", "Vegetables", "Light mayo"],
+      "prepTime": 10,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Baked Fish with Vegetables",
+      "description": "White fish with roasted vegetables and rice",
+      "calories": 480,
+      "protein": 38,
+      "carbs": 56,
+      "fats": 10,
+      "allergens": ["seafood"],
+      "ingredients": ["150g white fish", "1 cup rice", "Mixed vegetables", "Lemon", "Herbs"],
+      "prepTime": 28,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken with Quinoa",
+      "description": "Grilled chicken with quinoa and green beans",
+      "calories": 500,
+      "protein": 42,
+      "carbs": 58,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["150g chicken", "1 cup quinoa", "1.5 cups green beans", "Olive oil"],
+      "prepTime": 25,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Fruit Smoothie",
+      "description": "Light smoothie with fruits and protein",
+      "calories": 220,
+      "protein": 18,
+      "carbs": 32,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1 scoop protein powder", "1 banana", "Berries", "Milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Hummus with Veggies",
+      "description": "Hummus with fresh cut vegetables",
+      "calories": 160,
+      "protein": 8,
+      "carbs": 22,
+      "fats": 6,
+      "allergens": [],
+      "ingredients": ["1/2 cup hummus", "Carrot sticks", "Celery", "Bell peppers"],
+      "prepTime": 5,
+      "mealType": "snack"
+    }
+  ]
+}

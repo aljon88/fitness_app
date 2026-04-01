@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'workout_session_screen.dart';
+// import 'workout_session_screen.dart'; // REMOVED - using active_workout_screen with timer system
 import 'exercise_demo_screen.dart';
+import 'active_workout_screen.dart';
 import '../widgets/ai_coach_character.dart';
 import '../services/navigation_service.dart';
 import '../models/navigation_state.dart';
@@ -104,7 +105,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.workout['title'],
+                                widget.workout['name'] ?? 'Workout',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: isSmallScreen ? 16 : 18,
@@ -324,7 +325,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
                     ),
                     SizedBox(height: 8),
                     Text(
-                      exercise['instructions'],
+                      _getInstructionsText(exercise),
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: isSmallScreen ? 11 : 12,
@@ -347,7 +348,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
                           SizedBox(width: 6),
                           Expanded(
                             child: Text(
-                              exercise['tips'],
+                              _getTipsText(exercise),
                               style: TextStyle(
                                 color: Colors.white70,
                                 fontSize: isSmallScreen ? 10 : 11,
@@ -461,7 +462,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
           ),
           SizedBox(height: 12),
           Text(
-            exercise['instructions'],
+            _getInstructionsText(exercise),
             style: TextStyle(
               color: Colors.white70,
               fontSize: 14,
@@ -492,7 +493,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
               border: Border.all(color: Colors.amber.withOpacity(0.3)),
             ),
             child: Text(
-              exercise['tips'],
+              _getTipsText(exercise),
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 14,
@@ -635,65 +636,17 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
   }
 
   void _startWorkoutWithCamera() {
-    // Show preparation dialog
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        backgroundColor: Color(0xFF1A1B3A),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF6C5CE7), Color(0xFF74B9FF)],
-                ),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(Icons.camera_alt, color: Colors.white, size: 40),
-            ),
-            SizedBox(height: 20),
-            Text(
-              'Get Ready!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 12),
-            Text(
-              'Position yourself in front of the camera. The workout will start in 3 seconds.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-                height: 1.4,
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              width: 60,
-              height: 60,
-              child: CircularProgressIndicator(
-                strokeWidth: 6,
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF6C5CE7)),
-              ),
-            ),
-          ],
+    // Go directly to active workout screen (which handles camera)
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ActiveWorkoutScreen(
+          workout: widget.workout,
+          profile: widget.profile,
+          onWorkoutCompleted: widget.onWorkoutCompleted,
         ),
       ),
     );
-
-    // Auto-close dialog and start camera after 3 seconds
-    Timer(Duration(seconds: 3), () {
-      Navigator.of(context).pop(); // Close dialog
-      NavigationService().startWorkoutSession(widget.workout);
-    });
   }
 
   Widget _buildCompactExerciseList(List<Map<String, dynamic>> exercises, bool isSmallScreen) {
@@ -925,6 +878,26 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
       default:
         return 'Strength';
     }
+  }
+
+  String _getInstructionsText(Map<String, dynamic> exercise) {
+    final instructions = exercise['instructions'];
+    if (instructions == null) return 'Perform the exercise with proper form';
+    if (instructions is String) return instructions;
+    if (instructions is List) {
+      return instructions.isNotEmpty ? instructions.join('. ') : 'Perform the exercise with proper form';
+    }
+    return 'Perform the exercise with proper form';
+  }
+
+  String _getTipsText(Map<String, dynamic> exercise) {
+    final tips = exercise['tips'];
+    if (tips == null) return 'Focus on proper form and controlled movements';
+    if (tips is String) return tips;
+    if (tips is List) {
+      return tips.isNotEmpty ? tips.join('. ') : 'Focus on proper form and controlled movements';
+    }
+    return 'Focus on proper form and controlled movements';
   }
 
   @override

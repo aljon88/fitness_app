@@ -1,0 +1,125 @@
+{
+  "goal": "strength",
+  "fitnessLevel": "beginner",
+  "duration": 90,
+  "calorieTargets": {
+    "workoutDay": 2300,
+    "restDay": 1900
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 155,
+      "carbs": 280,
+      "fats": 61
+    },
+    "restDay": {
+      "protein": 155,
+      "carbs": 210,
+      "fats": 56
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Power Oatmeal Bowl",
+      "description": "Oats with protein powder, banana, and almond butter",
+      "calories": 500,
+      "protein": 26,
+      "carbs": 68,
+      "fats": 14,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["1.5 cups oats", "1 scoop protein powder", "1 banana", "2 tbsp almond butter", "Milk"],
+      "prepTime": 10,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Eggs & Turkey Sausage",
+      "description": "Scrambled eggs with turkey sausage and toast",
+      "calories": 520,
+      "protein": 38,
+      "carbs": 48,
+      "fats": 20,
+      "allergens": ["eggs", "gluten"],
+      "ingredients": ["4 eggs", "2 turkey sausages", "2 slices whole grain toast", "Vegetables"],
+      "prepTime": 15,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Chicken Power Bowl",
+      "description": "Grilled chicken with rice, sweet potato, and vegetables",
+      "calories": 640,
+      "protein": 50,
+      "carbs": 74,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["180g chicken", "1 cup rice", "1 sweet potato", "Vegetables", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Beef & Rice Bowl",
+      "description": "Lean beef with brown rice and broccoli",
+      "calories": 620,
+      "protein": 48,
+      "carbs": 72,
+      "fats": 14,
+      "allergens": [],
+      "ingredients": ["150g lean beef", "1.5 cups rice", "2 cups broccoli", "Soy sauce"],
+      "prepTime": 25,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Salmon with Quinoa",
+      "description": "Baked salmon with quinoa and asparagus",
+      "calories": 600,
+      "protein": 46,
+      "carbs": 62,
+      "fats": 18,
+      "allergens": ["seafood"],
+      "ingredients": ["170g salmon", "1.5 cups quinoa", "1 cup asparagus", "Lemon", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken Stir-Fry",
+      "description": "Chicken with vegetables and rice noodles",
+      "calories": 580,
+      "protein": 44,
+      "carbs": 68,
+      "fats": 12,
+      "allergens": [],
+      "ingredients": ["170g chicken", "1.5 cups rice noodles", "Mixed vegetables", "Soy sauce"],
+      "prepTime": 25,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Protein Shake",
+      "description": "Whey protein shake with banana",
+      "calories": 280,
+      "protein": 28,
+      "carbs": 34,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1.5 scoops protein powder", "1 banana", "1 cup milk"],
+      "prepTime": 3,
+      "mealType": "snack"
+    },
+    {
+      "name": "Almonds & Apple",
+      "description": "Raw almonds with fresh apple",
+      "calories": 220,
+      "protein": 8,
+      "carbs": 26,
+      "fats": 10,
+      "allergens": ["nuts"],
+      "ingredients": ["1/4 cup almonds", "1 apple"],
+      "prepTime": 1,
+      "mealType": "snack"
+    }
+  ]
+}

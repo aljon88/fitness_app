@@ -1,0 +1,125 @@
+{
+  "goal": "muscle_gain",
+  "fitnessLevel": "advanced",
+  "duration": 30,
+  "calorieTargets": {
+    "workoutDay": 3000,
+    "restDay": 2600
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 210,
+      "carbs": 360,
+      "fats": 80
+    },
+    "restDay": {
+      "protein": 210,
+      "carbs": 290,
+      "fats": 76
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Bodybuilder Breakfast",
+      "description": "Massive breakfast with steak, eggs, potatoes, and toast",
+      "calories": 780,
+      "protein": 58,
+      "carbs": 82,
+      "fats": 28,
+      "allergens": ["eggs", "gluten"],
+      "ingredients": ["180g steak", "5 eggs", "1.5 cups hash browns", "2 slices toast", "Vegetables"],
+      "prepTime": 30,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Mega Protein Pancakes",
+      "description": "Huge stack of protein pancakes with all the toppings",
+      "calories": 740,
+      "protein": 52,
+      "carbs": 88,
+      "fats": 22,
+      "allergens": ["eggs", "dairy", "gluten", "nuts"],
+      "ingredients": ["2 cups oats", "4 eggs", "2 scoops protein powder", "Peanut butter", "Banana", "Milk"],
+      "prepTime": 20,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Mass Gainer Bowl",
+      "description": "Triple protein with double rice and vegetables",
+      "calories": 920,
+      "protein": 76,
+      "carbs": 110,
+      "fats": 20,
+      "allergens": [],
+      "ingredients": ["200g chicken", "100g beef", "1 cup beans", "2.5 cups rice", "Vegetables"],
+      "prepTime": 40,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Salmon & Double Carbs",
+      "description": "Large salmon with rice and sweet potato",
+      "calories": 900,
+      "protein": 68,
+      "carbs": 108,
+      "fats": 24,
+      "allergens": ["seafood"],
+      "ingredients": ["220g salmon", "2 cups rice", "1 large sweet potato", "Vegetables", "Olive oil"],
+      "prepTime": 35,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Steak & Potatoes Feast",
+      "description": "Large steak with baked potato, rice, and vegetables",
+      "calories": 940,
+      "protein": 72,
+      "carbs": 102,
+      "fats": 28,
+      "allergens": ["dairy"],
+      "ingredients": ["250g steak", "1 large potato", "1 cup rice", "Vegetables", "Butter", "Sour cream"],
+      "prepTime": 45,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken Pasta Feast",
+      "description": "Double chicken with pasta and cheese",
+      "calories": 900,
+      "protein": 70,
+      "carbs": 98,
+      "fats": 24,
+      "allergens": ["gluten", "dairy"],
+      "ingredients": ["250g chicken", "2.5 cups pasta", "Cheese", "Tomato sauce", "Vegetables"],
+      "prepTime": 35,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Ultimate Mass Shake",
+      "description": "Maximum calorie shake with everything",
+      "calories": 580,
+      "protein": 46,
+      "carbs": 68,
+      "fats": 14,
+      "allergens": ["dairy", "nuts"],
+      "ingredients": ["2 scoops protein powder", "1 cup oats", "3 tbsp peanut butter", "2 bananas", "Milk"],
+      "prepTime": 5,
+      "mealType": "snack"
+    },
+    {
+      "name": "Chicken & Rice Snack",
+      "description": "Quick chicken and rice meal",
+      "calories": 460,
+      "protein": 48,
+      "carbs": 52,
+      "fats": 6,
+      "allergens": [],
+      "ingredients": ["180g chicken breast", "1.5 cups rice"],
+      "prepTime": 15,
+      "mealType": "snack"
+    }
+  ]
+}

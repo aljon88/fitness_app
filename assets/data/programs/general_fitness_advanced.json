@@ -1,0 +1,62 @@
+{
+  "programId": "general_fitness_advanced",
+  "programName": "General Fitness - Advanced Program",
+  "goal": "general_fitness",
+  "fitnessLevel": "advanced",
+  "duration": {
+    "days": 30,
+    "weeks": 4
+  },
+  "schedule": {
+    "workoutsPerWeek": 6,
+    "restDays": ["sunday"]
+  },
+  "overview": {
+    "focus": "Peak Athletic Conditioning",
+    "intensity": "Very High",
+    "equipment": "None (bodyweight only)",
+    "description": "Elite conditioning across all fitness domains"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Full Body Power + Strength", "duration": 50, "calories": 280},
+    "tuesday": {"name": "Advanced HIIT + Conditioning", "duration": 40, "calories": 300},
+    "wednesday": {"name": "Upper Body Strength + Core", "duration": 45, "calories": 240},
+    "thursday": {"name": "Lower Body Power + Plyometrics", "duration": 50, "calories": 290},
+    "friday": {"name": "Full Body HIIT + Endurance", "duration": 45, "calories": 310},
+    "saturday": {"name": "Active Recovery + Mobility", "duration": 30, "calories": 120},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "High-Volume Foundation",
+      "weeks": "1-2",
+      "description": "Maximum volume and intensity"
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Peak Intensity",
+      "weeks": "2-3",
+      "description": "Peak performance work"
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Performance Optimization",
+      "weeks": "3-4",
+      "description": "Elite conditioning and skill refinement"
+    }
+  },
+  "expectedResults": {
+    "cardio": "Elite cardiovascular conditioning",
+    "strength": "Maximum strength-to-weight ratio",
+    "power": "Explosive power development",
+    "overall": "Peak athletic performance"
+  },
+  "nutrition": {
+    "dailyCalories": "2800-3000",
+    "protein": "180-200g",
+    "carbs": "320-340g",
+    "fats": "80-90g",
+    "focus": "Performance-optimized, high carbs for energy"
+  }
+}

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import '../services/workout_history_service.dart';
+import '../models/workout_history.dart';
 
 class ProgressTrackingScreen extends StatefulWidget {
   final Map<String, dynamic> profile;
@@ -12,17 +14,53 @@ class ProgressTrackingScreen extends StatefulWidget {
 
 class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
   String _selectedPeriod = 'Week';
+  final WorkoutHistoryService _historyService = WorkoutHistoryService();
   
-  // Mock data - in a real app, this would come from a database
-  final List<Map<String, dynamic>> _workoutHistory = [
-    {'date': 'Mon', 'workouts': 1, 'duration': 35},
-    {'date': 'Tue', 'workouts': 1, 'duration': 42},
-    {'date': 'Wed', 'workouts': 0, 'duration': 0},
-    {'date': 'Thu', 'workouts': 1, 'duration': 38},
-    {'date': 'Fri', 'workouts': 1, 'duration': 45},
-    {'date': 'Sat', 'workouts': 0, 'duration': 0},
-    {'date': 'Sun', 'workouts': 1, 'duration': 40},
-  ];
+  // Real data
+  List<WorkoutHistory> _workoutHistory = [];
+  int _totalWorkouts = 0;
+  int _totalMinutes = 0;
+  int _totalCalories = 0;
+  int _currentStreak = 0;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRealData();
+  }
+  
+  Future<void> _loadRealData() async {
+    setState(() => _isLoading = true);
+    
+    String userId = widget.profile['uid'] ?? 'user_001';
+    
+    try {
+      // Load based on selected period
+      if (_selectedPeriod == 'Week') {
+        _workoutHistory = await _historyService.getWorkoutsThisWeek(userId);
+      } else if (_selectedPeriod == 'Month') {
+        _workoutHistory = await _historyService.getWorkoutsThisMonth(userId);
+      } else {
+        _workoutHistory = await _historyService.getWorkoutHistory(userId);
+      }
+      
+      // Calculate stats
+      _totalWorkouts = _workoutHistory.length;
+      _totalMinutes = _workoutHistory.fold(0, (int sum, w) => sum + w.durationMinutes);
+      _totalCalories = _workoutHistory.fold(0, (int sum, w) => sum + w.caloriesBurned);
+      _currentStreak = await _historyService.getCurrentStreak(userId);
+      
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    } catch (e) {
+      print('Error loading progress data: $e');
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +149,10 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
           final isSelected = _selectedPeriod == period;
           return Expanded(
             child: GestureDetector(
-              onTap: () => setState(() => _selectedPeriod = period),
+              onTap: () {
+                setState(() => _selectedPeriod = period);
+                _loadRealData();
+              },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 12),
                 decoration: BoxDecoration(
@@ -136,13 +177,20 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
   }
 
   Widget _buildStatsOverview(bool isSmallScreen) {
+    if (_isLoading) {
+      return Container(
+        height: 100,
+        child: Center(child: CircularProgressIndicator(color: Color(0xFF6C5CE7))),
+      );
+    }
+    
     return Row(
       children: [
         Expanded(
           child: _buildStatCard(
             'Workouts',
-            '5',
-            'This week',
+            '$_totalWorkouts',
+            'This ${_selectedPeriod.toLowerCase()}',
             Icons.fitness_center_rounded,
             Color(0xFF6C5CE7),
             isSmallScreen,
@@ -152,7 +200,7 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
         Expanded(
           child: _buildStatCard(
             'Duration',
-            '200',
+            '$_totalMinutes',
             'Minutes',
             Icons.timer_rounded,
             Color(0xFF00B894),
@@ -163,7 +211,7 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
         Expanded(
           child: _buildStatCard(
             'Streak',
-            '7',
+            '$_currentStreak',
             'Days',
             Icons.local_fire_department_rounded,
             Color(0xFFFF7675),
@@ -215,6 +263,52 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
   }
 
   Widget _buildWorkoutChart(bool isSmallScreen) {
+    if (_isLoading) {
+      return Container(
+        height: 200,
+        child: Center(child: CircularProgressIndicator(color: Color(0xFF6C5CE7))),
+      );
+    }
+    
+    if (_workoutHistory.isEmpty) {
+      return Container(
+        padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withOpacity(0.1)),
+        ),
+        child: Center(
+          child: Text(
+            'No workout data for this period',
+            style: TextStyle(color: Colors.white70, fontSize: 14),
+          ),
+        ),
+      );
+    }
+    
+    // Group workouts by day for chart
+    Map<String, int> dailyDurations = {};
+    for (var workout in _workoutHistory) {
+      String dayKey = _getDayKey(workout.completedAt);
+      dailyDurations[dayKey] = (dailyDurations[dayKey] ?? 0) + workout.durationMinutes;
+    }
+    
+    // Get last 7 days for weekly view
+    List<Map<String, dynamic>> chartData = [];
+    DateTime now = DateTime.now();
+    for (int i = 6; i >= 0; i--) {
+      DateTime date = now.subtract(Duration(days: i));
+      String dayKey = _getDayKey(date);
+      chartData.add({
+        'date': _getDayName(date),
+        'duration': dailyDurations[dayKey] ?? 0,
+      });
+    }
+    
+    int maxDuration = chartData.map((d) => d['duration'] as int).reduce(max);
+    if (maxDuration == 0) maxDuration = 1; // Avoid division by zero
+    
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
       decoration: BoxDecoration(
@@ -237,9 +331,9 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.end,
-            children: _workoutHistory.map((day) {
-              final maxDuration = _workoutHistory.map((d) => d['duration'] as int).reduce(max);
-              final height = day['duration'] == 0 ? 20.0 : (day['duration'] / maxDuration * 100).toDouble();
+            children: chartData.map((day) {
+              final duration = day['duration'] as int;
+              final height = duration == 0 ? 20.0 : (duration / maxDuration * 100).toDouble();
               
               return Column(
                 children: [
@@ -250,7 +344,7 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: day['workouts'] > 0
+                        colors: duration > 0
                             ? [Color(0xFF6C5CE7), Color(0xFF74B9FF)]
                             : [Colors.white.withOpacity(0.1), Colors.white.withOpacity(0.05)],
                       ),
@@ -273,8 +367,41 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
       ),
     );
   }
+  
+  String _getDayKey(DateTime date) {
+    return '${date.year}-${date.month}-${date.day}';
+  }
+  
+  String _getDayName(DateTime date) {
+    final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return days[date.weekday - 1];
+  }
 
   Widget _buildRecentActivity(bool isSmallScreen) {
+    if (_isLoading) {
+      return Container(
+        height: 150,
+        child: Center(child: CircularProgressIndicator(color: Color(0xFF6C5CE7))),
+      );
+    }
+    
+    if (_workoutHistory.isEmpty) {
+      return Container(
+        padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withOpacity(0.1)),
+        ),
+        child: Center(
+          child: Text(
+            'No recent activity',
+            style: TextStyle(color: Colors.white70, fontSize: 14),
+          ),
+        ),
+      );
+    }
+    
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
       decoration: BoxDecoration(
@@ -294,14 +421,49 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
             ),
           ),
           SizedBox(height: 16),
-          _buildActivityItem('Upper Body Workout', 'Today, 35 min', Icons.fitness_center_rounded, isSmallScreen),
-          SizedBox(height: 12),
-          _buildActivityItem('Cardio Session', 'Yesterday, 42 min', Icons.directions_run_rounded, isSmallScreen),
-          SizedBox(height: 12),
-          _buildActivityItem('Core Training', '2 days ago, 38 min', Icons.self_improvement_rounded, isSmallScreen),
+          ..._workoutHistory.take(5).map((workout) {
+            return Column(
+              children: [
+                _buildActivityItem(
+                  workout.workoutTitle,
+                  _formatWorkoutDate(workout.completedAt, workout.durationMinutes),
+                  _getIconForWorkout(workout.workoutTitle),
+                  isSmallScreen,
+                ),
+                if (workout != _workoutHistory.take(5).last)
+                  SizedBox(height: 12),
+              ],
+            );
+          }).toList(),
         ],
       ),
     );
+  }
+  
+  String _formatWorkoutDate(DateTime date, int duration) {
+    final now = DateTime.now();
+    final difference = now.difference(date).inDays;
+    
+    String dateStr;
+    if (difference == 0) {
+      dateStr = 'Today';
+    } else if (difference == 1) {
+      dateStr = 'Yesterday';
+    } else if (difference < 7) {
+      dateStr = '$difference days ago';
+    } else {
+      dateStr = '${date.month}/${date.day}';
+    }
+    
+    return '$dateStr, $duration min';
+  }
+  
+  IconData _getIconForWorkout(String title) {
+    if (title.contains('Push')) return Icons.fitness_center_rounded;
+    if (title.contains('Pull')) return Icons.self_improvement_rounded;
+    if (title.contains('Leg')) return Icons.directions_run_rounded;
+    if (title.contains('Core')) return Icons.accessibility_new_rounded;
+    return Icons.fitness_center_rounded;
   }
 
   Widget _buildActivityItem(String title, String subtitle, IconData icon, bool isSmall) {
@@ -347,6 +509,22 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
   }
 
   Widget _buildGoalsProgress(bool isSmallScreen) {
+    if (_isLoading) {
+      return Container(
+        height: 150,
+        child: Center(child: CircularProgressIndicator(color: Color(0xFF6C5CE7))),
+      );
+    }
+    
+    // Calculate goals based on fitness level
+    String fitnessLevel = widget.profile['fitnessLevel'] ?? 'beginner';
+    int weeklyWorkoutGoal = fitnessLevel == 'beginner' ? 4 : fitnessLevel == 'intermediate' ? 5 : 6;
+    int weeklyMinutesGoal = fitnessLevel == 'beginner' ? 100 : fitnessLevel == 'intermediate' ? 150 : 200;
+    
+    // Get this week's data
+    int weeklyWorkouts = _selectedPeriod == 'Week' ? _totalWorkouts : 0;
+    int weeklyMinutes = _selectedPeriod == 'Week' ? _totalMinutes : 0;
+    
     return Container(
       padding: EdgeInsets.all(isSmallScreen ? 16 : 20),
       decoration: BoxDecoration(
@@ -366,11 +544,11 @@ class _ProgressTrackingScreenState extends State<ProgressTrackingScreen> {
             ),
           ),
           SizedBox(height: 16),
-          _buildGoalItem('Weekly Workouts', 5, 7, isSmallScreen),
+          _buildGoalItem('Weekly Workouts', weeklyWorkouts, weeklyWorkoutGoal, isSmallScreen),
           SizedBox(height: 12),
-          _buildGoalItem('Active Days', 5, 7, isSmallScreen),
+          _buildGoalItem('Active Days', _currentStreak, 7, isSmallScreen),
           SizedBox(height: 12),
-          _buildGoalItem('Total Minutes', 200, 300, isSmallScreen),
+          _buildGoalItem('Total Minutes', weeklyMinutes, weeklyMinutesGoal, isSmallScreen),
         ],
       ),
     );

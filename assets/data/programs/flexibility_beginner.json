@@ -1,0 +1,62 @@
+{
+  "programId": "flexibility_beginner",
+  "programName": "Flexibility - Beginner Program",
+  "goal": "flexibility",
+  "fitnessLevel": "beginner",
+  "duration": {
+    "days": 90,
+    "weeks": 13
+  },
+  "schedule": {
+    "workoutsPerWeek": 4,
+    "restDays": ["tuesday", "thursday", "sunday"]
+  },
+  "overview": {
+    "focus": "Basic Stretching & Mobility Foundation",
+    "intensity": "Low",
+    "equipment": "None (bodyweight only)",
+    "description": "Building flexibility foundation with basic stretches"
+  },
+  "weeklyPattern": {
+    "monday": {"name": "Full Body Stretch", "duration": 30, "calories": 80},
+    "tuesday": {"name": "REST", "duration": 0, "calories": 0},
+    "wednesday": {"name": "Lower Body Flexibility", "duration": 30, "calories": 75},
+    "thursday": {"name": "REST", "duration": 0, "calories": 0},
+    "friday": {"name": "Upper Body Mobility", "duration": 30, "calories": 70},
+    "saturday": {"name": "Yoga Flow", "duration": 30, "calories": 85},
+    "sunday": {"name": "REST", "duration": 0, "calories": 0}
+  },
+  "phases": [
+    {
+      "phaseNumber": 1,
+      "phaseName": "Foundation",
+      "weeks": "1-4",
+      "description": "Learning basic stretches and building flexibility base"
+    },
+    {
+      "phaseNumber": 2,
+      "phaseName": "Progressive Stretching",
+      "weeks": "5-9",
+      "description": "Increasing hold times and depth of stretches"
+    },
+    {
+      "phaseNumber": 3,
+      "phaseName": "Mobility Mastery",
+      "weeks": "10-13",
+      "description": "Advanced stretches and improved range of motion"
+    }
+  ],
+  "expectedResults": {
+    "flexibility": "Significantly improved range of motion",
+    "mobility": "Better joint mobility",
+    "posture": "Improved posture and alignment",
+    "recovery": "Reduced muscle tension"
+  },
+  "nutrition": {
+    "dailyCalories": "2000-2200",
+    "protein": "100-120g",
+    "carbs": "220-240g",
+    "fats": "60-70g",
+    "focus": "Anti-inflammatory foods, omega-3 rich"
+  }
+}

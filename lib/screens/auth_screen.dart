@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:html' as html show window;
 import 'onboarding_wizard_screen.dart';
 import 'dashboard_screen.dart';
 import '../services/firebase_auth_service.dart';
+import '../services/user_storage_service.dart';
+import '../services/user_profile_service.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -623,8 +627,15 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               'email': authService.userEmail ?? '',
             },
             onCompleted: (profile) async {
-              // Save profile using Firebase
+              print('📝 Onboarding completed, saving profile...');
+              print('   Profile keys: ${profile.keys.toList()}');
+              print('   Name: ${profile['name']}');
+              
+              // Save to BOTH Firebase AND UserStorageService for redundancy
               await authService.completeOnboarding(profile);
+              await UserStorageService.completeOnboarding(authService.userEmail ?? '', profile);
+              
+              print('✅ Profile saved to both Firebase and UserStorageService');
               
               // Navigate to dashboard
               Navigator.pushReplacement(
@@ -666,9 +677,16 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               'email': userEmail,
             },
             onCompleted: (profile) async {
-              // Save profile using Firebase
+              print('📝 Onboarding completed (_navigateToOnboarding), saving profile...');
+              print('   Profile keys: ${profile.keys.toList()}');
+              print('   Name: ${profile['name']}');
+              
+              // Save to BOTH Firebase AND UserStorageService for redundancy
               final authService = FirebaseAuthService();
               await authService.completeOnboarding(profile);
+              await UserStorageService.completeOnboarding(userEmail, profile);
+              
+              print('✅ Profile saved to both Firebase and UserStorageService');
               
               // Navigate to dashboard
               Navigator.pushReplacement(
@@ -706,9 +724,16 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               'birthday': _selectedBirthday!.toIso8601String(),
             },
             onCompleted: (profile) async {
-              // Save profile using Firebase
+              print('📝 Onboarding completed (_navigateToOnboardingWithBirthday), saving profile...');
+              print('   Profile keys: ${profile.keys.toList()}');
+              print('   Name: ${profile['name']}');
+              
+              // Save to BOTH Firebase AND UserStorageService for redundancy
               final authService = FirebaseAuthService();
               await authService.completeOnboarding(profile);
+              await UserStorageService.completeOnboarding(userEmail, profile);
+              
+              print('✅ Profile saved to both Firebase and UserStorageService');
               
               // Navigate to dashboard
               Navigator.pushReplacement(
@@ -732,33 +757,76 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
 
   void _navigateToDashboard(String userEmail) async {
     Future.delayed(Duration(milliseconds: 500), () async {
+      print('🔍 _navigateToDashboard called for: $userEmail');
+      
+      // IMPORTANT: Clear cached profile from previous user
+      final profileService = UserProfileService();
+      profileService.clearCache();
+      print('🧹 Cleared profile cache for new user');
+      
       // Get existing user profile from Firebase
       final authService = FirebaseAuthService();
       Map<String, dynamic>? existingProfile = await authService.getUserProfile();
       
-      // If no profile exists, create a default one (shouldn't happen in normal flow)
-      existingProfile ??= {
-        'name': 'User',
-        'age': '25',
-        'height': '170',
-        'weight': '65',
-        'gender': 'prefer_not_to_say',
-        'fitnessLevel': 'beginner',
-        'allergies': [],
-        'motivation': 'Stay Fit',
-        'goals': ['Stay Fit'],
-        'workoutLocation': 'Floor',
-      };
+      print('📱 Firebase profile: ${existingProfile != null ? "Found" : "Not found"}');
+      if (existingProfile != null) {
+        print('   Profile keys: ${existingProfile.keys.toList()}');
+        print('   Has name: ${existingProfile.containsKey("name")}');
+      }
       
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => DashboardScreen(profile: existingProfile!),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-        ),
-      );
+      // If no profile in Firebase, try UserStorageService (for backward compatibility)
+      if (existingProfile == null || existingProfile.isEmpty) {
+        print('⚠️ No profile in Firebase, checking UserStorageService...');
+        existingProfile = await UserStorageService.getUserProfile(userEmail);
+        
+        print('💾 UserStorageService profile: ${existingProfile != null ? "Found" : "Not found"}');
+        if (existingProfile != null) {
+          print('   Profile keys: ${existingProfile.keys.toList()}');
+          print('   Has name: ${existingProfile.containsKey("name")}');
+        }
+        
+        // If found in UserStorageService, migrate to Firebase
+        if (existingProfile != null && existingProfile.isNotEmpty) {
+          print('✅ Found profile in UserStorageService, migrating to Firebase...');
+          await authService.completeOnboarding(existingProfile);
+        }
+      }
+      
+      // If still no profile or profile is empty, user needs onboarding
+      if (existingProfile == null || existingProfile.isEmpty || existingProfile['name'] == null) {
+        print('❌ No valid profile found, redirecting to onboarding...');
+        print('   Profile is null: ${existingProfile == null}');
+        print('   Profile is empty: ${existingProfile?.isEmpty ?? true}');
+        print('   Profile has name: ${existingProfile?.containsKey("name") ?? false}');
+        _navigateToOnboarding(userEmail);
+        return;
+      }
+      
+      // Add UID to profile for services that need it
+      existingProfile['uid'] = authService.currentUser?.uid ?? 'unknown';
+      
+      print('✅ Navigating to dashboard with profile: ${existingProfile['name']}');
+      print('   Final profile check before navigation:');
+      print('   - Profile is null: ${existingProfile == null}');
+      print('   - Profile is empty: ${existingProfile.isEmpty}');
+      print('   - Profile has name: ${existingProfile.containsKey("name")}');
+      print('   - Profile name value: "${existingProfile['name']}"');
+      print('   - Profile keys: ${existingProfile.keys.toList()}');
+      
+      // Force browser reload to clear Flutter Web cache
+      if (kIsWeb) {
+        print('🔄 Forcing page reload to clear cache...');
+        await Future.delayed(Duration(milliseconds: 200));
+        html.window.location.reload();
+      } else {
+        // Fallback for non-web platforms
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DashboardScreen(profile: existingProfile!),
+          ),
+        );
+      }
     });
   }
 

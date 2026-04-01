@@ -1,0 +1,173 @@
+{
+  "goal": "weight_loss",
+  "fitnessLevel": "intermediate",
+  "duration": 60,
+  "calorieTargets": {
+    "workoutDay": 2300,
+    "restDay": 1900
+  },
+  "macroTargets": {
+    "workoutDay": {
+      "protein": 160,
+      "carbs": 260,
+      "fats": 64
+    },
+    "restDay": {
+      "protein": 160,
+      "carbs": 190,
+      "fats": 59
+    }
+  },
+  "breakfastOptions": [
+    {
+      "name": "Protein Pancakes with Berries",
+      "description": "High-protein pancakes topped with fresh berries and Greek yogurt",
+      "calories": 480,
+      "protein": 30,
+      "carbs": 60,
+      "fats": 12,
+      "allergens": ["eggs", "dairy", "gluten"],
+      "ingredients": ["1 cup oats", "2 eggs", "1 scoop protein powder", "1 cup berries", "2 tbsp Greek yogurt"],
+      "prepTime": 15,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Egg White Omelet with Avocado",
+      "description": "Fluffy egg white omelet with creamy avocado and vegetables",
+      "calories": 450,
+      "protein": 28,
+      "carbs": 42,
+      "fats": 18,
+      "allergens": ["eggs", "gluten"],
+      "ingredients": ["5 egg whites", "1/2 avocado", "Spinach", "Mushrooms", "2 slices whole grain toast"],
+      "prepTime": 12,
+      "mealType": "breakfast"
+    },
+    {
+      "name": "Breakfast Burrito",
+      "description": "Protein-packed burrito with eggs, beans, and cheese",
+      "calories": 500,
+      "protein": 32,
+      "carbs": 55,
+      "fats": 16,
+      "allergens": ["eggs", "dairy", "gluten"],
+      "ingredients": ["3 eggs", "1/2 cup black beans", "1 whole wheat tortilla", "1/4 cup cheese", "Salsa"],
+      "prepTime": 10,
+      "mealType": "breakfast"
+    }
+  ],
+  "lunchOptions": [
+    {
+      "name": "Chicken & Quinoa Power Bowl",
+      "description": "Grilled chicken with quinoa, avocado, and roasted vegetables",
+      "calories": 650,
+      "protein": 48,
+      "carbs": 68,
+      "fats": 18,
+      "allergens": [],
+      "ingredients": ["180g chicken breast", "1.5 cups quinoa", "1/2 avocado", "Mixed vegetables", "Olive oil"],
+      "prepTime": 30,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Beef Stir-Fry with Brown Rice",
+      "description": "Lean beef strips with colorful vegetables and brown rice",
+      "calories": 620,
+      "protein": 45,
+      "carbs": 70,
+      "fats": 16,
+      "allergens": [],
+      "ingredients": ["150g lean beef", "1.5 cups brown rice", "Bell peppers", "Broccoli", "Soy sauce"],
+      "prepTime": 25,
+      "mealType": "lunch"
+    },
+    {
+      "name": "Salmon Poke Bowl",
+      "description": "Fresh salmon with rice, edamame, and Asian-inspired toppings",
+      "calories": 640,
+      "protein": 42,
+      "carbs": 72,
+      "fats": 20,
+      "allergens": ["seafood"],
+      "ingredients": ["150g salmon", "1.5 cups rice", "1/2 cup edamame", "Cucumber", "Seaweed", "Sesame seeds"],
+      "prepTime": 20,
+      "mealType": "lunch"
+    }
+  ],
+  "dinnerOptions": [
+    {
+      "name": "Grilled Steak with Baked Potato",
+      "description": "Juicy steak with loaded baked potato and asparagus",
+      "calories": 680,
+      "protein": 52,
+      "carbs": 65,
+      "fats": 22,
+      "allergens": ["dairy"],
+      "ingredients": ["180g sirloin steak", "1 large potato", "1 cup asparagus", "Sour cream", "Butter"],
+      "prepTime": 35,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Chicken Pasta Primavera",
+      "description": "Grilled chicken with whole wheat pasta and garden vegetables",
+      "calories": 650,
+      "protein": 48,
+      "carbs": 75,
+      "fats": 18,
+      "allergens": ["gluten", "dairy"],
+      "ingredients": ["180g chicken", "1.5 cups pasta", "Mixed vegetables", "Olive oil", "Parmesan"],
+      "prepTime": 30,
+      "mealType": "dinner"
+    },
+    {
+      "name": "Turkey Chili with Cornbread",
+      "description": "Hearty turkey chili with a side of cornbread",
+      "calories": 620,
+      "protein": 45,
+      "carbs": 68,
+      "fats": 16,
+      "allergens": ["gluten", "eggs", "dairy"],
+      "ingredients": ["180g ground turkey", "Kidney beans", "Tomatoes", "Spices", "1 piece cornbread"],
+      "prepTime": 40,
+      "mealType": "dinner"
+    }
+  ],
+  "snackOptions": [
+    {
+      "name": "Protein Bar & Banana",
+      "description": "Convenient protein bar with fresh banana",
+      "calories": 280,
+      "protein": 20,
+      "carbs": 38,
+      "fats": 6,
+      "allergens": ["nuts", "dairy"],
+      "ingredients": ["1 protein bar", "1 banana"],
+      "prepTime": 1,
+      "mealType": "snack"
+    },
+    {
+      "name": "Cottage Cheese with Pineapple",
+      "description": "High-protein cottage cheese with pineapple chunks",
+      "calories": 250,
+      "protein": 24,
+      "carbs": 30,
+      "fats": 4,
+      "allergens": ["dairy"],
+      "ingredients": ["1 cup cottage cheese", "1 cup pineapple chunks"],
+      "prepTime": 2,
+      "mealType": "snack"
+    },
+    {
+      "name": "Turkey Roll-Ups",
+      "description": "Deli turkey wrapped with cheese and veggies",
+      "calories": 220,
+      "protein": 22,
+      "carbs": 12,
+      "fats": 10,
+      "allergens": ["dairy"],
+      "ingredients": ["4 slices turkey breast", "2 cheese sticks", "Lettuce", "Mustard"],
+      "prepTime": 5,
+      "mealType": "snack"
+    }
+  ]
+}
