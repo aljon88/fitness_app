@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-03-31",
-  "totalExercises": 22,
+  "totalExercises": 27,
   "exercises": [
     {
       "exerciseId": "jumping_jacks",
@@ -539,6 +539,171 @@
       "tips": ["Keep feet planted", "Full range of motion", "Don't let hips sag", "Start close to wall"],
       "commonMistakes": ["Standing too close", "Not leaning enough", "Poor body alignment", "Using momentum"],
       "modifications": {"easier": "Stand closer to wall", "harder": "Stand further back or incline push-ups"}
+    },
+    {
+      "exerciseId": "superman_holds",
+      "name": "Superman Holds",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Lower Back", "Glutes"],
+      "secondaryMuscles": ["Shoulders", "Hamstrings"],
+      "gifUrl": "https://media.giphy.com/media/hNng9AOyUHxvPiCUiv/giphy.gif",
+      "instructions": [
+        "Lie face down on the floor with arms extended overhead",
+        "Keep your head in neutral position looking down",
+        "Simultaneously lift your chest, arms, and legs off the ground",
+        "Hold this position while squeezing your glutes and lower back",
+        "Lower back down with control"
+      ],
+      "tips": [
+        "Don't lift too high - focus on muscle engagement",
+        "Keep neck neutral, don't crane your head up",
+        "Squeeze glutes to protect lower back",
+        "Start with shorter holds and build up"
+      ],
+      "commonMistakes": [
+        "Lifting too high and straining neck",
+        "Not engaging glutes",
+        "Holding breath during hold",
+        "Rushing the movement"
+      ],
+      "modifications": {
+        "easier": "Lift only chest or only legs",
+        "harder": "Hold for longer duration or add pulses"
+      }
+    },
+    {
+      "exerciseId": "reverse_snow_angels",
+      "name": "Reverse Snow Angels",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Rear Delts", "Upper Back"],
+      "secondaryMuscles": ["Lower Back", "Rhomboids"],
+      "gifUrl": "https://media.giphy.com/media/2Ysem2n4U0fCZQOzSu/giphy.gif",
+      "instructions": [
+        "Lie face down with arms at your sides",
+        "Lift your chest slightly off the ground",
+        "Sweep your arms out to the sides and overhead",
+        "Bring arms back to starting position",
+        "Keep chest lifted throughout the movement"
+      ],
+      "tips": [
+        "Focus on squeezing shoulder blades together",
+        "Keep movements slow and controlled",
+        "Don't lift chest too high",
+        "Engage your core throughout"
+      ],
+      "commonMistakes": [
+        "Moving arms too fast",
+        "Lifting chest too high",
+        "Not engaging upper back muscles",
+        "Holding breath"
+      ],
+      "modifications": {
+        "easier": "Keep chest on ground, move only arms",
+        "harder": "Hold at top position or add light weights"
+      }
+    },
+    {
+      "exerciseId": "plank_rows",
+      "name": "Plank Rows",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Back"],
+      "secondaryMuscles": ["Shoulders", "Arms"],
+      "gifUrl": "https://media.giphy.com/media/26BRyNmEefw26QTle/giphy.gif",
+      "instructions": [
+        "Start in a high plank position",
+        "Lift one arm off the ground and pull elbow back",
+        "Squeeze shoulder blade and engage core",
+        "Return arm to plank position",
+        "Alternate arms while maintaining plank"
+      ],
+      "tips": [
+        "Keep hips level - don't rotate",
+        "Engage core to prevent sagging",
+        "Focus on pulling elbow back",
+        "Keep supporting arm strong"
+      ],
+      "commonMistakes": [
+        "Rotating hips when lifting arm",
+        "Sagging in plank position",
+        "Not engaging core",
+        "Moving too fast"
+      ],
+      "modifications": {
+        "easier": "Do from knees or against wall",
+        "harder": "Add weights or hold longer"
+      }
+    },
+    {
+      "exerciseId": "arm_circles",
+      "name": "Arm Circles",
+      "category": "mobility",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Shoulders"],
+      "secondaryMuscles": ["Arms", "Upper Back"],
+      "gifUrl": "https://media.giphy.com/media/kwRehVjkmKyde0TxdQ/giphy.gif",
+      "instructions": [
+        "Stand with feet shoulder-width apart",
+        "Extend arms out to sides at shoulder height",
+        "Make small circles with your arms",
+        "Gradually increase circle size",
+        "Reverse direction after desired reps"
+      ],
+      "tips": [
+        "Keep arms straight and parallel to floor",
+        "Start with small circles",
+        "Control the movement",
+        "Keep core engaged"
+      ],
+      "commonMistakes": [
+        "Dropping arms below shoulder height",
+        "Making circles too big too fast",
+        "Hunching shoulders",
+        "Moving too fast"
+      ],
+      "modifications": {
+        "easier": "Smaller circles or shorter duration",
+        "harder": "Larger circles or add light weights"
+      }
+    },
+    {
+      "exerciseId": "prone_y_raises",
+      "name": "Prone Y Raises",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Rear Delts", "Upper Back"],
+      "secondaryMuscles": ["Lower Back", "Core"],
+      "gifUrl": "https://media.giphy.com/media/MNLNIGdxpew3WHn85o/giphy.gif",
+      "instructions": [
+        "Lie face down with arms extended in Y position",
+        "Lift your chest and arms off the ground",
+        "Squeeze shoulder blades together",
+        "Hold briefly at the top",
+        "Lower back down with control"
+      ],
+      "tips": [
+        "Keep thumbs pointing up",
+        "Don't lift too high",
+        "Focus on squeezing upper back",
+        "Keep neck neutral"
+      ],
+      "commonMistakes": [
+        "Lifting too high and straining neck",
+        "Not engaging upper back muscles",
+        "Moving too fast",
+        "Holding breath"
+      ],
+      "modifications": {
+        "easier": "Lift only arms, keep chest down",
+        "harder": "Hold longer or add light weights"
+      }
     }
   ]
 }
