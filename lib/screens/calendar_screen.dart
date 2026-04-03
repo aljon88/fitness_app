@@ -487,14 +487,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => WorkoutSessionController(
-            workout: workout,
-            profile: widget.userProfile,
+            exercises: workout['exercises'] ?? [],
             onWorkoutCompleted: () async {
               // Save to workout history (SINGLE source of truth)
               await _saveWorkoutToHistory(workout, programDay);
               
               // Reload calendar (will read from workout history)
               await _loadCalendar();
+              
+              // Navigate back to calendar
+              Navigator.pop(context);
             },
           ),
         ),
