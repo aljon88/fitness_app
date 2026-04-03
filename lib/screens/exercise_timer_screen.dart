@@ -72,15 +72,21 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
 
   void _startTimer() {
     _timer?.cancel();
+    print('🕐 Starting timer: _isPaused = $_isPaused, _secondsElapsed = $_secondsElapsed, _totalSeconds = $_totalSeconds');
+    
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (!_isPaused) {
         setState(() {
           _secondsElapsed++;
+          print('   Timer tick: $_secondsElapsed/$_totalSeconds');
           if (_secondsElapsed >= _totalSeconds) {
+            print('   Timer complete!');
             timer.cancel();
             _handleTimerComplete();
           }
         });
+      } else {
+        print('   Timer paused, skipping tick');
       }
     });
   }
@@ -111,6 +117,15 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
     setState(() {
       _isPaused = !_isPaused;
     });
+    
+    print('🎮 Pause toggled: _isPaused = $_isPaused');
+    print('   Timer active: ${_timer?.isActive ?? false}');
+    
+    // If resuming and timer is not active, restart it
+    if (!_isPaused && (_timer == null || !_timer!.isActive)) {
+      print('   Restarting timer...');
+      _startTimer();
+    }
   }
 
   void _skipSet() {
