@@ -4,14 +4,12 @@ import 'exercise_timer_screen.dart';
 import 'rest_screen.dart';
 
 class WorkoutSessionController extends StatefulWidget {
-  final Map<String, dynamic> workout;
-  final Map<String, dynamic> profile;
+  final List<Map<String, dynamic>> exercises;
   final VoidCallback onWorkoutCompleted;
 
   const WorkoutSessionController({
     Key? key,
-    required this.workout,
-    required this.profile,
+    required this.exercises,
     required this.onWorkoutCompleted,
   }) : super(key: key);
 
@@ -19,17 +17,14 @@ class WorkoutSessionController extends StatefulWidget {
   State<WorkoutSessionController> createState() => _WorkoutSessionControllerState();
 }
 
+enum WorkoutPhase { ready, exercise, rest, completed }
+
 class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
-  int _currentExerciseIndex = 0;
   WorkoutPhase _currentPhase = WorkoutPhase.ready;
-  List<Map<String, dynamic>> _exercises = [];
+  int _currentExerciseIndex = 0;
   int _completedExercises = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _exercises = (widget.workout['exercises'] as List).cast<Map<String, dynamic>>();
-  }
+  List<Map<String, dynamic>> get _exercises => widget.exercises;
 
   void _moveToNextPhase() {
     setState(() {
@@ -42,12 +37,16 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
           if (_currentExerciseIndex < _exercises.length - 1) {
             _currentPhase = WorkoutPhase.rest;
           } else {
+            _currentPhase = WorkoutPhase.completed;
             _completeWorkout();
           }
           break;
         case WorkoutPhase.rest:
           _currentExerciseIndex++;
           _currentPhase = WorkoutPhase.ready;
+          break;
+        case WorkoutPhase.completed:
+          widget.onWorkoutCompleted();
           break;
       }
     });
@@ -67,7 +66,7 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.8), // Solid overlay instead of blur
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (context) => Dialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -192,7 +191,7 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     
     showDialog(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.8), // Solid overlay instead of blur
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (context) => Dialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -262,29 +261,6 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
       ),
     );
   }
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ),
-              SizedBox(height: 8),
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(
-                  'Feedback',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[400],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   Widget _buildFeedbackButton(String text) {
     return Container(
@@ -321,11 +297,10 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
   }
 
   void _completeWorkout() {
-    // Show completion dialog
     showDialog(
       context: context,
       barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.8), // Solid overlay instead of blur
+      barrierColor: Colors.black.withOpacity(0.8),
       builder: (context) => Dialog(
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -365,30 +340,41 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                   color: Colors.grey[600],
                 ),
               ),
-                ),
-              ),
-              SizedBox(height: 24),
-              SizedBox(
+              SizedBox(height: 32),
+              Container(
                 width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.green, Colors.green[700]!],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.green.withOpacity(0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
                     Navigator.pop(context);
                     widget.onWorkoutCompleted();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    shadowColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   child: Text(
-                    'Done',
+                    'Finish Workout',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -425,19 +411,15 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
         );
       case WorkoutPhase.rest:
         return RestScreen(
-          nextExercise: nextExercise,
+          nextExercise: nextExercise!,
           nextExerciseIndex: _currentExerciseIndex + 1,
           totalExercises: _exercises.length,
-          restDuration: currentExercise['rest'] ?? 30,
+          restDuration: 30,
           onRestComplete: _moveToNextPhase,
           onSkip: _skipRest,
         );
+      case WorkoutPhase.completed:
+        return Container(); // This shouldn't be reached as we call onWorkoutCompleted
     }
   }
-}
-
-enum WorkoutPhase {
-  ready,
-  exercise,
-  rest,
 }
