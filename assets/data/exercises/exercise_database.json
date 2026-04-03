@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-03-31",
-  "totalExercises": 17,
+  "totalExercises": 22,
   "exercises": [
     {
       "exerciseId": "jumping_jacks",
@@ -469,6 +469,76 @@
       "tips": ["Kick heels high to glutes", "Stay on balls of feet", "Keep core engaged", "Maintain rhythm"],
       "commonMistakes": ["Not kicking high enough", "Leaning forward", "Landing on heels", "Going too slow"],
       "modifications": {"easier": "Slower pace or march in place", "harder": "Increase speed or add hop"}
+    },
+    {
+      "exerciseId": "wall_sit",
+      "name": "Wall Sit",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Quads"],
+      "secondaryMuscles": ["Glutes", "Core"],
+      "gifUrl": "https://media.giphy.com/media/wiRXDJkS5rcMQ2oSJG/giphy.gif",
+      "instructions": ["Stand with back against wall", "Slide down until thighs are parallel to floor", "Keep knees at 90-degree angle", "Hold position for desired time", "Keep core engaged throughout"],
+      "tips": ["Keep back flat against wall", "Don't let knees go past toes", "Breathe steadily", "Start with shorter holds"],
+      "commonMistakes": ["Knees going past toes", "Not going low enough", "Arching back", "Holding breath"],
+      "modifications": {"easier": "Higher position or shorter hold", "harder": "Single leg or longer hold"}
+    },
+    {
+      "exerciseId": "full_burpees",
+      "name": "Full Burpees",
+      "category": "cardio",
+      "difficulty": "advanced",
+      "equipment": "none",
+      "primaryMuscles": ["Full Body"],
+      "secondaryMuscles": ["Chest", "Legs", "Core", "Shoulders"],
+      "gifUrl": "https://media.giphy.com/media/1n59T3BEQ0Q8IJHZQx/giphy.gif",
+      "instructions": ["Start standing", "Drop into squat, hands on floor", "Jump feet back to plank", "Do a push-up", "Jump feet back to squat", "Explosively jump up with arms overhead"],
+      "tips": ["Land softly on jumps", "Keep core engaged", "Full push-up form", "Explosive jump at end"],
+      "commonMistakes": ["Sagging hips in plank", "Poor push-up form", "Landing too hard", "Skipping the jump"],
+      "modifications": {"easier": "Modified burpees or step instead of jump", "harder": "Add tuck jump or clap"}
+    },
+    {
+      "exerciseId": "incline_pushups",
+      "name": "Incline Push-ups",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Triceps"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://media.giphy.com/media/jreuot7vthU2Abum4t/giphy.gif",
+      "instructions": ["Place hands on elevated surface", "Walk feet back to plank position", "Lower chest toward surface", "Push back up to starting position", "Keep body in straight line"],
+      "tips": ["Higher surface = easier", "Keep core engaged", "Full range of motion", "Control the movement"],
+      "commonMistakes": ["Sagging hips", "Not going low enough", "Flaring elbows too wide", "Using momentum"],
+      "modifications": {"easier": "Higher surface like wall", "harder": "Lower surface or standard push-ups"}
+    },
+    {
+      "exerciseId": "tricep_dips",
+      "name": "Tricep Dips",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Triceps"],
+      "secondaryMuscles": ["Shoulders", "Chest"],
+      "gifUrl": "https://media.giphy.com/media/4zIMiq61O8M2ZBxfRv/giphy.gif",
+      "instructions": ["Sit on edge of chair or bench", "Place hands beside hips", "Slide forward off edge", "Lower body by bending elbows", "Push back up to starting position"],
+      "tips": ["Keep elbows close to body", "Don't go too low", "Keep core engaged", "Control the movement"],
+      "commonMistakes": ["Elbows flaring out", "Going too low", "Using legs too much", "Rushing the movement"],
+      "modifications": {"easier": "Bend knees or use legs for assist", "harder": "Straight legs or elevate feet"}
+    },
+    {
+      "exerciseId": "wall_pushups",
+      "name": "Wall Push-ups",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Triceps"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://media.giphy.com/media/2yuPBGrg5DagENk59X/giphy.gif",
+      "instructions": ["Stand arm's length from wall", "Place palms flat against wall", "Lean forward and push back", "Keep body straight", "Control the movement"],
+      "tips": ["Keep feet planted", "Full range of motion", "Don't let hips sag", "Start close to wall"],
+      "commonMistakes": ["Standing too close", "Not leaning enough", "Poor body alignment", "Using momentum"],
+      "modifications": {"easier": "Stand closer to wall", "harder": "Stand further back or incline push-ups"}
     }
   ]
 }
