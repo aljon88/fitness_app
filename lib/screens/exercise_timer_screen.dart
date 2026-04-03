@@ -330,6 +330,36 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                                 ),
                               ),
                             ),
+                          // Pause overlay - shows when timer is paused
+                          if (_isPaused && gifUrl != null)
+                            Positioned.fill(
+                              child: Container(
+                                color: Colors.black.withOpacity(0.7),
+                                child: Center(
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.9),
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          blurRadius: 20,
+                                          spreadRadius: 5,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Icon(
+                                      Icons.pause_rounded,
+                                      size: 60,
+                                      color: Color(0xFF007AFF),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                              ),
+                            ),
                           // Fallback placeholder if no video
                           if (gifUrl == null)
                             Positioned.fill(child: _buildDemoPlaceholder()),
