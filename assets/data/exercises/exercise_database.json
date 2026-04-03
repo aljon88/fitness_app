@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-03-31",
-  "totalExercises": 12,
+  "totalExercises": 17,
   "exercises": [
     {
       "exerciseId": "jumping_jacks",
@@ -399,6 +399,76 @@
         "easier": "Reduce range of motion",
         "harder": "Single-leg bridges or add a pause at top"
       }
+    },
+    {
+      "exerciseId": "jump_squats",
+      "name": "Jump Squats",
+      "category": "cardio",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Calves", "Core"],
+      "gifUrl": "https://media.giphy.com/media/xU1ryd1OkMzbh9VwDR/giphy.gif",
+      "instructions": ["Stand with feet shoulder-width apart", "Lower into a squat position", "Explosively jump up as high as possible", "Land softly and immediately go into next squat", "Maintain control throughout the movement"],
+      "tips": ["Land softly on balls of feet", "Keep chest up during squat", "Use arms for momentum", "Start with lower jumps"],
+      "commonMistakes": ["Landing too hard", "Not squatting deep enough", "Losing balance on landing", "Going too fast"],
+      "modifications": {"easier": "Regular bodyweight squats", "harder": "Add tuck jump or 180-degree turn"}
+    },
+    {
+      "exerciseId": "calf_raises",
+      "name": "Calf Raises",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Calves"],
+      "secondaryMuscles": ["Ankles"],
+      "gifUrl": "https://media.giphy.com/media/ehL7WCDG3cR4YjfMlX/giphy.gif",
+      "instructions": ["Stand with feet hip-width apart", "Rise up onto balls of feet", "Squeeze calf muscles at the top", "Lower back down with control", "Repeat for desired reps"],
+      "tips": ["Full range of motion", "Squeeze at the top", "Control the descent", "Keep core engaged"],
+      "commonMistakes": ["Bouncing at bottom", "Not going full range", "Using momentum", "Leaning forward"],
+      "modifications": {"easier": "Hold wall for balance", "harder": "Single-leg calf raises"}
+    },
+    {
+      "exerciseId": "modified_burpees",
+      "name": "Modified Burpees",
+      "category": "cardio",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Full Body"],
+      "secondaryMuscles": ["Chest", "Legs", "Core"],
+      "gifUrl": "https://media.giphy.com/media/PRqqGrAiGv4VW/giphy.gif",
+      "instructions": ["Start standing", "Squat down and place hands on floor", "Step back into plank position", "Step feet back to squat", "Stand up (no jump)"],
+      "tips": ["Step instead of jumping", "Keep core engaged", "Maintain good plank form", "Move at your own pace"],
+      "commonMistakes": ["Sagging hips in plank", "Moving too fast", "Poor squat form", "Not engaging core"],
+      "modifications": {"easier": "Remove plank hold", "harder": "Add push-up or jump"}
+    },
+    {
+      "exerciseId": "bicycle_crunches",
+      "name": "Bicycle Crunches",
+      "category": "core",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Abs", "Obliques"],
+      "secondaryMuscles": ["Hip Flexors"],
+      "gifUrl": "https://media.giphy.com/media/7NIJw5g5JZjDNVLCWv/giphy.gif",
+      "instructions": ["Lie on back with hands behind head", "Lift shoulders off ground", "Bring right elbow to left knee", "Switch sides in cycling motion", "Keep core engaged throughout"],
+      "tips": ["Don't pull on neck", "Focus on oblique contraction", "Keep lower back pressed down", "Control the movement"],
+      "commonMistakes": ["Pulling on neck", "Going too fast", "Not engaging obliques", "Lifting lower back"],
+      "modifications": {"easier": "Regular crunches", "harder": "Add pause at each side"}
+    },
+    {
+      "exerciseId": "butt_kicks",
+      "name": "Butt Kicks",
+      "category": "cardio",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Hamstrings", "Glutes"],
+      "secondaryMuscles": ["Calves", "Core"],
+      "gifUrl": "https://media.giphy.com/media/hp3PGxGMODVQnULnqz/giphy.gif",
+      "instructions": ["Stand with feet hip-width apart", "Jog in place while kicking heels to glutes", "Alternate legs quickly", "Pump arms in running motion", "Maintain upright posture"],
+      "tips": ["Kick heels high to glutes", "Stay on balls of feet", "Keep core engaged", "Maintain rhythm"],
+      "commonMistakes": ["Not kicking high enough", "Leaning forward", "Landing on heels", "Going too slow"],
+      "modifications": {"easier": "Slower pace or march in place", "harder": "Increase speed or add hop"}
     }
   ]
 }
