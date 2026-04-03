@@ -67,8 +67,11 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     showDialog(
       context: context,
       barrierDismissible: false,
+      barrierColor: Colors.black.withOpacity(0.8), // Solid overlay instead of blur
       builder: (context) => Dialog(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 24,
         child: Padding(
           padding: EdgeInsets.all(32),
           child: Column(
@@ -79,6 +82,7 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w900,
+                  color: Color(0xFF1A1A1A),
                 ),
               ),
               SizedBox(height: 8),
@@ -87,31 +91,50 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
+                  color: Color(0xFF1A1A1A),
                 ),
               ),
               SizedBox(height: 24),
               Text(
                 'You have finished $progress%',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[700],
+                ),
               ),
               Text(
                 'Only $remaining exercises left',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.blue,
+                  color: Color(0xFF007AFF),
                   fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(height: 32),
-              SizedBox(
+              Container(
                 width: double.infinity,
+                height: 56,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF007AFF), Color(0xFF0051D5)],
+                  ),
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xFF007AFF).withOpacity(0.3),
+                      blurRadius: 12,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    shadowColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(16),
                     ),
                   ),
                   child: Text(
@@ -119,7 +142,6 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w700,
-                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -132,21 +154,29 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                     _currentPhase = WorkoutPhase.ready;
                   });
                 },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
                 child: Text(
                   'Restart this exercise',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[700],
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
               TextButton(
                 onPressed: () => _showQuitDialog(),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
                 child: Text(
                   'Quit',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[500],
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
@@ -162,8 +192,11 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     
     showDialog(
       context: context,
+      barrierColor: Colors.black.withOpacity(0.8), // Solid overlay instead of blur
       builder: (context) => Dialog(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 24,
         child: Padding(
           padding: EdgeInsets.all(32),
           child: Column(
@@ -174,6 +207,7 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
+                  color: Color(0xFF1A1A1A),
                 ),
               ),
               SizedBox(height: 8),
@@ -196,8 +230,38 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                   Navigator.pop(context);
                   Navigator.pop(context);
                 },
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
                 child: Text(
                   'Quit',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                ),
+                child: Text(
+                  'Feedback',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Color(0xFF007AFF),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[500],
@@ -238,13 +302,18 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          side: BorderSide(color: Colors.grey[300]!),
+          side: BorderSide(
+            color: Colors.grey[300]!,
+            width: 1.5,
+          ),
+          backgroundColor: Colors.grey[50],
         ),
         child: Text(
           text,
           style: TextStyle(
             fontSize: 16,
-            color: Colors.black87,
+            color: Color(0xFF1A1A1A),
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
@@ -256,20 +325,35 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     showDialog(
       context: context,
       barrierDismissible: false,
+      barrierColor: Colors.black.withOpacity(0.8), // Solid overlay instead of blur
       builder: (context) => Dialog(
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        elevation: 24,
         child: Padding(
           padding: EdgeInsets.all(32),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.check_circle, color: Colors.green, size: 80),
-              SizedBox(height: 16),
+              Container(
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.green.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.check_circle_rounded, 
+                  color: Colors.green, 
+                  size: 64
+                ),
+              ),
+              SizedBox(height: 24),
               Text(
                 'Workout Complete!',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
+                  color: Color(0xFF1A1A1A),
                 ),
               ),
               SizedBox(height: 8),
@@ -279,6 +363,8 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],
+                ),
+              ),
                 ),
               ),
               SizedBox(height: 24),
