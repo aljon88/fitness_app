@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-03-31",
-  "totalExercises": 27,
+  "totalExercises": 32,
   "exercises": [
     {
       "exerciseId": "jumping_jacks",
@@ -703,6 +703,171 @@
       "modifications": {
         "easier": "Lift only arms, keep chest down",
         "harder": "Hold longer or add light weights"
+      }
+    },
+    {
+      "exerciseId": "decline_pushups",
+      "name": "Decline Push-ups",
+      "category": "strength",
+      "difficulty": "advanced",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Shoulders"],
+      "secondaryMuscles": ["Triceps", "Core"],
+      "gifUrl": "https://media.giphy.com/media/7zuAQ6ebll6maa2rBF/giphy.gif",
+      "instructions": [
+        "Place feet on elevated surface (couch, chair, or step)",
+        "Get into push-up position with hands on floor",
+        "Keep body in straight line from head to heels",
+        "Lower chest toward floor by bending elbows",
+        "Push back up to starting position"
+      ],
+      "tips": [
+        "Keep core tight throughout movement",
+        "Don't let hips sag or pike up",
+        "Control the descent",
+        "Full range of motion"
+      ],
+      "commonMistakes": [
+        "Hips sagging or piking",
+        "Not going low enough",
+        "Elbows flaring too wide",
+        "Using momentum"
+      ],
+      "modifications": {
+        "easier": "Lower elevation or standard push-ups",
+        "harder": "Higher elevation or single-arm variations"
+      }
+    },
+    {
+      "exerciseId": "diamond_pushups",
+      "name": "Diamond Push-ups",
+      "category": "strength",
+      "difficulty": "advanced",
+      "equipment": "none",
+      "primaryMuscles": ["Triceps", "Chest"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://media.giphy.com/media/tsTsgT7v6wy5hYXI9U/giphy.gif",
+      "instructions": [
+        "Start in push-up position",
+        "Place hands close together forming diamond shape with thumbs and index fingers",
+        "Keep body in straight line",
+        "Lower chest toward hands",
+        "Push back up to starting position"
+      ],
+      "tips": [
+        "Keep elbows close to body",
+        "Maintain straight body line",
+        "Focus on tricep engagement",
+        "Control the movement"
+      ],
+      "commonMistakes": [
+        "Elbows flaring out",
+        "Hips sagging",
+        "Not going low enough",
+        "Hands too far apart"
+      ],
+      "modifications": {
+        "easier": "Knee diamond push-ups or close-grip push-ups",
+        "harder": "Feet elevated or single-arm"
+      }
+    },
+    {
+      "exerciseId": "single_leg_calf_raises",
+      "name": "Single Leg Calf Raises",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Calves"],
+      "secondaryMuscles": ["Ankles", "Core"],
+      "gifUrl": "https://media.giphy.com/media/84pS8gQ9eM4nhjmJAF/giphy.gif",
+      "instructions": [
+        "Stand on one foot with other foot lifted behind you",
+        "Hold wall or chair for balance if needed",
+        "Rise up onto ball of standing foot",
+        "Squeeze calf muscle at the top",
+        "Lower back down with control"
+      ],
+      "tips": [
+        "Full range of motion",
+        "Squeeze hard at the top",
+        "Control the descent",
+        "Keep core engaged for balance"
+      ],
+      "commonMistakes": [
+        "Using other leg for support",
+        "Not going full range",
+        "Bouncing at bottom",
+        "Losing balance"
+      ],
+      "modifications": {
+        "easier": "Hold wall for balance or both legs",
+        "harder": "No support or add weight"
+      }
+    },
+    {
+      "exerciseId": "plyometric_pushups",
+      "name": "Plyometric Push-ups",
+      "category": "cardio",
+      "difficulty": "advanced",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Triceps"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://media.giphy.com/media/k454B43cZ4rHL8d5cu/giphy.gif",
+      "instructions": [
+        "Start in push-up position",
+        "Lower chest toward floor",
+        "Explosively push up so hands leave ground",
+        "Land softly and immediately go into next rep",
+        "Maintain control throughout"
+      ],
+      "tips": [
+        "Land softly to protect wrists",
+        "Keep core engaged",
+        "Start with small hops",
+        "Quality over quantity"
+      ],
+      "commonMistakes": [
+        "Landing too hard",
+        "Not going low enough on descent",
+        "Losing form for speed",
+        "Hips sagging"
+      ],
+      "modifications": {
+        "easier": "Incline plyometric push-ups or clap push-ups",
+        "harder": "Single-arm or higher jumps"
+      }
+    },
+    {
+      "exerciseId": "box_jumps",
+      "name": "Box Jumps",
+      "category": "cardio",
+      "difficulty": "intermediate",
+      "equipment": "box/platform",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Calves", "Core"],
+      "gifUrl": "https://media.giphy.com/media/YR32RQy8J95zVg0iGE/giphy.gif",
+      "instructions": [
+        "Stand facing a sturdy box or platform",
+        "Bend knees and swing arms back",
+        "Jump explosively onto the box",
+        "Land softly with both feet on box",
+        "Step down carefully or jump down"
+      ],
+      "tips": [
+        "Start with lower box height",
+        "Land softly on balls of feet",
+        "Use arms for momentum",
+        "Step down to reduce impact"
+      ],
+      "commonMistakes": [
+        "Box too high for skill level",
+        "Landing too hard",
+        "Not using arms",
+        "Jumping down instead of stepping"
+      ],
+      "modifications": {
+        "easier": "Lower box or step-ups",
+        "harder": "Higher box or single-leg jumps"
       }
     }
   ]
