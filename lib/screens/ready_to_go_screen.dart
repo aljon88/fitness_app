@@ -60,29 +60,53 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            // Background demo video/GIF with overlay
+            // Professional demo video display
             Positioned.fill(
               child: Stack(
                 children: [
-                  gifUrl != null
-                      ? Image.network(
-                          gifUrl,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return _buildDemoPlaceholder();
-                          },
-                        )
-                      : _buildDemoPlaceholder(),
-                  // Gradient overlay for better text readability
+                  // Dark background
+                  Container(
+                    color: Color(0xFF0A0A0A),
+                  ),
+                  // Centered demo video with proper aspect ratio
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            blurRadius: 20,
+                            spreadRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: gifUrl != null
+                            ? Image.network(
+                                gifUrl,
+                                fit: BoxFit.contain, // Changed from cover to contain
+                                errorBuilder: (context, error, stackTrace) {
+                                  return _buildDemoPlaceholder();
+                                },
+                              )
+                            : _buildDemoPlaceholder(),
+                      ),
+                    ),
+                  ),
+                  // Subtle gradient overlay for better text readability
                   Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.black.withOpacity(0.7),
+                          Colors.black.withOpacity(0.3),
+                          Colors.transparent,
                           Colors.black.withOpacity(0.4),
-                          Colors.black.withOpacity(0.7),
                         ],
                       ),
                     ),
@@ -311,12 +335,43 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
 
   Widget _buildDemoPlaceholder() {
     return Container(
-      color: Colors.grey[800],
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF2A2A2A),
+            Color(0xFF1A1A1A),
+          ],
+        ),
+        borderRadius: BorderRadius.circular(20),
+      ),
       child: Center(
-        child: Icon(
-          _getExerciseIcon(widget.exercise['name'] ?? ''),
-          size: 120,
-          color: Colors.white.withOpacity(0.3),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
+              ),
+              child: Icon(
+                _getExerciseIcon(widget.exercise['name'] ?? ''),
+                size: 60,
+                color: Colors.white.withOpacity(0.6),
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Demo Loading...',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.7),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );
