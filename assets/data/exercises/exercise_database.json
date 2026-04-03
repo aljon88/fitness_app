@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-03-31",
-  "totalExercises": 32,
+  "totalExercises": 37,
   "exercises": [
     {
       "exerciseId": "jumping_jacks",
@@ -868,6 +868,171 @@
       "modifications": {
         "easier": "Lower box or step-ups",
         "harder": "Higher box or single-leg jumps"
+      }
+    },
+    {
+      "exerciseId": "side_planks",
+      "name": "Side Planks",
+      "category": "core",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Obliques", "Core"],
+      "secondaryMuscles": ["Shoulders", "Glutes"],
+      "gifUrl": "https://media.giphy.com/media/4tyhiizu4TdlK/giphy.gif",
+      "instructions": [
+        "Lie on your side with elbow directly under shoulder",
+        "Stack your feet and legs on top of each other",
+        "Lift your hips off the ground creating straight line",
+        "Hold this position while engaging core",
+        "Keep your head in neutral position"
+      ],
+      "tips": [
+        "Keep body in straight line",
+        "Don't let hips sag or pike",
+        "Engage obliques throughout",
+        "Breathe steadily during hold"
+      ],
+      "commonMistakes": [
+        "Hips sagging toward ground",
+        "Rolling forward or backward",
+        "Not engaging core",
+        "Holding breath"
+      ],
+      "modifications": {
+        "easier": "Drop to knees or lean against wall",
+        "harder": "Lift top leg or add arm movements"
+      }
+    },
+    {
+      "exerciseId": "russian_twists",
+      "name": "Russian Twists",
+      "category": "core",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Obliques", "Abs"],
+      "secondaryMuscles": ["Hip Flexors"],
+      "gifUrl": "https://media.giphy.com/media/DfeEVAQlxq2oWfq5f5/giphy.gif",
+      "instructions": [
+        "Sit with knees bent and feet slightly off ground",
+        "Lean back to create V-shape with torso and thighs",
+        "Clasp hands together in front of chest",
+        "Rotate torso side to side touching ground",
+        "Keep core engaged throughout movement"
+      ],
+      "tips": [
+        "Keep chest up and shoulders back",
+        "Control the rotation",
+        "Don't rush the movement",
+        "Keep feet off ground if possible"
+      ],
+      "commonMistakes": [
+        "Moving too fast",
+        "Not rotating from core",
+        "Feet touching ground for support",
+        "Rounding shoulders forward"
+      ],
+      "modifications": {
+        "easier": "Keep feet on ground or hold wall",
+        "harder": "Hold weight or medicine ball"
+      }
+    },
+    {
+      "exerciseId": "dead_bugs",
+      "name": "Dead Bugs",
+      "category": "core",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Abs"],
+      "secondaryMuscles": ["Hip Flexors"],
+      "gifUrl": "https://media.giphy.com/media/Rih75Cs5BrWhdJIGmu/giphy.gif",
+      "instructions": [
+        "Lie on back with arms extended toward ceiling",
+        "Lift knees to 90-degree angle",
+        "Slowly lower opposite arm and leg toward floor",
+        "Return to starting position with control",
+        "Alternate sides while keeping core engaged"
+      ],
+      "tips": [
+        "Keep lower back pressed to floor",
+        "Move slowly and controlled",
+        "Don't let limbs touch the ground",
+        "Breathe steadily throughout"
+      ],
+      "commonMistakes": [
+        "Lower back arching off floor",
+        "Moving too fast",
+        "Not engaging core",
+        "Letting limbs drop to floor"
+      ],
+      "modifications": {
+        "easier": "Move only arms or only legs",
+        "harder": "Hold longer or add resistance"
+      }
+    },
+    {
+      "exerciseId": "bird_dogs",
+      "name": "Bird Dogs",
+      "category": "core",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Lower Back"],
+      "secondaryMuscles": ["Glutes", "Shoulders"],
+      "gifUrl": "https://media.giphy.com/media/dZ8TmzFGtr1UP9mZWI/giphy.gif",
+      "instructions": [
+        "Start on hands and knees in tabletop position",
+        "Extend opposite arm and leg simultaneously",
+        "Hold for a moment while maintaining balance",
+        "Return to starting position with control",
+        "Alternate sides keeping core engaged"
+      ],
+      "tips": [
+        "Keep hips level and square",
+        "Don't arch your back",
+        "Extend limbs fully",
+        "Focus on balance and control"
+      ],
+      "commonMistakes": [
+        "Hips rotating or tilting",
+        "Arching lower back",
+        "Not extending limbs fully",
+        "Moving too fast"
+      ],
+      "modifications": {
+        "easier": "Lift only arm or only leg",
+        "harder": "Hold longer or add resistance bands"
+      }
+    },
+    {
+      "exerciseId": "hollow_body_holds",
+      "name": "Hollow Body Holds",
+      "category": "core",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Abs", "Core"],
+      "secondaryMuscles": ["Hip Flexors"],
+      "gifUrl": "https://media.giphy.com/media/CjUGIT1eqYJNc27Jdo/giphy.gif",
+      "instructions": [
+        "Lie on back with arms extended overhead",
+        "Press lower back into floor",
+        "Lift shoulders and legs off ground",
+        "Create hollow shape with your body",
+        "Hold position while breathing steadily"
+      ],
+      "tips": [
+        "Keep lower back pressed to floor",
+        "Don't hold your breath",
+        "Start with shorter holds",
+        "Focus on core engagement"
+      ],
+      "commonMistakes": [
+        "Lower back lifting off floor",
+        "Holding breath",
+        "Not engaging core fully",
+        "Lifting too high"
+      ],
+      "modifications": {
+        "easier": "Bend knees or keep arms at sides",
+        "harder": "Rock back and forth or hold longer"
       }
     }
   ]
