@@ -358,8 +358,6 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                                 ),
                               ),
                             ),
-                              ),
-                            ),
                           // Fallback placeholder if no video
                           if (gifUrl == null)
                             Positioned.fill(child: _buildDemoPlaceholder()),
