@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../services/sound_service.dart';
 
 class ExerciseTimerScreen extends StatefulWidget {
   final Map<String, dynamic> exercise;
@@ -97,17 +98,21 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
       _currentSet++;
       if (_currentSet <= _totalSets) {
         _calculateSetDuration();
+        SoundService().playBeep(); // Play beep when rest ends
         _startSet();
       } else {
         // All sets complete, move to next exercise
+        SoundService().playSetComplete(); // Play set complete sound
         widget.onComplete();
       }
     } else {
       // Set complete, start rest (unless it's the last set)
       if (_currentSet < _totalSets) {
+        SoundService().playRestStart(); // Play rest start sound
         _startRest();
       } else {
         // Last set complete, move to next exercise
+        SoundService().playSetComplete(); // Play set complete sound
         widget.onComplete();
       }
     }

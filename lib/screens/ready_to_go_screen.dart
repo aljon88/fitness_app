@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../services/sound_service.dart';
 
 class ReadyToGoScreen extends StatefulWidget {
   final Map<String, dynamic> exercise;
@@ -34,10 +35,15 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_countdown > 1) {
         setState(() => _countdown--);
+        // Play countdown beep for last 3 seconds
+        if (_countdown <= 3) {
+          SoundService().playBeep();
+        }
       } else {
         timer.cancel();
         if (!_autoStarted) {
           _autoStarted = true;
+          SoundService().playWorkoutStart(); // Play workout start sound
           widget.onStart();
         }
       }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'ready_to_go_screen.dart';
 import 'exercise_timer_screen.dart';
 import 'rest_screen.dart';
+import '../services/sound_service.dart';
 
 class WorkoutSessionController extends StatefulWidget {
   final List<Map<String, dynamic>> exercises;
@@ -297,6 +298,9 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
   }
 
   void _completeWorkout() {
+    // Play workout completion sound
+    SoundService().playWorkoutComplete();
+    
     showDialog(
       context: context,
       barrierDismissible: false,

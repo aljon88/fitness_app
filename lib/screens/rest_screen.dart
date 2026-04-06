@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import '../services/sound_service.dart';
 
 class RestScreen extends StatefulWidget {
   final Map<String, dynamic>? nextExercise;
@@ -38,8 +39,13 @@ class _RestScreenState extends State<RestScreen> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_secondsRemaining > 1) {
         setState(() => _secondsRemaining--);
+        // Play countdown beep for last 3 seconds
+        if (_secondsRemaining <= 3) {
+          SoundService().playBeep();
+        }
       } else {
         timer.cancel();
+        SoundService().playBeep(); // Play final beep when rest ends
         widget.onRestComplete();
       }
     });

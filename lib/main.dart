@@ -6,6 +6,7 @@ import 'screens/auth_screen.dart';
 import 'screens/landing_screen.dart';
 import 'services/navigation_service.dart';
 import 'services/app_initialization_service.dart'; // Changed from firebase version
+import 'services/sound_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,9 @@ void main() async {
     print('Firebase initialization failed: $e');
     print('Continuing with local storage only...');
   }
+  
+  // Initialize Sound Service
+  await SoundService().initialize();
   
   runApp(AIFitnessApp());
 }
