@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'ready_to_go_screen.dart';
 import 'exercise_timer_screen.dart';
 import 'rest_screen.dart';
+import 'workout_journal_screen.dart';
 import '../services/sound_service.dart';
 
 class WorkoutSessionController extends StatefulWidget {
@@ -298,96 +299,37 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
   }
 
   void _completeWorkout() {
-    // Play workout completion sound
-    SoundService().playWorkoutComplete();
+    // Professional workout completion sequence
+    SoundService().playWorkoutCompleteSequence();
     
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      barrierColor: Colors.black.withOpacity(0.8),
-      builder: (context) => Dialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        elevation: 24,
-        child: Padding(
-          padding: EdgeInsets.all(32),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.green.withOpacity(0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  Icons.check_circle_rounded, 
-                  color: Colors.green, 
-                  size: 64
-                ),
-              ),
-              SizedBox(height: 24),
-              Text(
-                'Workout Complete!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
-                  color: Color(0xFF1A1A1A),
-                ),
-              ),
-              SizedBox(height: 8),
-              Text(
-                'Great job! You completed all exercises.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
-              ),
-              SizedBox(height: 32),
-              Container(
-                width: double.infinity,
-                height: 56,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.green, Colors.green[700]!],
-                  ),
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.green.withOpacity(0.3),
-                      blurRadius: 12,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    widget.onWorkoutCompleted();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    foregroundColor: Colors.white,
-                    shadowColor: Colors.transparent,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: Text(
-                    'Finish Workout',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+    // Navigate to workout journal
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WorkoutJournalScreen(
+          workoutType: widget.workoutProgram,
+          duration: _getTotalWorkoutDuration(),
+          exercisesCompleted: _exercises.map((e) => e['name'] as String).toList(),
+          totalExercises: _exercises.length,
         ),
       ),
     );
+  }
+
+  int _getTotalWorkoutDuration() {
+    // Calculate total workout duration in seconds
+    // This is a simple estimation - you might want to track actual time
+    int totalDuration = 0;
+    
+    for (var exercise in _exercises) {
+      final sets = exercise['sets'] ?? 1;
+      final duration = exercise['duration'] ?? 30;
+      final rest = exercise['rest'] ?? 30;
+      
+      totalDuration += (duration * sets) + (rest * (sets - 1));
+    }
+    
+    return totalDuration;
   }
 
   @override
@@ -418,7 +360,7 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
           nextExercise: nextExercise!,
           nextExerciseIndex: _currentExerciseIndex + 1,
           totalExercises: _exercises.length,
-          restDuration: 30,
+          restDuration: currentExercise['rest'] ?? 30,
           onRestComplete: _moveToNextPhase,
           onSkip: _skipRest,
         );

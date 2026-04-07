@@ -640,7 +640,7 @@ class _ImprovedActiveWorkoutScreenState extends State<ImprovedActiveWorkoutScree
         restTimeRemaining = 10; // 10 seconds rest between exercises
       });
       
-      _soundService.playSound(SoundService.restStart);
+      _soundService.playRestStart();
       
       restTimer = Timer.periodic(Duration(seconds: 1), (timer) {
         setState(() {
@@ -725,7 +725,7 @@ class _ImprovedActiveWorkoutScreenState extends State<ImprovedActiveWorkoutScree
     
     await WorkoutHistoryService().saveWorkout(history);
     
-    _soundService.playSound(SoundService.workoutComplete);
+    _soundService.playWorkoutComplete();
     
     if (mounted) {
       Navigator.pushReplacement(

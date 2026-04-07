@@ -35,15 +35,15 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_countdown > 1) {
         setState(() => _countdown--);
-        // Play countdown beep for last 3 seconds
+        // Professional countdown beeps for last 3 seconds
         if (_countdown <= 3) {
-          SoundService().playBeep();
+          SoundService().playCountdown();
         }
       } else {
         timer.cancel();
         if (!_autoStarted) {
           _autoStarted = true;
-          SoundService().playWorkoutStart(); // Play workout start sound
+          SoundService().playWorkoutStart(); // Epic workout start
           widget.onStart();
         }
       }
@@ -309,8 +309,12 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
                   ],
                 ),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     _timer?.cancel();
+                    // Test sound before starting
+                    await SoundService().testSound();
+                    await Future.delayed(Duration(milliseconds: 500));
+                    await SoundService().playWorkoutStart();
                     widget.onStart();
                   },
                   style: ElevatedButton.styleFrom(

@@ -98,14 +98,14 @@ class _TimerWorkoutScreenState extends State<TimerWorkoutScreen> {
       _currentReps++;
     });
 
-    // Play rep complete sound
-    await _soundService.playSound(SoundService.repComplete);
+    // Professional rep complete sequence
+    await SoundService().playRepSequence();
 
-    // Check for halfway point
+    // Check for halfway point with motivational boost
     if (_currentReps == (widget.targetReps / 2).ceil() && !_hasPlayedHalfwaySound) {
       _hasPlayedHalfwaySound = true;
-      await Future.delayed(Duration(milliseconds: 300));
-      await _soundService.playMotivation('Halfway there!');
+      await Future.delayed(Duration(milliseconds: 500));
+      await SoundService().playHalfwayBoost();
     }
 
     // Check if set is complete
@@ -149,10 +149,8 @@ class _TimerWorkoutScreenState extends State<TimerWorkoutScreen> {
   Future<void> _completeSet() async {
     _workoutTimer?.cancel();
     
-    // Play set complete sound
-    await _soundService.playSound(SoundService.setComplete);
-    await Future.delayed(Duration(milliseconds: 500));
-    await _soundService.playMotivation('Great job!');
+    // Professional set complete sequence
+    await SoundService().playSetCompleteSequence();
 
     // Return to previous screen with rep count
     if (mounted) {

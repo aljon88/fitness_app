@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../services/sound_service.dart';
 import '../widgets/muscle_diagram_widget.dart';
-import 'timer_workout_screen.dart';
+import 'exercise_timer_screen.dart';
 
 class PreWorkoutDemoScreen extends StatefulWidget {
   final Map<String, dynamic> exercise;
@@ -405,7 +405,7 @@ class _PreWorkoutDemoScreenState extends State<PreWorkoutDemoScreen> with Single
 
   Future<void> _startWorkout() async {
     // Play exciting start sound
-    await _soundService.playSound(SoundService.workoutStart);
+    await SoundService().playWorkoutStart();
     
     // Navigate to timer workout screen
     if (!mounted) return;
@@ -413,13 +413,17 @@ class _PreWorkoutDemoScreenState extends State<PreWorkoutDemoScreen> with Single
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => TimerWorkoutScreen(
+        builder: (context) => ExerciseTimerScreen(
           exercise: widget.exercise,
-          currentSet: widget.currentSet,
-          totalSets: widget.totalSets,
-          targetReps: widget.targetReps,
-          fitnessLevel: widget.fitnessLevel,
-          onSetComplete: widget.onSetComplete,
+          currentExerciseIndex: widget.currentSet - 1,
+          totalExercises: widget.totalSets,
+          onComplete: () {
+            Navigator.pop(context);
+            widget.onSetComplete(0); // Consistent with time-based approach
+          },
+          onPause: () {
+            // Handle pause if needed
+          },
         ),
       ),
     );

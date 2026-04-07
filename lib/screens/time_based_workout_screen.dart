@@ -58,7 +58,7 @@ class _TimeBasedWorkoutScreenState extends State<TimeBasedWorkoutScreen> {
 
       // Play beep sound on each countdown
       if (_readyCountdown > 0) {
-        _soundService.playSound(SoundService.beep);
+        SoundService().playBeep();
       }
 
       if (_readyCountdown <= 0) {
@@ -72,7 +72,7 @@ class _TimeBasedWorkoutScreenState extends State<TimeBasedWorkoutScreen> {
   }
 
   void _startExercise() {
-    _soundService.playSound(SoundService.workoutStart);
+    SoundService().playWorkoutStart();
     
     _countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (!_isPaused) {
@@ -83,12 +83,12 @@ class _TimeBasedWorkoutScreenState extends State<TimeBasedWorkoutScreen> {
 
         // Halfway motivation
         if (_secondsRemaining == (widget.duration / 2).ceil()) {
-          _soundService.playMotivation('Halfway there!');
+          SoundService().playBeep(); // Play motivational beep
         }
 
         // Last 3 seconds countdown beeps
         if (_secondsRemaining <= 3 && _secondsRemaining > 0) {
-          _soundService.playSound(SoundService.countdown);
+          SoundService().playCountdown();
         }
 
         // Exercise complete
@@ -107,9 +107,7 @@ class _TimeBasedWorkoutScreenState extends State<TimeBasedWorkoutScreen> {
   }
 
   Future<void> _completeSet() async {
-    await _soundService.playSound(SoundService.setComplete);
-    await Future.delayed(Duration(milliseconds: 300));
-    await _soundService.playMotivation('Great job!');
+    await _soundService.playSetCompleteSequence();
 
     if (mounted) {
       Navigator.pop(context);

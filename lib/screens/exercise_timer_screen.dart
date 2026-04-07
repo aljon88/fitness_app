@@ -41,19 +41,21 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
 
   void _initializeExercise() {
     _totalSets = widget.exercise['sets'] ?? 1;
-    _restSeconds = widget.exercise['rest'] ?? 30;
+    _restSeconds = widget.exercise['rest'] ?? 30; // Use actual rest time from program
     _calculateSetDuration();
   }
 
   void _calculateSetDuration() {
+    // Use actual program data for proper timing
     if (widget.exercise['duration'] != null) {
-      // Duration-based exercise (like plank)
+      // Duration-based exercise (like plank, high knees)
       _totalSeconds = widget.exercise['duration'] as int;
     } else if (widget.exercise['reps'] != null) {
       // Rep-based exercise - estimate 2 seconds per rep
       final reps = widget.exercise['reps'] as int;
       _totalSeconds = (reps * 2);
     } else {
+      // Fallback to 30 seconds if no data
       _totalSeconds = 30;
     }
   }
@@ -459,140 +461,50 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                   
                   SizedBox(height: 24),
                   
-                  // Main display: reps or timer
-                  if (_isResting)
-                    Container(
-                      padding: EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFFFF9500).withOpacity(0.15),
-                            Color(0xFFFF9500).withOpacity(0.05),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: Color(0xFFFF9500).withOpacity(0.3),
-                          width: 2,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.timer_outlined,
-                            size: 48,
-                            color: Color(0xFFFF9500),
-                          ),
-                          SizedBox(width: 16),
-                          Text(
-                            _formatTime(_totalSeconds - _secondsElapsed),
-                            style: TextStyle(
-                              fontSize: 64,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFFFF9500),
-                              height: 1.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  else if (_isRepBasedExercise())
-                    // CLEAN REP DISPLAY - Professional, compact design
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF007AFF).withOpacity(0.08),
-                            Color(0xFF007AFF).withOpacity(0.03),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: Color(0xFF007AFF).withOpacity(0.15),
-                          width: 1,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF007AFF).withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Icon(
-                              Icons.repeat_rounded,
-                              size: 18,
-                              color: Color(0xFF007AFF),
-                            ),
-                          ),
-                          SizedBox(width: 12),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${widget.exercise['reps']} reps',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
-                                  color: Color(0xFF007AFF),
-                                  height: 1.0,
-                                ),
-                              ),
-                              Text(
-                                'Complete at your pace',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF007AFF).withOpacity(0.6),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                  // CONSISTENT TIMER DISPLAY - Always show timer for all exercises
+                  Container(
+                    padding: EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: _isResting 
+                          ? [
+                              Color(0xFFFF9500).withOpacity(0.15),
+                              Color(0xFFFF9500).withOpacity(0.05),
+                            ]
+                          : [
+                              Color(0xFF007AFF).withOpacity(0.12),
+                              Color(0xFF007AFF).withOpacity(0.05),
                             ],
-                          ),
-                        ],
                       ),
-                    )
-                  else
-                    Container(
-                      padding: EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF007AFF).withOpacity(0.12),
-                            Color(0xFF007AFF).withOpacity(0.05),
-                          ],
-                        ),
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: Color(0xFF007AFF).withOpacity(0.3),
-                          width: 2,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.timer_outlined,
-                            size: 48,
-                            color: Color(0xFF007AFF),
-                          ),
-                          SizedBox(width: 16),
-                          Text(
-                            _formatTime(_totalSeconds - _secondsElapsed),
-                            style: TextStyle(
-                              fontSize: 64,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFF007AFF),
-                              height: 1.0,
-                            ),
-                          ),
-                        ],
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(
+                        color: _isResting 
+                          ? Color(0xFFFF9500).withOpacity(0.3)
+                          : Color(0xFF007AFF).withOpacity(0.3),
+                        width: 2,
                       ),
                     ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.timer_outlined,
+                          size: 48,
+                          color: _isResting ? Color(0xFFFF9500) : Color(0xFF007AFF),
+                        ),
+                        SizedBox(width: 16),
+                        Text(
+                          _formatTime(_totalSeconds - _secondsElapsed),
+                          style: TextStyle(
+                            fontSize: 64,
+                            fontWeight: FontWeight.w900,
+                            color: _isResting ? Color(0xFFFF9500) : Color(0xFF007AFF),
+                            height: 1.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   
                   SizedBox(height: 24),
                   
