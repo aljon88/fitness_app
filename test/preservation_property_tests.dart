@@ -11,16 +11,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ai_fitness_trainer/main.dart';
-import 'package:ai_fitness_trainer/screens/dashboard_screen.dart';
-// import 'package:ai_fitness_trainer/screens/camera_screen.dart'; // REMOVED - using timer workout system
-// import 'package:ai_fitness_trainer/screens/workout_session_screen.dart'; // REMOVED - using active_workout_screen
-import 'package:ai_fitness_trainer/screens/meal_plan_screen.dart';
-import 'package:ai_fitness_trainer/screens/auth_screen.dart';
-import 'package:ai_fitness_trainer/screens/onboarding_wizard_screen.dart';
-import 'package:ai_fitness_trainer/screens/workout_program_screen.dart';
-import 'package:ai_fitness_trainer/screens/workout_detail_screen.dart';
-// import 'package:ai_fitness_trainer/services/ai_exercise_tracker.dart'; // REMOVED - using timer workout system
+import 'package:fitness_app/main.dart';
+import 'package:fitness_app/screens/dashboard_screen.dart';
+import 'package:fitness_app/screens/meal_plan_screen.dart';
+import 'package:fitness_app/screens/auth_screen.dart';
+import 'package:fitness_app/screens/onboarding_wizard_screen.dart';
+import 'package:fitness_app/screens/calendar_screen.dart';
+import 'package:fitness_app/screens/workout_detail_screen.dart';
 import 'dart:math';
 
 void main() {
@@ -81,7 +78,7 @@ void main() {
         expect(find.byIcon(Icons.notifications_outlined), findsOneWidget);
         
         // Verify welcome section is displayed
-        expect(find.text('AI Fitness Journey'), findsOneWidget);
+        expect(find.text('Home Fitness Journey'), findsOneWidget);
         expect(find.textContaining('personalized 60-day'), findsOneWidget);
         
         // Verify quick stats cards are present
@@ -104,58 +101,11 @@ void main() {
         // Button should be responsive but not navigate (that's what we're testing)
       }
     });
-    /**
-     * Requirement 3.3: AI camera detection continues to provide real-time tracking
-     * Test that camera functionality and AI detection work correctly
-     */
+    /* CameraScreen is disabled - using active_workout_screen with timer system
     testWidgets('Camera screen AI detection functionality is preserved', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: CameraScreen(),
-      ));
-      
-      // Verify camera screen header
-      expect(find.text('AI Camera Trainer'), findsOneWidget);
-      expect(find.text('Real-time movement detection'), findsOneWidget);
-      
-      // Verify back button is present
-      expect(find.byIcon(Icons.arrow_back_ios_new), findsOneWidget);
-      
-      // Verify camera status indicator
-      expect(find.textContaining('Ready'), findsOneWidget);
-      
-      // Verify camera view container is present
-      expect(find.byType(Container), findsWidgets);
-      
-      // Verify rep counter is displayed
-      expect(find.textContaining('REPS'), findsOneWidget);
-      
-      // Verify exercise selector dropdown
-      expect(find.byType(DropdownButton<String>), findsOneWidget);
-      
-      // Verify control buttons are present
-      expect(find.text('Reset'), findsOneWidget);
-      expect(find.textContaining('Start Tracking'), findsOneWidget);
-      
-      // Test exercise selection functionality
-      await tester.tap(find.byType(DropdownButton<String>));
-      await tester.pumpAndSettle();
-      
-      // Verify exercise options are available
-      expect(find.text('Push-ups'), findsOneWidget);
-      expect(find.text('Squats'), findsOneWidget);
-      expect(find.text('Jumping Jacks'), findsOneWidget);
-      
-      // Select an exercise
-      await tester.tap(find.text('Squats').last);
-      await tester.pumpAndSettle();
-      
-      // Test reset button functionality
-      await tester.tap(find.text('Reset'));
-      await tester.pump();
-      
-      // Rep count should remain functional (testing UI responsiveness)
-      expect(find.textContaining('REPS'), findsOneWidget);
+      // Disabled test
     });
+    */
 
     /**
      * Requirement 3.2: Workout tracking, progress saving, and statistics continue to work
@@ -327,86 +277,17 @@ void main() {
       expect(find.byType(DropdownMenuItem), findsWidgets);
     });
 
-    /**
-     * Requirement 3.6: Exercise instructions, program details, and progression tracking
-     * Test that workout program and detail screens work correctly
-     */
+    /* WorkoutProgramScreen is disabled - replaced by CalendarScreen
     testWidgets('Workout program screen functionality is preserved', (WidgetTester tester) async {
-      final userProfiles = generateUserProfiles();
-      
-      for (final profile in userProfiles) {
-        await tester.pumpWidget(MaterialApp(
-          home: WorkoutProgramScreen(userProfile: profile),
-        ));
-        
-        // Verify program screen header
-        expect(find.text('60-Day Program'), findsOneWidget);
-        expect(find.textContaining('Beginner Friendly'), findsOneWidget);
-        
-        // Verify back button
-        expect(find.byIcon(Icons.arrow_back_ios_new), findsOneWidget);
-        
-        // Verify program overview
-        expect(find.text('Program Overview'), findsOneWidget);
-        expect(find.textContaining('structured workout plan'), findsOneWidget);
-        
-        // Verify workout days are displayed
-        expect(find.textContaining('Day 1'), findsOneWidget);
-        expect(find.textContaining('Push-ups'), findsOneWidget);
-        
-        // Verify progress indicators
-        expect(find.byType(LinearProgressIndicator), findsOneWidget);
-        
-        // Test day selection
-        await tester.tap(find.textContaining('Day 1'));
-        await tester.pumpAndSettle();
-        
-        // Should show workout details or navigate to workout
-        // This tests that the program navigation is preserved
-      }
+      // Disabled test
     });
+    */
 
-    /**
-     * Property-based test: AI Exercise Tracker functionality is preserved
-     * Test that the AI tracking service continues to work correctly
-     */
+    /* AIExerciseTracker is disabled - using active_workout_screen with timer system
     test('AI Exercise Tracker service functionality is preserved', () {
-      final tracker = AIExerciseTracker();
-      final exercises = ['Push-ups', 'Squats', 'Jumping Jacks', 'Plank'];
-      
-      for (final exercise in exercises) {
-        int repCount = 0;
-        FormFeedback? lastFeedback;
-        
-        // Test tracking initialization
-        tracker.startTracking(
-          exercise,
-          (reps) => repCount = reps,
-          onFormFeedback: (feedback) => lastFeedback = feedback,
-        );
-        
-        expect(tracker.isTracking, isTrue);
-        expect(tracker.currentExercise, equals(exercise));
-        
-        // Test rep counting simulation
-        for (int i = 0; i < 5; i++) {
-          tracker.addRep();
-          expect(repCount, equals(i + 1));
-        }
-        
-        // Test form feedback generation
-        expect(lastFeedback, isNotNull);
-        expect(tracker.getFormFeedbackMessage(lastFeedback!), isNotEmpty);
-        
-        // Test reset functionality
-        tracker.resetReps();
-        expect(repCount, equals(0));
-        
-        // Test stop tracking
-        tracker.stopTracking();
-        expect(tracker.isTracking, isFalse);
-      }
+      // Disabled test
     });
+    */
 
     /**
      * Property-based test: Data persistence patterns are preserved

@@ -114,14 +114,6 @@ class NavigationMiddleware {
         // Show confirmation dialog before exiting active workout
         return await _showWorkoutExitConfirmation();
       
-      case NavigationScreen.camera:
-        // If camera was opened from workout, return to workout session
-        if (_navigationService.currentState.arguments?['fromWorkout'] == true) {
-          await _navigationService.navigateTo(NavigationScreen.workoutSession);
-          return true;
-        }
-        break;
-      
       default:
         break;
     }
@@ -209,8 +201,6 @@ class NavigationMiddleware {
     switch (route) {
       case '/dashboard':
         return NavigationScreen.dashboard;
-      case '/camera':
-        return NavigationScreen.camera;
       case '/workouts':
         return NavigationScreen.workoutProgram;
       case '/meal-plan':

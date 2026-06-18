@@ -49,6 +49,7 @@ class RealTimeCalendarService {
 
   /// Get today's program day number (1-based)
   /// Returns 0 if program not started
+  /// Takes into account completed workouts to determine the next available day
   Future<int> getTodayProgramDay() async {
     final startDate = await getStartDate();
     if (startDate == null) return 0;
@@ -56,8 +57,25 @@ class RealTimeCalendarService {
     final today = _normalizeDate(DateTime.now());
     final start = _normalizeDate(startDate);
     final daysSinceStart = today.difference(start).inDays;
+    final calendarBasedDay = daysSinceStart + 1; // Day 1 = start date
     
-    return daysSinceStart + 1; // Day 1 = start date
+    // Get completed workout days to determine actual progression
+    final completedDays = await _getCompletedDaysFromHistory();
+    
+    // Find the next uncompleted day that should be available
+    // Start from the calendar-based day and work forward
+    for (int day = calendarBasedDay; day <= calendarBasedDay + 7; day++) {
+      if (!completedDays.contains(day)) {
+        // Check if this day's date has arrived (not in future)
+        DateTime dayDate = startDate.add(Duration(days: day - 1));
+        if (!dayDate.isAfter(_normalizeDate(DateTime.now()))) {
+          return day;
+        }
+      }
+    }
+    
+    // Fallback to calendar-based calculation
+    return calendarBasedDay;
   }
 
   /// Generate full calendar for the program
@@ -78,38 +96,129 @@ class RealTimeCalendarService {
 
     int totalDays = _programLoader.getProgramDurationDays(program);
     Map<String, Map<String, dynamic>> weeklySchedule = _programLoader.getWeeklySchedule(program);
+    
+    // Create ordered workout sequence (excluding rest days)
+    List<Map<String, dynamic>> workoutSequence = [];
+    List<String> workoutDays = [];
+    List<String> restDays = List<String>.from(program['schedule']['restDays'] ?? []);
+    
+    // Build workout sequence in weekly order
     List<String> daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    for (String dayOfWeek in daysOfWeek) {
+      if (!restDays.contains(dayOfWeek)) {
+        Map<String, dynamic>? workout = weeklySchedule[dayOfWeek];
+        if (workout != null) {
+          workoutSequence.add(workout);
+          workoutDays.add(dayOfWeek);
+        }
+      }
+    }
     
     List<Map<String, dynamic>> calendar = [];
     List<int> completedDays = await _getCompletedDaysFromHistory();
     int todayProgramDay = await getTodayProgramDay();
-
+    
+    // Pre-load unlocked workouts for this user
+    List<int> unlockedEarlyWorkouts = await _getUnlockedEarlyWorkouts();
+    
+    int workoutCounter = 0;
+    
     for (int day = 1; day <= totalDays; day++) {
       DateTime date = startDate.add(Duration(days: day - 1));
-      int weekdayIndex = date.weekday - 1; // 0=Mon, 6=Sun
-      String dayOfWeek = daysOfWeek[weekdayIndex];
       
-      Map<String, dynamic>? workout = weeklySchedule[dayOfWeek];
-      bool isRestDay = workout?['isRestDay'] ?? false;
+      // Determine if this program day should be a workout or rest day
+      // Use the weekly pattern but cycle through workouts sequentially
+      int weekPosition = (day - 1) % 7; // 0-6 position in week
+      String weekDayName = daysOfWeek[weekPosition];
+      
+      bool isRestDay = restDays.contains(weekDayName);
+      Map<String, dynamic> workoutData;
+      
+      if (isRestDay) {
+        workoutData = {
+          'name': 'REST',
+          'duration': 0,
+          'calories': 0,
+          'isRestDay': true,
+          'exercises': [],
+        };
+      } else {
+        // Get next workout from sequence
+        if (workoutSequence.isNotEmpty) {
+          int workoutIndex = workoutCounter % workoutSequence.length;
+          workoutData = Map<String, dynamic>.from(workoutSequence[workoutIndex]);
+          workoutData['isRestDay'] = false;
+          
+          // Ensure exercises are included from the program phases
+          if (!workoutData.containsKey('exercises') || workoutData['exercises'] == null) {
+            // Get exercises from the first phase for this workout
+            try {
+              Map<String, dynamic> firstPhase = program['phases'][0];
+              Map<String, dynamic> phaseWorkouts = Map<String, dynamic>.from(firstPhase['workouts']);
+              
+              // Find matching workout in phase by name
+              String workoutName = workoutData['name'];
+              for (String dayKey in phaseWorkouts.keys) {
+                Map<String, dynamic> phaseWorkout = phaseWorkouts[dayKey];
+                if (phaseWorkout['name'] == workoutName) {
+                  workoutData['exercises'] = phaseWorkout['exercises'] ?? [];
+                  break;
+                }
+              }
+            } catch (e) {
+              print('Warning: Could not load exercises for workout: $e');
+              workoutData['exercises'] = [];
+            }
+          }
+          
+          workoutCounter++;
+        } else {
+          workoutData = {
+            'name': 'Workout ${workoutCounter + 1}',
+            'duration': 30,
+            'calories': 150,
+            'isRestDay': false,
+            'exercises': [],
+          };
+          workoutCounter++;
+        }
+      }
+      
       bool isCompleted = completedDays.contains(day);
       bool isToday = day == todayProgramDay;
-      bool isPast = day < todayProgramDay;
-      bool isFuture = day > todayProgramDay;
+      bool isPast = day < todayProgramDay && !isCompleted; // Past but not completed
+      bool isFuture = day > todayProgramDay || (day > todayProgramDay && date.isAfter(_normalizeDate(DateTime.now())));
+
+      // Check if this workout was unlocked early
+      bool isUnlockedEarly = unlockedEarlyWorkouts.contains(day);
+
+      // A day is unlocked if:
+      // 1. It's not in the future (date-wise)
+      // 2. It's the current "today" day
+      // 3. It's already completed
+      // 4. It was unlocked early after completing previous workout
+      bool isUnlocked = !date.isAfter(_normalizeDate(DateTime.now())) || 
+                       isToday || 
+                       isCompleted || 
+                       (day < todayProgramDay) ||
+                       isUnlockedEarly;
 
       calendar.add({
         'programDay': day,
         'date': date,
         'dayOfWeek': _getDayName(date.weekday),
         'dayOfWeekShort': _getDayNameShort(date.weekday),
-        'workoutName': workout?['name'] ?? 'REST',
-        'duration': workout?['duration'] ?? 0,
-        'calories': workout?['calories'] ?? 0,
+        'workoutName': workoutData['name'] ?? 'Workout',
+        'duration': workoutData['duration'] ?? 0,
+        'calories': workoutData['calories'] ?? 0,
         'isRestDay': isRestDay,
         'isCompleted': isCompleted,
         'isToday': isToday,
         'isPast': isPast,
         'isFuture': isFuture,
-        'isUnlocked': !isFuture,
+        'isUnlocked': isUnlocked,
+        'exercises': workoutData['exercises'] ?? [],
+        'workoutData': workoutData, // Include full workout data
       });
     }
 
@@ -171,6 +280,72 @@ class RealTimeCalendarService {
     return fullCalendar
         .where((day) => day['programDay'] >= todayDay && day['programDay'] < todayDay + 7)
         .toList();
+  }
+
+  /// Get next available workout that can be rescheduled (helper for UI)
+  Future<Map<String, dynamic>?> getNextAvailableWorkout(
+    String primaryGoal,
+    String fitnessLevel,
+    int afterProgramDay,
+  ) async {
+    List<Map<String, dynamic>> calendar = await generateProgramCalendar(primaryGoal, fitnessLevel);
+    List<int> completedDays = await _getCompletedDaysFromHistory();
+    
+    for (var day in calendar) {
+      int programDay = day['programDay'];
+      bool isRestDay = day['isRestDay'] ?? false;
+      bool isCompleted = completedDays.contains(programDay);
+      
+      if (programDay > afterProgramDay && !isRestDay && !isCompleted) {
+        return day;
+      }
+    }
+    return null;
+  }
+
+  /// Check if a workout was unlocked early after completing previous workouts
+  Future<bool> _isWorkoutUnlockedEarly(int programDay) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return false;
+
+      String unlockedKey = '${user.uid}_unlocked_workouts';
+      List<String> unlockedWorkouts = prefs.getStringList(unlockedKey) ?? [];
+      
+      return unlockedWorkouts.contains('day_$programDay');
+    } catch (e) {
+      print('❌ Error checking unlocked workouts: $e');
+      return false;
+    }
+  }
+
+  /// Get all workouts that were unlocked early (for batch processing)
+  Future<List<int>> _getUnlockedEarlyWorkouts() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return [];
+
+      String unlockedKey = '${user.uid}_unlocked_workouts';
+      List<String> unlockedWorkouts = prefs.getStringList(unlockedKey) ?? [];
+      
+      // Convert from 'day_X' format to int list
+      List<int> unlockedDays = [];
+      for (String workoutKey in unlockedWorkouts) {
+        if (workoutKey.startsWith('day_')) {
+          int? dayNum = int.tryParse(workoutKey.substring(4));
+          if (dayNum != null) {
+            unlockedDays.add(dayNum);
+          }
+        }
+      }
+      
+      return unlockedDays;
+    } catch (e) {
+      print('❌ Error getting unlocked workouts: $e');
+      return [];
+    }
   }
 
   /// Reset program

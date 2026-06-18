@@ -76,7 +76,7 @@ class ExerciseDemoLoader {
           'commonMistakes': ['Rushing through reps', 'Poor form', 'Not breathing properly'],
           'primaryMuscles': exerciseMap['targetMuscles'] ?? [],
           'secondaryMuscles': [],
-          'gifUrl': 'https://via.placeholder.com/400x300?text=${Uri.encodeComponent(exerciseMap['name'] ?? 'Exercise')}',
+          'gifUrl': null, // Set to null instead of placeholder URL
           'category': 'general',
           'difficulty': level,
           'equipment': 'none',

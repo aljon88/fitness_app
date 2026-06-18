@@ -41,12 +41,19 @@ class MealDatabase {
     final goalKey = normalizeGoal(goal);
     final levelKey = fitnessLevel.toLowerCase();
     
-    if (!_mealCache.containsKey(goalKey) || !_mealCache[goalKey]!.containsKey(levelKey)) {
-      return [];
+    List<Meal> meals = [];
+    
+    // Try to get from cache first
+    if (_mealCache.containsKey(goalKey) && _mealCache[goalKey]!.containsKey(levelKey)) {
+      meals = _mealCache[goalKey]![levelKey]!['breakfast'] ?? [];
     }
     
-    final allMeals = _mealCache[goalKey]![levelKey]!['breakfast'] ?? [];
-    return _filterByAllergies(allMeals, userAllergies);
+    // Fallback to hardcoded meals if cache is empty
+    if (meals.isEmpty) {
+      meals = _getHardcodedBreakfast(levelKey);
+    }
+    
+    return _filterByAllergies(meals, userAllergies);
   }
 
   /// Get lunch options filtered by goal, fitness level, and allergies
@@ -54,12 +61,19 @@ class MealDatabase {
     final goalKey = normalizeGoal(goal);
     final levelKey = fitnessLevel.toLowerCase();
     
-    if (!_mealCache.containsKey(goalKey) || !_mealCache[goalKey]!.containsKey(levelKey)) {
-      return [];
+    List<Meal> meals = [];
+    
+    // Try to get from cache first
+    if (_mealCache.containsKey(goalKey) && _mealCache[goalKey]!.containsKey(levelKey)) {
+      meals = _mealCache[goalKey]![levelKey]!['lunch'] ?? [];
     }
     
-    final allMeals = _mealCache[goalKey]![levelKey]!['lunch'] ?? [];
-    return _filterByAllergies(allMeals, userAllergies);
+    // Fallback to hardcoded meals if cache is empty
+    if (meals.isEmpty) {
+      meals = _getHardcodedLunch(levelKey);
+    }
+    
+    return _filterByAllergies(meals, userAllergies);
   }
 
   /// Get dinner options filtered by goal, fitness level, and allergies
@@ -67,12 +81,19 @@ class MealDatabase {
     final goalKey = normalizeGoal(goal);
     final levelKey = fitnessLevel.toLowerCase();
     
-    if (!_mealCache.containsKey(goalKey) || !_mealCache[goalKey]!.containsKey(levelKey)) {
-      return [];
+    List<Meal> meals = [];
+    
+    // Try to get from cache first
+    if (_mealCache.containsKey(goalKey) && _mealCache[goalKey]!.containsKey(levelKey)) {
+      meals = _mealCache[goalKey]![levelKey]!['dinner'] ?? [];
     }
     
-    final allMeals = _mealCache[goalKey]![levelKey]!['dinner'] ?? [];
-    return _filterByAllergies(allMeals, userAllergies);
+    // Fallback to hardcoded meals if cache is empty
+    if (meals.isEmpty) {
+      meals = _getHardcodedDinner(levelKey);
+    }
+    
+    return _filterByAllergies(meals, userAllergies);
   }
 
   /// Get snack options filtered by goal, fitness level, and allergies
@@ -80,12 +101,19 @@ class MealDatabase {
     final goalKey = normalizeGoal(goal);
     final levelKey = fitnessLevel.toLowerCase();
     
-    if (!_mealCache.containsKey(goalKey) || !_mealCache[goalKey]!.containsKey(levelKey)) {
-      return [];
+    List<Meal> meals = [];
+    
+    // Try to get from cache first
+    if (_mealCache.containsKey(goalKey) && _mealCache[goalKey]!.containsKey(levelKey)) {
+      meals = _mealCache[goalKey]![levelKey]!['snack'] ?? [];
     }
     
-    final allMeals = _mealCache[goalKey]![levelKey]!['snack'] ?? [];
-    return _filterByAllergies(allMeals, userAllergies);
+    // Fallback to hardcoded meals if cache is empty
+    if (meals.isEmpty) {
+      meals = _getHardcodedSnacks(levelKey);
+    }
+    
+    return _filterByAllergies(meals, userAllergies);
   }
 
   /// Filter meals by removing those containing user's allergens
@@ -105,6 +133,62 @@ class MealDatabase {
       'Healthy Lifestyle': 'general_fitness',
     };
     return goalMap[goal] ?? goal.toLowerCase().replaceAll(' ', '_');
+  }
+
+  /// Get hardcoded breakfast meals by fitness level
+  static List<Meal> _getHardcodedBreakfast(String level) {
+    switch (level) {
+      case 'beginner':
+        return beginnerBreakfast;
+      case 'intermediate':
+        return intermediateBreakfast;
+      case 'advanced':
+        return advancedBreakfast;
+      default:
+        return beginnerBreakfast;
+    }
+  }
+
+  /// Get hardcoded lunch meals by fitness level
+  static List<Meal> _getHardcodedLunch(String level) {
+    switch (level) {
+      case 'beginner':
+        return beginnerLunch;
+      case 'intermediate':
+        return intermediateLunch;
+      case 'advanced':
+        return advancedLunch;
+      default:
+        return beginnerLunch;
+    }
+  }
+
+  /// Get hardcoded dinner meals by fitness level
+  static List<Meal> _getHardcodedDinner(String level) {
+    switch (level) {
+      case 'beginner':
+        return beginnerDinner;
+      case 'intermediate':
+        return intermediateDinner;
+      case 'advanced':
+        return advancedDinner;
+      default:
+        return beginnerDinner;
+    }
+  }
+
+  /// Get hardcoded snack meals by fitness level
+  static List<Meal> _getHardcodedSnacks(String level) {
+    switch (level) {
+      case 'beginner':
+        return beginnerSnacks;
+      case 'intermediate':
+        return intermediateSnacks;
+      case 'advanced':
+        return advancedSnacks;
+      default:
+        return beginnerSnacks;
+    }
   }
 
   // ==================== DEPRECATED: OLD HARDCODED MEALS ====================

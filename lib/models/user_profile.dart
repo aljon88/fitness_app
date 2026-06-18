@@ -13,6 +13,7 @@ class UserProfile {
   
   // Health & Dietary
   final List<String> allergies; // dairy, eggs, nuts, seafood, gluten
+  final List<String> physicalRestrictions; // knee_issues, back_problems, heart_conditions, etc.
   
   // Motivational
   final String selectedAdvice; // Chosen motivational advice
@@ -32,6 +33,7 @@ class UserProfile {
     required this.primaryGoal,
     required this.motivation,
     this.allergies = const [],
+    this.physicalRestrictions = const [],
     required this.selectedAdvice,
     required this.createdAt,
     required this.updatedAt,
@@ -68,6 +70,7 @@ class UserProfile {
     String? primaryGoal,
     String? motivation,
     List<String>? allergies,
+    List<String>? physicalRestrictions,
     String? selectedAdvice,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -83,6 +86,7 @@ class UserProfile {
       primaryGoal: primaryGoal ?? this.primaryGoal,
       motivation: motivation ?? this.motivation,
       allergies: allergies ?? this.allergies,
+      physicalRestrictions: physicalRestrictions ?? this.physicalRestrictions,
       selectedAdvice: selectedAdvice ?? this.selectedAdvice,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -101,6 +105,7 @@ class UserProfile {
       'primaryGoal': primaryGoal,
       'motivation': motivation,
       'allergies': allergies,
+      'physicalRestrictions': physicalRestrictions,
       'selectedAdvice': selectedAdvice,
       'createdAt': createdAt.toIso8601String(),
       'updatedAt': updatedAt.toIso8601String(),
@@ -109,19 +114,20 @@ class UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      age: json['age'] as String,
-      gender: json['gender'] as String,
-      height: json['height'] as String,
-      weight: json['weight'] as String,
-      fitnessLevel: json['fitnessLevel'] as String,
-      primaryGoal: json['primaryGoal'] as String,
-      motivation: json['motivation'] as String,
+      id: json['id']?.toString() ?? DateTime.now().millisecondsSinceEpoch.toString(),
+      name: json['name']?.toString() ?? 'User',
+      age: json['age']?.toString() ?? '25',
+      gender: json['gender']?.toString() ?? 'prefer_not_to_say',
+      height: json['height']?.toString() ?? '170',
+      weight: json['weight']?.toString() ?? '65',
+      fitnessLevel: json['fitnessLevel']?.toString() ?? 'beginner',
+      primaryGoal: json['primaryGoal']?.toString() ?? 'Healthy Lifestyle',
+      motivation: json['motivation']?.toString() ?? 'Stay Fit',
       allergies: List<String>.from(json['allergies'] ?? []),
-      selectedAdvice: json['selectedAdvice'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      physicalRestrictions: List<String>.from(json['physicalRestrictions'] ?? []),
+      selectedAdvice: json['selectedAdvice']?.toString() ?? 'Start small, dream big!',
+      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt'] as String) : DateTime.now(),
+      updatedAt: json['updatedAt'] != null ? DateTime.parse(json['updatedAt'] as String) : DateTime.now(),
     );
   }
   
@@ -138,6 +144,7 @@ class UserProfile {
       primaryGoal: onboardingData['primaryGoal'] as String,
       motivation: onboardingData['motivation'] as String,
       allergies: List<String>.from(onboardingData['allergies'] ?? []),
+      physicalRestrictions: List<String>.from(onboardingData['physicalRestrictions'] ?? []),
       selectedAdvice: onboardingData['selectedAdvice'] as String,
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),

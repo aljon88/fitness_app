@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/real_time_calendar_service.dart';
 import '../services/workout_program_loader.dart';
 import '../services/navigation_service.dart';
@@ -8,7 +9,7 @@ import '../services/workout_history_service.dart';
 import '../models/navigation_state.dart';
 import '../models/workout_history.dart';
 import '../widgets/navigation_widgets.dart';
-import '../widgets/ai_coach_character.dart';
+import '../widgets/home_coach_character.dart';
 import 'workout_session_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -29,6 +30,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   
   List<Map<String, dynamic>> _calendarDays = [];
   Map<String, dynamic>? _programData;
+  List<Map<String, dynamic>> _completedWorkouts = [];
   bool _isLoading = true;
   DateTime? _startDate;
   int _todayProgramDay = 0;
@@ -49,6 +51,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
       // Load program data
       _programData = await _programLoader.loadProgram(primaryGoal, fitnessLevel);
+      
+      // Load completed workouts from enterprise history service
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        final workoutHistory = await _historyService.getWorkoutHistory(user.uid);
+        _completedWorkouts = workoutHistory.map((workout) => {
+          'programDay': workout.dayNumber,
+          'date': workout.completedAt,
+          'workoutTitle': workout.workoutTitle,
+          'duration': workout.durationMinutes,
+          'exercises': workout.exercises.length,
+          'totalReps': workout.totalReps,
+          'caloriesBurned': workout.caloriesBurned,
+        }).toList();
+      }
       
       // Auto-complete rest days
       await _calendarService.autoCompleteRestDays(primaryGoal, fitnessLevel);
@@ -105,13 +122,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
               // Header
               NavigationHeader(
                 title: _programData?['programName'] ?? 'Workout Calendar',
-                subtitle: 'Your personalized gym schedule',
+                subtitle: 'Your personalized home workout schedule',
               ),
               
-              // AI Coach
-              AICoachCharacter(
+              // Home Coach
+              HomeCoachCharacter(
                 message: _getCoachMessage(),
-                mood: AICoachMood.motivating,
+                mood: HomeCoachMood.motivating,
               ),
               
               // Calendar
@@ -123,7 +140,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
       ),
       bottomNavigationBar: MainNavigationBar(currentScreen: NavigationScreen.workoutProgram),
-      floatingActionButton: WorkoutCameraFAB(),
     );
   }
 
@@ -230,20 +246,28 @@ class _CalendarScreenState extends State<CalendarScreen> {
     int duration = day['duration'];
     int programDay = day['programDay'];
 
+    // Check if user completed a workout on this date using enterprise history service
+    Map<String, dynamic>? completedWorkout = _getCompletedWorkoutForDay(programDay);
+    bool hasWorkoutCompleted = completedWorkout != null;
+    
     Color bgColor = isToday 
         ? Color(0xFF6C5CE7)
+        : hasWorkoutCompleted
+            ? Colors.green.withOpacity(0.2)
         : isRestDay 
             ? Colors.green.withOpacity(0.2)
             : Colors.white.withOpacity(0.05);
     
     Color textColor = isToday ? Colors.white : Colors.white70;
-    Color iconColor = isCompleted 
+    Color iconColor = hasWorkoutCompleted
         ? Colors.green 
-        : isRestDay 
+        : isCompleted 
             ? Colors.green 
-            : isToday 
-                ? Colors.white 
-                : Color(0xFF6C5CE7);
+            : isRestDay 
+                ? Colors.green 
+                : isToday 
+                    ? Colors.white 
+                    : Color(0xFF6C5CE7);
 
     return Container(
       margin: EdgeInsets.only(bottom: 8),
@@ -257,37 +281,65 @@ class _CalendarScreenState extends State<CalendarScreen> {
         onTap: () => _handleDayTap(day),
         child: Row(
           children: [
-            // Date circle
+            // Date circle with workout indicator
             Container(
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: isCompleted 
+                color: hasWorkoutCompleted
                     ? Colors.green 
-                    : isRestDay 
-                        ? Colors.green.withOpacity(0.3)
-                        : Colors.white.withOpacity(0.1),
+                    : isCompleted 
+                        ? Colors.green 
+                        : isRestDay 
+                            ? Colors.green.withOpacity(0.3)
+                            : Colors.white.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: Stack(
                 children: [
-                  Text(
-                    dayName.substring(0, 3).toUpperCase(),
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
+                  // Date info
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          dayName.substring(0, 3).toUpperCase(),
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Text(
+                          '${date.day}',
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    '${date.day}',
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                  // Workout completion indicator
+                  if (hasWorkoutCompleted)
+                    Positioned(
+                      top: 2,
+                      right: 2,
+                      child: Container(
+                        width: 12,
+                        height: 12,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.check,
+                          size: 8,
+                          color: Colors.green,
+                        ),
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -326,11 +378,29 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           ),
                         ),
                       ],
+                      if (hasWorkoutCompleted) ...[
+                        SizedBox(width: 8),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            'DONE',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 9,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                   SizedBox(height: 4),
                   Text(
-                    workoutName,
+                    hasWorkoutCompleted ? completedWorkout!['workoutTitle'] : workoutName,
                     style: TextStyle(
                       color: textColor,
                       fontSize: 16,
@@ -344,22 +414,35 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         Icon(Icons.timer_outlined, color: textColor.withOpacity(0.6), size: 14),
                         SizedBox(width: 4),
                         Text(
-                          '$duration min',
+                          hasWorkoutCompleted ? '${completedWorkout!['duration']}m' : '$duration min',
                           style: TextStyle(
                             color: textColor.withOpacity(0.6),
                             fontSize: 12,
                           ),
                         ),
-                        SizedBox(width: 12),
-                        Icon(Icons.local_fire_department_outlined, color: textColor.withOpacity(0.6), size: 14),
-                        SizedBox(width: 4),
-                        Text(
-                          '${day['calories']} cal',
-                          style: TextStyle(
-                            color: textColor.withOpacity(0.6),
-                            fontSize: 12,
+                        if (hasWorkoutCompleted) ...[
+                          SizedBox(width: 12),
+                          Icon(Icons.check_circle, color: Colors.green, size: 14),
+                          SizedBox(width: 4),
+                          Text(
+                            '${completedWorkout!['exercises']} exercises',
+                            style: TextStyle(
+                              color: textColor.withOpacity(0.6),
+                              fontSize: 12,
+                            ),
                           ),
-                        ),
+                        ] else ...[
+                          SizedBox(width: 12),
+                          Icon(Icons.local_fire_department_outlined, color: textColor.withOpacity(0.6), size: 14),
+                          SizedBox(width: 4),
+                          Text(
+                            '${day['calories']} cal',
+                            style: TextStyle(
+                              color: textColor.withOpacity(0.6),
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ],
@@ -369,15 +452,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
             
             // Status icon
             Icon(
-              isCompleted 
-                  ? Icons.check_circle 
-                  : isRestDay 
-                      ? Icons.hotel_rounded 
-                      : isToday 
-                          ? Icons.play_circle_filled 
-                          : isFuture 
-                              ? Icons.lock_outline 
-                              : Icons.circle_outlined,
+              hasWorkoutCompleted
+                  ? Icons.check_circle
+                  : isCompleted 
+                      ? Icons.check_circle 
+                      : isRestDay 
+                          ? Icons.hotel_rounded 
+                          : isToday 
+                              ? Icons.play_circle_filled 
+                              : isFuture 
+                                  ? Icons.lock_outline 
+                                  : Icons.circle_outlined,
               color: iconColor,
               size: 28,
             ),
@@ -387,19 +472,46 @@ class _CalendarScreenState extends State<CalendarScreen> {
     );
   }
 
+  // Helper method to get completed workout for a specific program day
+  Map<String, dynamic>? _getCompletedWorkoutForDay(int programDay) {
+    try {
+      return _completedWorkouts.firstWhere(
+        (workout) => workout['programDay'] == programDay,
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
   void _handleDayTap(Map<String, dynamic> day) {
-    if (day['isFuture']) {
+    bool isCompleted = day['isCompleted'];
+    bool isToday = day['isToday'];
+    bool isFuture = day['isFuture'];
+    bool isRestDay = day['isRestDay'];
+    
+    // Check if this day has been completed via workout history
+    int programDay = day['programDay'];
+    Map<String, dynamic>? completedWorkout = _getCompletedWorkoutForDay(programDay);
+    bool hasWorkoutCompleted = completedWorkout != null;
+    
+    if (isFuture) {
       _showMessage('This workout will unlock on ${DateFormat('MMM d').format(day['date'])}', Colors.orange);
       return;
     }
     
-    if (day['isRestDay']) {
+    if (isRestDay) {
       _showMessage('Rest day - recovery is essential for progress!', Colors.green);
       return;
     }
     
-    if (day['isCompleted']) {
+    if (hasWorkoutCompleted || isCompleted) {
       _showMessage('Already completed! Great work!', Colors.green);
+      return;
+    }
+    
+    // Only allow starting workout if it's today or an available past day
+    if (!isToday && !day['isUnlocked']) {
+      _showMessage('This workout is not yet available', Colors.orange);
       return;
     }
     
@@ -418,54 +530,32 @@ class _CalendarScreenState extends State<CalendarScreen> {
       
       print('🏋️ Starting workout for: $primaryGoal - $fitnessLevel');
       
-      // Load program
-      Map<String, dynamic> program = await _programLoader.loadProgram(primaryGoal, fitnessLevel);
-      print('📋 Program loaded: ${program['programName']}');
-      print('📋 Program has ${program['phases'].length} phases');
-      
-      // Get the current phase based on program day
       int programDay = day['programDay'];
-      int phaseIndex = _getPhaseIndex(programDay);
       
-      print('📅 Program day: $programDay, Phase index: $phaseIndex');
-      
-      if (phaseIndex >= program['phases'].length) {
-        _showMessage('Program phase not found', Colors.red);
-        return;
+      // Use workout data directly from calendar day
+      Map<String, dynamic> workout;
+      if (day.containsKey('workoutData') && day['workoutData'] != null) {
+        workout = Map<String, dynamic>.from(day['workoutData']);
+        print('✅ Using workout data from calendar: ${workout['name']}');
+      } else {
+        // Fallback: create workout from day data
+        workout = {
+          'name': day['workoutName'] ?? 'Workout',
+          'duration': day['duration'] ?? 25,
+          'calories': day['calories'] ?? 150,
+          'exercises': day['exercises'] ?? [],
+        };
+        print('⚠️ Using fallback workout data: ${workout['name']}');
       }
-      
-      Map<String, dynamic> phase = program['phases'][phaseIndex];
-      print('📋 Phase: ${phase['phaseName']}');
-      print('📋 Phase has workouts: ${phase['workouts'] != null}');
-      
-      // Get day of week (lowercase)
-      String dayOfWeek = (day['dayOfWeek'] as String?)?.toLowerCase() ?? 'monday';
-      print('📅 Day of week: $dayOfWeek');
-      
-      // Get workout for this day
-      dynamic workoutsData = phase['workouts'];
-      if (workoutsData == null) {
-        print('❌ No workouts data in phase');
-        _showMessage('Workout not found for this day', Colors.red);
-        return;
-      }
-      
-      // Convert to proper Map type
-      Map<String, dynamic> workouts = Map<String, dynamic>.from(workoutsData as Map);
-      print('📋 Available workout days: ${workouts.keys.toList()}');
-      
-      if (!workouts.containsKey(dayOfWeek)) {
-        print('❌ Day $dayOfWeek not found in workouts');
-        _showMessage('Workout not found for this day', Colors.red);
-        return;
-      }
-      
-      Map<String, dynamic> workout = Map<String, dynamic>.from(workouts[dayOfWeek] as Map);
-      print('✅ Found workout: ${workout['name']}');
       
       // Get program exercises
       List<dynamic> programExercises = workout['exercises'] ?? [];
       print('📋 Workout has ${programExercises.length} exercises');
+      
+      if (programExercises.isEmpty) {
+        _showMessage('No exercises found for this workout', Colors.red);
+        return;
+      }
       
       // Preload exercise demo data with goal and level
       await ExerciseDemoLoader().preloadWorkoutExercises(primaryGoal, fitnessLevel, programExercises);
@@ -488,15 +578,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
         MaterialPageRoute(
           builder: (context) => WorkoutSessionController(
             exercises: workout['exercises'] ?? [],
+            workoutData: workout, // Pass the full workout data
             onWorkoutCompleted: () async {
               // Save to workout history (SINGLE source of truth)
               await _saveWorkoutToHistory(workout, programDay);
               
+              // Automatically advance to next workout date
+              await _advanceToNextWorkout(programDay);
+              
               // Reload calendar (will read from workout history)
               await _loadCalendar();
               
-              // Navigate back to calendar
-              Navigator.pop(context);
+              // Navigate back to calendar with proper transition
+              if (mounted) {
+                Navigator.of(context).pop();
+              }
             },
           ),
         ),
@@ -525,7 +621,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     double progress = completed / total;
     
     if (progress == 0) {
-      return 'Welcome to your personalized gym schedule! Your journey starts today! 🚀';
+      return 'Welcome to your personalized home workout schedule! Your journey starts today! 🚀';
     } else if (progress >= 0.75) {
       return 'Incredible! You\'re in the final stretch - finish strong! 💪';
     } else if (progress >= 0.5) {
@@ -551,62 +647,152 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Future<void> _saveWorkoutToHistory(Map<String, dynamic> workout, int programDay) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
-      if (user == null) return;
+      if (user == null) {
+        print('❌ No authenticated user found');
+        return;
+      }
 
-      // Calculate workout stats
+      // Calculate workout metrics
       final exercises = workout['exercises'] as List<dynamic>? ?? [];
       int totalReps = 0;
       int totalSets = 0;
-      
+      int estimatedCalories = workout['calories'] ?? 0;
+
+      // Create exercise results from workout data
       List<ExerciseResult> exerciseResults = [];
       
       for (var exercise in exercises) {
-        final exerciseMap = exercise as Map<String, dynamic>;
-        final reps = exerciseMap['reps'] as int? ?? 0;
-        final sets = exerciseMap['sets'] as int? ?? 1;
-        
-        totalReps += reps * sets;
+        final sets = (exercise['sets'] ?? 1) as int;
+        final reps = (exercise['reps'] ?? 10) as int;
         totalSets += sets;
-        
-        // Create exercise result
-        exerciseResults.add(ExerciseResult(
-          exerciseId: exerciseMap['exerciseId'] ?? '',
-          exerciseName: exerciseMap['name'] ?? 'Unknown Exercise',
-          targetReps: reps,
-          actualReps: reps, // Assume completed
-          targetSets: sets,
-          completedSets: sets, // Assume completed
-          completed: true,
-          setResults: List.generate(sets, (index) => SetResult(
-            setNumber: index + 1,
+        totalReps += (reps * sets);
+
+        // Create set results
+        List<SetResult> setResults = [];
+        for (int i = 1; i <= sets; i++) {
+          setResults.add(SetResult(
+            setNumber: i,
             reps: reps,
             completedAt: DateTime.now(),
-          )),
+          ));
+        }
+
+        exerciseResults.add(ExerciseResult(
+          exerciseId: exercise['exerciseId'] ?? 'unknown',
+          exerciseName: exercise['name'] ?? 'Unknown Exercise',
+          targetReps: reps,
+          actualReps: reps,
+          targetSets: sets,
+          completedSets: sets,
+          completed: true,
+          setResults: setResults,
         ));
       }
 
-      // Create workout history entry
+      // Create WorkoutHistory object
       final workoutHistory = WorkoutHistory(
         id: '${user.uid}_${programDay}_${DateTime.now().millisecondsSinceEpoch}',
         userId: user.uid,
-        workoutId: 'day_$programDay',
-        workoutTitle: workout['name'] ?? 'Workout Day $programDay',
+        workoutId: 'program_day_$programDay',
+        workoutTitle: workout['name'] ?? 'Day $programDay Workout',
         dayNumber: programDay,
         completedAt: DateTime.now(),
-        durationMinutes: workout['duration'] ?? 30,
+        durationMinutes: workout['duration'] ?? 25,
         exercises: exerciseResults,
         totalReps: totalReps,
         totalSets: totalSets,
-        caloriesBurned: workout['calories'] ?? 200,
-        difficulty: widget.userProfile['fitnessLevel'] ?? 'intermediate',
+        caloriesBurned: estimatedCalories,
+        difficulty: 'moderate',
       );
 
-      // Save to workout history
-      await _historyService.saveWorkout(workoutHistory);
+      // Save to WorkoutHistoryService
+      final historyService = WorkoutHistoryService();
+      await historyService.saveWorkout(workoutHistory);
+
+      print('✅ Workout saved successfully: Day $programDay');
+      print('   - Duration: ${workoutHistory.durationMinutes} minutes');
+      print('   - Total reps: $totalReps');
+      print('   - Total sets: $totalSets');
+      print('   - Calories: $estimatedCalories');
       
-      print('✅ Workout saved to history: Day $programDay');
     } catch (e) {
       print('❌ Error saving workout to history: $e');
     }
+  }
+
+  /// Automatically advance to the next workout after completing current one
+  Future<void> _advanceToNextWorkout(int completedProgramDay) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      // Find the next available workout (non-rest day that's not completed)
+      Map<String, dynamic>? nextWorkout = _findNextAvailableWorkout(completedProgramDay);
+      
+      if (nextWorkout == null) {
+        // No more workouts - show completion message
+        _showMessage('Great job! You\'ve completed all available workouts!', Colors.green);
+        return;
+      }
+
+      // Instead of changing dates, mark the next workout as "unlocked early"
+      await _unlockNextWorkout(nextWorkout['programDay']);
+
+      _showMessage(
+        'Workout completed! ${nextWorkout['workoutName']} is now available 💪',
+        Colors.green,
+      );
+
+      print('✅ Unlocked next workout: Day ${nextWorkout['programDay']}');
+
+    } catch (e) {
+      print('❌ Error advancing to next workout: $e');
+    }
+  }
+
+  /// Unlock the next workout without changing program dates
+  Future<void> _unlockNextWorkout(int programDay) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user == null) return;
+
+      // Get current unlocked workouts list
+      String unlockedKey = '${user.uid}_unlocked_workouts';
+      List<String> unlockedWorkouts = prefs.getStringList(unlockedKey) ?? [];
+      
+      // Add the new workout to unlocked list if not already there
+      String workoutKey = 'day_$programDay';
+      if (!unlockedWorkouts.contains(workoutKey)) {
+        unlockedWorkouts.add(workoutKey);
+        await prefs.setStringList(unlockedKey, unlockedWorkouts);
+        print('🔓 Unlocked workout: Day $programDay');
+      }
+
+    } catch (e) {
+      print('❌ Error unlocking next workout: $e');
+    }
+  }
+
+  /// Find the next available workout that can be advanced to
+  Map<String, dynamic>? _findNextAvailableWorkout(int completedProgramDay) {
+    // Look through calendar for next uncompleted non-rest workout
+    for (var day in _calendarDays) {
+      int programDay = day['programDay'];
+      bool isRestDay = day['isRestDay'] ?? false;
+      bool isCompleted = day['isCompleted'] ?? false;
+      
+      // Check if this day has been completed via workout history
+      Map<String, dynamic>? completedWorkout = _getCompletedWorkoutForDay(programDay);
+      bool hasWorkoutCompleted = completedWorkout != null;
+      
+      if (programDay > completedProgramDay && 
+          !isRestDay && 
+          !isCompleted && 
+          !hasWorkoutCompleted) {
+        return day;
+      }
+    }
+    return null;
   }
 }

@@ -188,39 +188,6 @@ class ActiveWorkoutStatusBar extends StatelessWidget {
   }
 }
 
-/// Floating action button for quick camera access during workouts
-class WorkoutCameraFAB extends StatelessWidget {
-  final VoidCallback? onPressed;
-
-  const WorkoutCameraFAB({Key? key, this.onPressed}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final navigationService = NavigationService();
-    final hasActiveWorkout = navigationService.hasActiveWorkout;
-    final isInWorkoutSession = navigationService.currentState.currentScreen == NavigationScreen.workoutSession;
-
-    // Only show during active workout sessions
-    if (!hasActiveWorkout || !isInWorkoutSession) {
-      return const SizedBox.shrink();
-    }
-
-    return FloatingActionButton(
-      onPressed: onPressed ?? () => _openCamera(context),
-      backgroundColor: const Color(0xFF74B9FF),
-      child: const Icon(
-        Icons.camera_alt_rounded,
-        color: Colors.white,
-        size: 24,
-      ),
-    );
-  }
-
-  void _openCamera(BuildContext context) {
-    NavigationService().navigateToCamera(fromWorkout: true);
-  }
-}
-
 /// Navigation breadcrumb widget
 class NavigationBreadcrumb extends StatelessWidget {
   final bool showHome;
@@ -329,12 +296,6 @@ class MainNavigationBar extends StatelessWidget {
               isActive: currentScreen == NavigationScreen.workoutProgram,
             ),
             _buildNavItem(
-              icon: Icons.camera_alt_rounded,
-              label: 'AI Camera',
-              screen: NavigationScreen.camera,
-              isActive: currentScreen == NavigationScreen.camera,
-            ),
-            _buildNavItem(
               icon: Icons.restaurant_rounded,
               label: 'Nutrition',
               screen: NavigationScreen.mealPlan,
@@ -388,9 +349,6 @@ class MainNavigationBar extends StatelessWidget {
         break;
       case NavigationScreen.workoutProgram:
         navigationService.navigateToWorkoutProgram();
-        break;
-      case NavigationScreen.camera:
-        navigationService.navigateToCamera();
         break;
       case NavigationScreen.mealPlan:
         navigationService.navigateToMealPlan();

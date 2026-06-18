@@ -341,12 +341,19 @@ class _RestScreenState extends State<RestScreen> {
                         borderRadius: BorderRadius.circular(16),
                         child: Stack(
                           children: [
-                            // Video/GIF background
+                            // Video/GIF background - simple Image.network for GIF animation
                             if (gifUrl != null)
                               Positioned.fill(
                                 child: Image.network(
                                   gifUrl,
                                   fit: BoxFit.cover,
+                                  loadingBuilder: (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Container(
+                                      color: Colors.grey[300],
+                                      child: Center(child: CircularProgressIndicator()),
+                                    );
+                                  },
                                   errorBuilder: (context, error, stackTrace) {
                                     return _buildDemoPlaceholder();
                                   },
@@ -415,11 +422,21 @@ class _RestScreenState extends State<RestScreen> {
             ),
             SizedBox(height: 12),
             Text(
-              'Demo loading...',
+              widget.nextExercise?['name'] ?? 'Next Exercise',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 4),
+            Text(
+              'Coming up next',
               style: TextStyle(
                 fontSize: 12,
-                color: Colors.white.withOpacity(0.8),
-                fontWeight: FontWeight.w600,
+                color: Colors.white.withOpacity(0.7),
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

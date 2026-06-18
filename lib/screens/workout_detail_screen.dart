@@ -3,7 +3,7 @@ import 'dart:async';
 // import 'workout_session_screen.dart'; // REMOVED - using active_workout_screen with timer system
 import 'exercise_demo_screen.dart';
 import 'active_workout_screen.dart';
-import '../widgets/ai_coach_character.dart';
+import '../widgets/home_coach_character.dart';
 import '../services/navigation_service.dart';
 import '../models/navigation_state.dart';
 import '../widgets/navigation_widgets.dart';
@@ -138,7 +138,7 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
                     ),
                   ),
                   
-                  // AI Coach Message - Compact
+                  // Home Coach Message - Compact
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     padding: EdgeInsets.all(12),
@@ -176,7 +176,6 @@ class _WorkoutDetailScreenState extends State<WorkoutDetailScreen> with TickerPr
         ),
       ),
       bottomNavigationBar: MainNavigationBar(currentScreen: NavigationScreen.workoutDetail),
-      floatingActionButton: WorkoutCameraFAB(),
     );
   }
 

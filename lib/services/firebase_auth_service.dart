@@ -1,62 +1,98 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:google_sign_in/google_sign_in.dart'; // REMOVED - not using Google Sign-In
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import '../models/user_profile.dart';
 import 'user_profile_service.dart';
+import 'user_storage_service.dart';
 
 class FirebaseAuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  // final GoogleSignIn _googleSignIn = GoogleSignIn(); // REMOVED - not using Google Sign-In
+  
+  String? _lastUserId;
   
   User? get currentUser => _auth.currentUser;
   bool get isAuthenticated => currentUser != null;
   String? get userEmail => currentUser?.email;
 
-  // Initialize auth state listener
   void initialize() {
-    _auth.authStateChanges().listen((User? user) {
+    print('🔧 Initializing FirebaseAuthService...');
+    _auth.authStateChanges().listen((User? user) async {
+      final currentUserId = user?.uid;
+      
+      if (_lastUserId != currentUserId) {
+        print('🔄 User changed from $_lastUserId to $currentUserId');
+        if (_lastUserId != null) {
+          await _clearCachedDataForUserChange();
+        }
+        _lastUserId = currentUserId;
+      }
+      
+      print('📢 FirebaseAuthService: Notifying listeners');
       notifyListeners();
     });
   }
 
-  // Sign up with email and password
+  Future<void> _clearCachedDataForUserChange() async {
+    try {
+      print('🧹 Clearing cached data for user change...');
+      
+      final profileService = UserProfileService();
+      profileService.clearCache();
+      
+      await DefaultCacheManager().emptyCache();
+      
+      print('✅ Cached data cleared for user change');
+    } catch (e) {
+      print('❌ Error clearing cached data: $e');
+    }
+  }
+
   Future<AuthResult> signUpWithEmail(String email, String password, String name) async {
     try {
-      // Create user account
+      print('🔧 Starting account creation for: $email');
+      
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      
+      print('✅ Firebase Auth account created successfully');
+      print('   UID: ${credential.user!.uid}');
 
-      // Update display name
       await credential.user?.updateDisplayName(name);
+      print('✅ Display name updated');
 
-      // Create user document in Firestore
-      await _createUserDocument(credential.user!, name);
+      bool firestoreSuccess = await _createUserDocumentSafely(credential.user!, name);
+      
+      if (firestoreSuccess) {
+        print('✅ User document created in Firestore');
+      } else {
+        print('⚠️ Firestore document creation failed, but account is still functional');
+        print('   User will use local storage until Firestore permissions are fixed');
+      }
+
+      await UserStorageService.registerUser(email, 'email');
+      print('✅ User registered in local storage');
 
       return AuthResult(
         success: true,
         message: 'Account created successfully!',
         needsOnboarding: true,
       );
-    } on FirebaseAuthException catch (e) {
-      print('Firebase Auth Error: ${e.code} - ${e.message}');
-      return AuthResult(
-        success: false,
-        message: _getErrorMessage(e.code),
-      );
+      
     } catch (e) {
-      print('General Error: $e');
+      print('❌ Firebase Auth Error: ${e.toString()}');
       return AuthResult(
         success: false,
-        message: 'Setup Error: Please enable Firebase Authentication in your Firebase Console. Error: $e',
+        message: 'Failed to create account: ${e.toString()}',
+        needsOnboarding: false,
       );
     }
   }
 
-  // Sign in with email and password
   Future<AuthResult> signInWithEmail(String email, String password) async {
     try {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
@@ -66,7 +102,6 @@ class FirebaseAuthService extends ChangeNotifier {
 
       print('🔐 Login successful for: $email (UID: ${credential.user!.uid})');
       
-      // Check if user has completed onboarding
       bool hasCompletedOnboarding = await this.hasCompletedOnboarding(credential.user!.uid);
       
       print('📋 Onboarding status: $hasCompletedOnboarding');
@@ -77,26 +112,17 @@ class FirebaseAuthService extends ChangeNotifier {
         message: 'Login successful!',
         needsOnboarding: !hasCompletedOnboarding,
       );
-    } on FirebaseAuthException catch (e) {
-      print('Firebase Auth Error: ${e.code} - ${e.message}');
-      return AuthResult(
-        success: false,
-        message: _getErrorMessage(e.code),
-      );
     } catch (e) {
-      print('General Error: $e');
+      print('❌ Firebase Auth Error: ${e.toString()}');
       return AuthResult(
         success: false,
-        message: 'Setup Error: Please enable Firebase Authentication in your Firebase Console. Error: $e',
+        message: 'Login failed: ${e.toString()}',
       );
     }
   }
 
-  // Sign in with Google
   Future<AuthResult> signInWithGoogle() async {
     try {
-      // For web, we need to configure the client ID properly
-      // For now, return a helpful message
       return AuthResult(
         success: false,
         message: 'Google Sign-In requires additional setup. Please use email sign-in for now.',
@@ -104,26 +130,20 @@ class FirebaseAuthService extends ChangeNotifier {
     } catch (e) {
       return AuthResult(
         success: false,
-        message: 'Google sign-in not available. Please use email sign-in.',
+        message: 'Google sign-in failed: ${e.toString()}',
       );
     }
   }
 
-  // Sign out
   Future<void> signOut() async {
     try {
       print('🚪 Signing out user: ${currentUser?.email}');
       
-      // Clear UserProfileService cache
-      final profileService = UserProfileService();
-      await profileService.clearProfile();
-      print('✅ Cleared UserProfileService cache');
+      await _clearCachedDataForUserChange();
       
-      // Sign out from Firebase
       await _auth.signOut();
       print('✅ Signed out from Firebase');
       
-      // Notify listeners
       notifyListeners();
     } catch (e) {
       print('❌ Sign out error: $e');
@@ -131,54 +151,61 @@ class FirebaseAuthService extends ChangeNotifier {
     }
   }
 
-  // Create user document in Firestore
-  Future<void> _createUserDocument(User user, String name, {String authMethod = 'email'}) async {
-    await _firestore.collection('users').doc(user.uid).set({
-      'uid': user.uid,
-      'email': user.email,
-      'name': name,
-      'createdAt': FieldValue.serverTimestamp(),
-      'onboardingCompleted': false,
-      'authMethod': authMethod,
-    });
-  }
-
-  // Check if user has completed onboarding
-  Future<bool> hasCompletedOnboarding(String uid) async {
+  Future<bool> _createUserDocumentSafely(User user, String name, {String authMethod = 'email'}) async {
     try {
-      print('🔍 Checking onboarding status for UID: $uid');
-      DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
-      if (doc.exists) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        print('   Document exists. Keys: ${data.keys.toList()}');
-        bool completed = data['onboardingCompleted'] ?? false;
-        print('   onboardingCompleted value: $completed');
-        return completed;
-      } else {
-        print('   ⚠️ Document does not exist');
-      }
-      return false;
+      print('📝 Creating user document in Firestore...');
+      
+      await _firestore.collection('users').doc(user.uid).set({
+        'uid': user.uid,
+        'email': user.email,
+        'name': name,
+        'createdAt': FieldValue.serverTimestamp(),
+        'lastLoginAt': FieldValue.serverTimestamp(),
+        'onboardingCompleted': false,
+        'authMethod': authMethod,
+      });
+      
+      print('✅ User document created successfully in Firestore');
+      return true;
+      
     } catch (e) {
-      print('   ❌ Error checking onboarding: $e');
+      print('❌ Firestore Error: ${e.toString()}');
       return false;
     }
   }
 
-  // Complete onboarding and save profile
+  Future<bool> hasCompletedOnboarding(String uid) async {
+    try {
+      print('🔍 Checking onboarding status for UID: $uid');
+      DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
+      
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        bool completed = data['onboardingCompleted'] ?? false;
+        print('   📋 Firestore onboarding status: $completed');
+        return completed;
+      } else {
+        print('   ⚠️ User document not found in Firestore');
+        return false;
+      }
+    } catch (e) {
+      print('   ❌ Error checking onboarding: ${e.toString()}');
+      return false;
+    }
+  }
+
   Future<void> completeOnboarding(Map<String, dynamic> profile) async {
     if (currentUser != null) {
       try {
-        // Save to Firebase using set with merge to create or update
+        profile['email'] = currentUser!.email;
         await _firestore.collection('users').doc(currentUser!.uid).set({
           'onboardingCompleted': true,
-          'profile': profile,
-          'updatedAt': FieldValue.serverTimestamp(),
+          ...profile,
         }, SetOptions(merge: true));
         
         print('✅ Profile saved to Firebase for UID: ${currentUser!.uid}');
-        print('   Profile data: ${profile.keys.toList()}');
+        print('   Profile keys: ${profile.keys.toList()}');
         
-        // Also save to local UserProfileService
         final userProfile = UserProfile.fromOnboarding(profile);
         final profileService = UserProfileService();
         await profileService.saveUserProfile(userProfile);
@@ -186,7 +213,6 @@ class FirebaseAuthService extends ChangeNotifier {
         print('✅ Profile saved to local UserProfileService');
       } catch (e) {
         print('❌ Error saving profile to Firebase: $e');
-        // Still save locally even if Firebase fails
         final userProfile = UserProfile.fromOnboarding(profile);
         final profileService = UserProfileService();
         await profileService.saveUserProfile(userProfile);
@@ -194,7 +220,6 @@ class FirebaseAuthService extends ChangeNotifier {
     }
   }
 
-  // Get user profile
   Future<Map<String, dynamic>?> getUserProfile() async {
     if (currentUser != null) {
       try {
@@ -202,31 +227,19 @@ class FirebaseAuthService extends ChangeNotifier {
         DocumentSnapshot doc = await _firestore.collection('users').doc(currentUser!.uid).get();
         
         if (doc.exists) {
-          print('✅ Firebase document exists');
           Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-          print('   Document keys: ${data.keys.toList()}');
-          
-          if (data.containsKey('profile')) {
-            Map<String, dynamic>? profile = data['profile'] as Map<String, dynamic>?;
-            print('   Profile found with keys: ${profile?.keys.toList()}');
-            return profile;
-          } else {
-            print('⚠️ Document exists but no "profile" field found');
-            return null;
-          }
+          print('✅ Profile loaded from Firebase');
+          return data;
         } else {
           print('⚠️ Firebase document does not exist for UID: ${currentUser!.uid}');
         }
       } catch (e) {
         print('❌ Error getting user profile from Firebase: $e');
       }
-    } else {
-      print('⚠️ No current user, cannot get profile');
     }
     return null;
   }
 
-  // Get all users (for admin purposes)
   Future<List<Map<String, dynamic>>> getAllUsers() async {
     try {
       QuerySnapshot snapshot = await _firestore.collection('users').get();
@@ -234,11 +247,10 @@ class FirebaseAuthService extends ChangeNotifier {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         return {
           'uid': doc.id,
-          'email': data['email'],
-          'name': data['name'],
-          'onboardingCompleted': data['onboardingCompleted'] ?? false,
+          'email': data['email'] ?? 'N/A',
+          'name': data['name'] ?? 'N/A',
           'createdAt': data['createdAt'],
-          'authMethod': data['authMethod'] ?? 'unknown',
+          'onboardingCompleted': data['onboardingCompleted'] ?? false,
         };
       }).toList();
     } catch (e) {
@@ -247,7 +259,6 @@ class FirebaseAuthService extends ChangeNotifier {
     }
   }
 
-  // Reset password
   Future<bool> resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -257,31 +268,22 @@ class FirebaseAuthService extends ChangeNotifier {
     }
   }
 
-  // Convert Firebase error codes to user-friendly messages
   String _getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'weak-password':
-        return 'The password is too weak. Please use at least 6 characters.';
+        return 'The password provided is too weak.';
       case 'email-already-in-use':
-        return 'An account already exists with this email address.';
-      case 'invalid-email':
-        return 'Please enter a valid email address.';
+        return 'The account already exists for that email.';
       case 'user-not-found':
-        return 'No account found with this email address.';
+        return 'No user found for that email.';
       case 'wrong-password':
-        return 'Incorrect password. Please try again.';
+        return 'Wrong password provided for that user.';
+      case 'invalid-email':
+        return 'The email address is not valid.';
       case 'user-disabled':
-        return 'This account has been disabled. Please contact support.';
-      case 'too-many-requests':
-        return 'Too many failed attempts. Please try again later.';
-      case 'network-request-failed':
-        return 'Network error. Please check your internet connection.';
-      case 'permission-denied':
-        return 'Firebase setup incomplete. Please enable Authentication and Firestore in Firebase Console.';
-      case 'unavailable':
-        return 'Firebase service unavailable. Please enable Firestore Database in Firebase Console.';
+        return 'This user account has been disabled.';
       default:
-        return 'Firebase Error ($errorCode): Please check your Firebase Console setup.';
+        return 'Authentication failed. Please try again.';
     }
   }
 }
@@ -289,11 +291,13 @@ class FirebaseAuthService extends ChangeNotifier {
 class AuthResult {
   final bool success;
   final String message;
+  final User? user;
   final bool needsOnboarding;
 
   AuthResult({
     required this.success,
     required this.message,
+    this.user,
     this.needsOnboarding = false,
   });
 }

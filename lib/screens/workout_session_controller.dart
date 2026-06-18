@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'ready_to_go_screen.dart';
 import 'exercise_timer_screen.dart';
 import 'rest_screen.dart';
-import 'workout_journal_screen.dart';
+import 'workout_celebration_screen.dart';
 import '../services/sound_service.dart';
+import '../services/workout_journal_service.dart';
 
 class WorkoutSessionController extends StatefulWidget {
   final List<Map<String, dynamic>> exercises;
+  final Map<String, dynamic> workoutData; // Add workout data
   final VoidCallback onWorkoutCompleted;
 
   const WorkoutSessionController({
     Key? key,
     required this.exercises,
+    required this.workoutData, // Add workout data
     required this.onWorkoutCompleted,
   }) : super(key: key);
 
@@ -19,7 +22,7 @@ class WorkoutSessionController extends StatefulWidget {
   State<WorkoutSessionController> createState() => _WorkoutSessionControllerState();
 }
 
-enum WorkoutPhase { ready, exercise, rest, completed }
+enum WorkoutPhase { ready, exercise, rest, celebration, completed }
 
 class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
   WorkoutPhase _currentPhase = WorkoutPhase.ready;
@@ -29,25 +32,36 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
   List<Map<String, dynamic>> get _exercises => widget.exercises;
 
   void _moveToNextPhase() {
+    print('🎬 WORKOUT SESSION: Moving to next phase from $_currentPhase');
     setState(() {
       switch (_currentPhase) {
         case WorkoutPhase.ready:
           _currentPhase = WorkoutPhase.exercise;
+          print('🎬 WORKOUT SESSION: Now in EXERCISE phase');
           break;
         case WorkoutPhase.exercise:
           _completedExercises++;
           if (_currentExerciseIndex < _exercises.length - 1) {
             _currentPhase = WorkoutPhase.rest;
+            print('🎬 WORKOUT SESSION: Now in REST phase');
           } else {
-            _currentPhase = WorkoutPhase.completed;
-            _completeWorkout();
+            _currentPhase = WorkoutPhase.celebration;
+            print('🎬 WORKOUT SESSION: Now in CELEBRATION phase - should show celebration screen!');
+            // Don't call _completeWorkout() here - let celebration screen handle completion
           }
           break;
         case WorkoutPhase.rest:
           _currentExerciseIndex++;
           _currentPhase = WorkoutPhase.ready;
+          print('🎬 WORKOUT SESSION: Now in READY phase for next exercise');
+          break;
+        case WorkoutPhase.celebration:
+          print('🎬 WORKOUT SESSION: Celebration completed, completing workout');
+          // Celebration completed, now complete the workout and go back to calendar
+          _completeWorkout();
           break;
         case WorkoutPhase.completed:
+          print('🎬 WORKOUT SESSION: Calling onWorkoutCompleted callback');
           widget.onWorkoutCompleted();
           break;
       }
@@ -302,18 +316,19 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     // Professional workout completion sequence
     SoundService().playWorkoutCompleteSequence();
     
-    // Navigate to workout journal
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => WorkoutJournalScreen(
-          workoutType: widget.workoutProgram,
-          duration: _getTotalWorkoutDuration(),
-          exercisesCompleted: _exercises.map((e) => e['name'] as String).toList(),
-          totalExercises: _exercises.length,
-        ),
-      ),
-    );
+    // Call the existing callback - this maintains the proper UI flow
+    widget.onWorkoutCompleted();
+  }
+
+  String _getWorkoutTypeName() {
+    // Try to determine workout type from exercises or use generic name
+    if (_exercises.isNotEmpty) {
+      final firstExercise = _exercises.first;
+      if (firstExercise.containsKey('workoutType')) {
+        return firstExercise['workoutType'];
+      }
+    }
+    return 'Workout';
   }
 
   int _getTotalWorkoutDuration() {
@@ -322,11 +337,11 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
     int totalDuration = 0;
     
     for (var exercise in _exercises) {
-      final sets = exercise['sets'] ?? 1;
-      final duration = exercise['duration'] ?? 30;
-      final rest = exercise['rest'] ?? 30;
+      final int sets = exercise['sets'] ?? 1;
+      final num duration = exercise['duration'] ?? 30;
+      final num rest = exercise['rest'] ?? 30;
       
-      totalDuration += (duration * sets) + (rest * (sets - 1));
+      totalDuration += ((duration * sets) + (rest * (sets - 1))).round();
     }
     
     return totalDuration;
@@ -363,6 +378,15 @@ class _WorkoutSessionControllerState extends State<WorkoutSessionController> {
           restDuration: currentExercise['rest'] ?? 30,
           onRestComplete: _moveToNextPhase,
           onSkip: _skipRest,
+        );
+      case WorkoutPhase.celebration:
+        print('🎬 WORKOUT SESSION CONTROLLER: Showing celebration screen');
+        return WorkoutCelebrationScreen(
+          exercises: _exercises,
+          workoutType: _getWorkoutTypeName(),
+          duration: (_getTotalWorkoutDuration() / 60).round(),
+          calories: widget.workoutData['calories'] ?? 0, // Pass actual calories
+          onComplete: _moveToNextPhase,
         );
       case WorkoutPhase.completed:
         return Container(); // This shouldn't be reached as we call onWorkoutCompleted

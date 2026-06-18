@@ -13,10 +13,9 @@ import 'package:fitness_app/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const FitnessApp());
+    await tester.pumpWidget(AIFitnessApp());
 
-    // Verify that our fitness app starts with login screen.
-    expect(find.text('Fitness App'), findsOneWidget);
-    expect(find.text('Email'), findsOneWidget);
+    // Verify that our fitness app starts.
+    expect(find.text('FITFLOW'), findsOneWidget);
   });
 }

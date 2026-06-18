@@ -6,16 +6,31 @@ class LandingScreen extends StatefulWidget {
   _LandingScreenState createState() => _LandingScreenState();
 }
 
-class _LandingScreenState extends State<LandingScreen> with SingleTickerProviderStateMixin {
+class _LandingScreenState extends State<LandingScreen> with TickerProviderStateMixin {
   late AnimationController _controller;
+  late AnimationController _textAnimationController;
+  late AnimationController _iconAnimationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  late Animation<double> _textScaleAnimation;
+  late Animation<double> _iconRotationAnimation;
+  late Animation<double> _iconPulseAnimation;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
       duration: Duration(milliseconds: 1500),
+      vsync: this,
+    );
+    
+    _textAnimationController = AnimationController(
+      duration: Duration(milliseconds: 2000),
+      vsync: this,
+    );
+    
+    _iconAnimationController = AnimationController(
+      duration: Duration(milliseconds: 3000),
       vsync: this,
     );
     
@@ -28,12 +43,35 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
     
+    // Text scaling animation for "HOME FITNESS COACH"
+    _textScaleAnimation = Tween<double>(begin: 0.8, end: 1.05).animate(
+      CurvedAnimation(parent: _textAnimationController, curve: Curves.easeInOut),
+    );
+    
+    // Icon rotation animation
+    _iconRotationAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _iconAnimationController, curve: Curves.easeInOut),
+    );
+    
+    // Icon pulse animation
+    _iconPulseAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+      CurvedAnimation(parent: _iconAnimationController, curve: Curves.easeInOut),
+    );
+    
     _controller.forward();
+    
+    // Start repeating animations after initial load
+    Future.delayed(Duration(milliseconds: 1500), () {
+      _textAnimationController.repeat(reverse: true);
+      _iconAnimationController.repeat(reverse: true);
+    });
   }
 
   @override
   void dispose() {
     _controller.dispose();
+    _textAnimationController.dispose();
+    _iconAnimationController.dispose();
     super.dispose();
   }
 
@@ -70,42 +108,80 @@ class _LandingScreenState extends State<LandingScreen> with SingleTickerProvider
                     position: _slideAnimation,
                     child: Column(
                       children: [
-                        Container(
-                          width: isSmallScreen ? 100 : 120,
-                          height: isSmallScreen ? 100 : 120,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Color(0xFF6C5CE7), Color(0xFF74B9FF)],
-                            ),
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xFF6C5CE7).withOpacity(0.4),
-                                blurRadius: 30,
-                                spreadRadius: 10,
+                        // ANIMATED COACH ICON
+                        AnimatedBuilder(
+                          animation: Listenable.merge([_iconRotationAnimation, _iconPulseAnimation]),
+                          builder: (context, child) {
+                            return Transform.scale(
+                              scale: _iconPulseAnimation.value,
+                              child: Transform.rotate(
+                                angle: _iconRotationAnimation.value * 0.1, // Subtle rotation
+                                child: Container(
+                                  width: isSmallScreen ? 100 : 120,
+                                  height: isSmallScreen ? 100 : 120,
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [Color(0xFF6C5CE7), Color(0xFF74B9FF)],
+                                    ),
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0xFF6C5CE7).withOpacity(0.4),
+                                        blurRadius: 30,
+                                        spreadRadius: 10,
+                                      ),
+                                    ],
+                                  ),
+                                  child: Icon(
+                                    Icons.fitness_center_rounded,
+                                    size: isSmallScreen ? 50 : 60,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
-                            ],
-                          ),
-                          child: Icon(
-                            Icons.fitness_center_rounded,
-                            size: isSmallScreen ? 50 : 60,
-                            color: Colors.white,
-                          ),
+                            );
+                          },
                         ),
                         SizedBox(height: 32),
-                        Text(
-                          'AI HOME WORKOUT COACH',
-                          style: TextStyle(
-                            fontSize: isSmallScreen ? 24 : 28,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: 2,
-                          ),
-                          textAlign: TextAlign.center,
+                        // ANIMATED TEXT - "HOME FITNESS COACH"
+                        AnimatedBuilder(
+                          animation: _textScaleAnimation,
+                          builder: (context, child) {
+                            return Transform.scale(
+                              scale: _textScaleAnimation.value,
+                              child: ShaderMask(
+                                shaderCallback: (bounds) => LinearGradient(
+                                  colors: [
+                                    Colors.white,
+                                    Color(0xFF74B9FF),
+                                    Colors.white,
+                                  ],
+                                  stops: [0.0, 0.5, 1.0],
+                                ).createShader(bounds),
+                                child: Text(
+                                  'HOME FITNESS COACH',
+                                  style: TextStyle(
+                                    fontSize: isSmallScreen ? 24 : 28,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white,
+                                    letterSpacing: 2,
+                                    shadows: [
+                                      Shadow(
+                                        color: Color(0xFF6C5CE7).withOpacity(0.5),
+                                        blurRadius: 10,
+                                        offset: Offset(0, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            );
+                          },
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'Your Personal AI-Powered\nFitness & Nutrition Coach',
+                          'Your Personal Home Workout\n& Nutrition Coach',
                           style: TextStyle(
                             fontSize: isSmallScreen ? 16 : 18,
                             color: Colors.white70,

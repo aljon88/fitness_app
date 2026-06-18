@@ -31,19 +31,169 @@
       "phaseNumber": 1,
       "phaseName": "Foundation",
       "weeks": "1-4",
-      "description": "Learning compound movements and building strength base"
+      "description": "Learning compound movements and building strength base",
+      "workouts": {
+        "monday": {
+          "name": "Push Strength",
+          "duration": 30,
+          "calories": 160,
+          "exercises": [
+            {"exerciseId": "knee_pushups", "name": "Knee Push-ups", "sets": 3, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps"], "notes": "Start with modified push-ups"},
+            {"exerciseId": "incline_pushups", "name": "Incline Push-ups", "sets": 3, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Shoulders"], "notes": "Hands on elevated surface"},
+            {"exerciseId": "tricep_dips", "name": "Tricep Dips", "sets": 3, "reps": 6, "duration": null, "rest": 60, "targetMuscles": ["Triceps"], "notes": "Use chair or bench"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 20, "rest": 45, "targetMuscles": ["Core"], "notes": "Focus on form"},
+            {"exerciseId": "wall_pushups", "name": "Wall Push-ups", "sets": 3, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Chest", "Shoulders"], "notes": "Build push-up strength"}
+          ]
+        },
+        "wednesday": {
+          "name": "Lower Body Strength",
+          "duration": 30,
+          "calories": 170,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 3, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "Focus on depth and form"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 3, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "8 each leg, controlled movement"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 3, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Glutes"], "notes": "Squeeze at the top"},
+            {"exerciseId": "calf_raises", "name": "Calf Raises", "sets": 3, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Calves"], "notes": "Full range of motion"},
+            {"exerciseId": "wall_sit", "name": "Wall Sit", "sets": 3, "reps": null, "duration": 20, "rest": 60, "targetMuscles": ["Legs"], "notes": "Build leg endurance"}
+          ]
+        },
+        "friday": {
+          "name": "Pull Strength",
+          "duration": 30,
+          "calories": 150,
+          "exercises": [
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 3, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Core", "Shoulders"], "notes": "Controlled pace"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 3, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Legs", "Core"], "notes": "Drive knees up high"},
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 3, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Full Body"], "notes": "Steady rhythm"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 25, "rest": 45, "targetMuscles": ["Core"], "notes": "Build core strength"},
+            {"exerciseId": "shoulder_taps", "name": "Shoulder Taps", "sets": 3, "reps": 12, "duration": null, "rest": 45, "targetMuscles": ["Shoulders", "Core"], "notes": "6 each side"}
+          ]
+        },
+        "saturday": {
+          "name": "Full Body Power",
+          "duration": 30,
+          "calories": 165,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 3, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "Focus on power"},
+            {"exerciseId": "knee_pushups", "name": "Knee Push-ups", "sets": 3, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps"], "notes": "Explosive up"},
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 3, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Full Body"], "notes": "Power movement"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 3, "reps": null, "duration": 30, "rest": 45, "targetMuscles": ["Core"], "notes": "Hold steady"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 3, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Glutes"], "notes": "Power squeeze"}
+          ]
+        }
+      }
     },
     {
       "phaseNumber": 2,
       "phaseName": "Progressive Overload",
       "weeks": "5-9",
-      "description": "Increasing intensity and volume for strength gains"
+      "description": "Increasing intensity and volume for strength gains",
+      "workouts": {
+        "monday": {
+          "name": "Push Strength",
+          "duration": 30,
+          "calories": 180,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 4, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps"], "notes": "Progress to full push-ups"},
+            {"exerciseId": "incline_pushups", "name": "Incline Push-ups", "sets": 3, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Shoulders"], "notes": "Lower incline"},
+            {"exerciseId": "tricep_dips", "name": "Tricep Dips", "sets": 4, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Triceps"], "notes": "Increase range"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 30, "rest": 45, "targetMuscles": ["Core"], "notes": "Longer holds"},
+            {"exerciseId": "diamond_pushups", "name": "Diamond Push-ups", "sets": 3, "reps": 5, "duration": null, "rest": 60, "targetMuscles": ["Triceps", "Chest"], "notes": "Advanced variation"}
+          ]
+        },
+        "wednesday": {
+          "name": "Lower Body Strength",
+          "duration": 30,
+          "calories": 190,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 4, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "Increase volume"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 4, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "10 each leg"},
+            {"exerciseId": "glute_bridges", "name": "Glute Bridges", "sets": 4, "reps": 15, "duration": null, "rest": 45, "targetMuscles": ["Glutes"], "notes": "Hold at top"},
+            {"exerciseId": "calf_raises", "name": "Calf Raises", "sets": 4, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Calves"], "notes": "Slow and controlled"},
+            {"exerciseId": "wall_sit", "name": "Wall Sit", "sets": 4, "reps": null, "duration": 30, "rest": 60, "targetMuscles": ["Legs"], "notes": "Longer holds"}
+          ]
+        },
+        "friday": {
+          "name": "Pull Strength",
+          "duration": 30,
+          "calories": 170,
+          "exercises": [
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 4, "reps": 20, "duration": null, "rest": 60, "targetMuscles": ["Core", "Shoulders"], "notes": "Increase pace"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 4, "reps": 25, "duration": null, "rest": 45, "targetMuscles": ["Legs", "Core"], "notes": "Higher intensity"},
+            {"exerciseId": "jumping_jacks", "name": "Jumping Jacks", "sets": 4, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Full Body"], "notes": "Faster pace"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 35, "rest": 45, "targetMuscles": ["Core"], "notes": "Stronger core"},
+            {"exerciseId": "shoulder_taps", "name": "Shoulder Taps", "sets": 4, "reps": 16, "duration": null, "rest": 45, "targetMuscles": ["Shoulders", "Core"], "notes": "8 each side"}
+          ]
+        },
+        "saturday": {
+          "name": "Full Body Power",
+          "duration": 30,
+          "calories": 185,
+          "exercises": [
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 4, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "Add explosive power"},
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 4, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps"], "notes": "Power focus"},
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 3, "reps": 5, "duration": null, "rest": 60, "targetMuscles": ["Full Body"], "notes": "Full body power"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 40, "rest": 45, "targetMuscles": ["Core"], "notes": "Power endurance"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 3, "reps": 25, "duration": null, "rest": 45, "targetMuscles": ["Core", "Shoulders"], "notes": "Power bursts"}
+          ]
+        }
+      }
     },
     {
       "phaseNumber": 3,
       "phaseName": "Consolidation",
       "weeks": "10-13",
-      "description": "Solidifying strength gains and preparing for intermediate"
+      "description": "Solidifying strength gains and preparing for intermediate",
+      "workouts": {
+        "monday": {
+          "name": "Push Strength",
+          "duration": 30,
+          "calories": 200,
+          "exercises": [
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 5, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps"], "notes": "Master the movement"},
+            {"exerciseId": "diamond_pushups", "name": "Diamond Push-ups", "sets": 4, "reps": 8, "duration": null, "rest": 60, "targetMuscles": ["Triceps", "Chest"], "notes": "Advanced strength"},
+            {"exerciseId": "tricep_dips", "name": "Tricep Dips", "sets": 5, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Triceps"], "notes": "Full range mastery"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 45, "rest": 45, "targetMuscles": ["Core"], "notes": "Advanced holds"},
+            {"exerciseId": "wide_pushups", "name": "Wide Push-ups", "sets": 4, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Chest"], "notes": "Chest focus"}
+          ]
+        },
+        "wednesday": {
+          "name": "Lower Body Strength",
+          "duration": 30,
+          "calories": 210,
+          "exercises": [
+            {"exerciseId": "bodyweight_squats", "name": "Bodyweight Squats", "sets": 5, "reps": 20, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "High volume"},
+            {"exerciseId": "lunges", "name": "Lunges", "sets": 5, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "12 each leg"},
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 4, "reps": 10, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "Power development"},
+            {"exerciseId": "calf_raises", "name": "Calf Raises", "sets": 5, "reps": 25, "duration": null, "rest": 45, "targetMuscles": ["Calves"], "notes": "High volume"},
+            {"exerciseId": "wall_sit", "name": "Wall Sit", "sets": 5, "reps": null, "duration": 45, "rest": 60, "targetMuscles": ["Legs"], "notes": "Advanced endurance"}
+          ]
+        },
+        "friday": {
+          "name": "Pull Strength",
+          "duration": 30,
+          "calories": 190,
+          "exercises": [
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 5, "reps": 30, "duration": null, "rest": 60, "targetMuscles": ["Core", "Shoulders"], "notes": "High intensity"},
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 4, "reps": 8, "duration": null, "rest": 90, "targetMuscles": ["Full Body"], "notes": "Full body strength"},
+            {"exerciseId": "high_knees", "name": "High Knees", "sets": 5, "reps": 30, "duration": null, "rest": 45, "targetMuscles": ["Legs", "Core"], "notes": "Power endurance"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 5, "reps": null, "duration": 50, "rest": 45, "targetMuscles": ["Core"], "notes": "Master level"},
+            {"exerciseId": "shoulder_taps", "name": "Shoulder Taps", "sets": 5, "reps": 20, "duration": null, "rest": 45, "targetMuscles": ["Shoulders", "Core"], "notes": "10 each side"}
+          ]
+        },
+        "saturday": {
+          "name": "Full Body Power",
+          "duration": 30,
+          "calories": 205,
+          "exercises": [
+            {"exerciseId": "jump_squats", "name": "Jump Squats", "sets": 5, "reps": 12, "duration": null, "rest": 60, "targetMuscles": ["Legs"], "notes": "Maximum power"},
+            {"exerciseId": "standard_pushups", "name": "Standard Push-ups", "sets": 5, "reps": 15, "duration": null, "rest": 60, "targetMuscles": ["Chest", "Triceps"], "notes": "Power endurance"},
+            {"exerciseId": "burpees", "name": "Burpees", "sets": 4, "reps": 10, "duration": null, "rest": 90, "targetMuscles": ["Full Body"], "notes": "Advanced power"},
+            {"exerciseId": "mountain_climbers", "name": "Mountain Climbers", "sets": 4, "reps": 35, "duration": null, "rest": 60, "targetMuscles": ["Core", "Shoulders"], "notes": "Power conditioning"},
+            {"exerciseId": "plank_hold", "name": "Plank Hold", "sets": 4, "reps": null, "duration": 60, "rest": 45, "targetMuscles": ["Core"], "notes": "Advanced core"}
+          ]
+        }
+      }
     }
   ],
   "expectedResults": {

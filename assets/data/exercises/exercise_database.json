@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2026-03-31",
-  "totalExercises": 37,
+  "totalExercises": 45,
   "exercises": [
     {
       "exerciseId": "jumping_jacks",
@@ -11,6 +11,13 @@
       "equipment": "none",
       "primaryMuscles": ["Legs", "Shoulders"],
       "secondaryMuscles": ["Core", "Calves"],
+      "contraindications": ["knee_issues", "high_impact_restrictions", "heart_conditions", "balance_concerns"],
+      "alternatives": {
+        "knee_issues": ["arm_circles", "seated_marching"],
+        "high_impact_restrictions": ["marching_in_place", "step_touches"],
+        "heart_conditions": ["gentle_arm_swings", "slow_marching"],
+        "balance_concerns": ["seated_movements", "wall_supported_exercises"]
+      },
       "gifUrl": "https://media.giphy.com/media/RgtuKqJ8rPII4qdRjp/giphy.gif",
       "instructions": [
         "Stand with feet together and arms at your sides",
@@ -44,6 +51,12 @@
       "equipment": "none",
       "primaryMuscles": ["Quads", "Glutes"],
       "secondaryMuscles": ["Hamstrings", "Core", "Calves"],
+      "contraindications": ["knee_issues", "back_problems", "balance_concerns"],
+      "alternatives": {
+        "knee_issues": ["wall_sit", "glute_bridges"],
+        "back_problems": ["wall_squats", "chair_assisted_squats"],
+        "balance_concerns": ["wall_supported_squats", "seated_leg_extensions"]
+      },
       "gifUrl": "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHZ2ZThtbHlycms0azQ4dHVtODg5bmZ6N2RkcmY5Z2k2cG01aG5hcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RTNDA7OxcwuOMcCPhL/giphy.gif",
       "instructions": [
         "Stand with feet shoulder-width apart, toes slightly pointed out",
@@ -77,6 +90,13 @@
       "equipment": "none",
       "primaryMuscles": ["Chest", "Triceps"],
       "secondaryMuscles": ["Shoulders", "Core"],
+      "contraindications": ["wrist_problems", "shoulder_limitations", "back_problems", "pregnancy"],
+      "alternatives": {
+        "wrist_problems": ["wall_pushups", "incline_pushups"],
+        "shoulder_limitations": ["wall_pushups", "chest_squeezes"],
+        "back_problems": ["wall_pushups", "incline_pushups"],
+        "pregnancy": ["wall_pushups", "prenatal_chest_exercises"]
+      },
       "gifUrl": "https://media.giphy.com/media/SX9pF45td2gIniqSBm/giphy.gif",
       "instructions": [
         "Start in a plank position with hands slightly wider than shoulder-width",
@@ -100,6 +120,39 @@
       "modifications": {
         "easier": "Do knee push-ups or incline push-ups",
         "harder": "Elevate feet or add a clap"
+      }
+    },
+    {
+      "exerciseId": "wide_pushups",
+      "name": "Wide Push-ups",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Shoulders"],
+      "secondaryMuscles": ["Triceps", "Core"],
+      "gifUrl": "https://media.giphy.com/media/SX9pF45td2gIniqSBm/giphy.gif",
+      "instructions": [
+        "Start in push-up position with hands placed wider than shoulder-width",
+        "Keep your body in a straight line from head to heels",
+        "Lower your chest toward the ground by bending elbows",
+        "Go down until chest nearly touches the floor",
+        "Push back up to starting position"
+      ],
+      "tips": [
+        "Keep core engaged throughout movement",
+        "Don't let hips sag or pike up",
+        "Control the descent and ascent",
+        "Breathe in on the way down, out on the way up"
+      ],
+      "commonMistakes": [
+        "Hands placed too wide causing shoulder strain",
+        "Not maintaining straight body line",
+        "Partial range of motion",
+        "Rushing through the movement"
+      ],
+      "modifications": {
+        "easier": "Do knee wide push-ups or incline wide push-ups",
+        "harder": "Add feet elevation or pause at bottom"
       }
     },
     {
@@ -242,6 +295,14 @@
       "equipment": "none",
       "primaryMuscles": ["Core", "Shoulders"],
       "secondaryMuscles": ["Legs", "Chest"],
+      "contraindications": ["wrist_problems", "shoulder_limitations", "heart_conditions", "high_impact_restrictions", "pregnancy"],
+      "alternatives": {
+        "wrist_problems": ["standing_knee_raises", "marching_in_place"],
+        "shoulder_limitations": ["high_knees", "step_touches"],
+        "heart_conditions": ["slow_marching", "gentle_stretching"],
+        "high_impact_restrictions": ["standing_core_twists", "slow_knee_raises"],
+        "pregnancy": ["prenatal_marching", "supported_leg_lifts"]
+      },
       "gifUrl": "https://media.giphy.com/media/vI2BMBcFDgbbFrB0bA/giphy.gif",
       "instructions": [
         "Start in a high plank position with hands under shoulders",
@@ -275,6 +336,16 @@
       "equipment": "none",
       "primaryMuscles": ["Full Body"],
       "secondaryMuscles": ["Chest", "Legs", "Core", "Shoulders"],
+      "contraindications": ["knee_issues", "wrist_problems", "shoulder_limitations", "heart_conditions", "high_impact_restrictions", "back_problems", "pregnancy"],
+      "alternatives": {
+        "knee_issues": ["modified_burpees", "step_touches"],
+        "wrist_problems": ["standing_burpee_variation", "cardio_march"],
+        "shoulder_limitations": ["squat_to_calf_raise", "low_impact_cardio"],
+        "heart_conditions": ["slow_step_ups", "gentle_movements"],
+        "high_impact_restrictions": ["modified_burpees", "step_exercises"],
+        "back_problems": ["standing_exercises", "supported_movements"],
+        "pregnancy": ["prenatal_squats", "supported_exercises"]
+      },
       "gifUrl": "https://media.giphy.com/media/KxuGSIZU1QZfRiRx4h/giphy.gif",
       "instructions": [
         "Start standing with feet shoulder-width apart",
@@ -408,6 +479,14 @@
       "equipment": "none",
       "primaryMuscles": ["Quads", "Glutes"],
       "secondaryMuscles": ["Calves", "Core"],
+      "contraindications": ["knee_issues", "high_impact_restrictions", "heart_conditions", "balance_concerns", "pregnancy"],
+      "alternatives": {
+        "knee_issues": ["bodyweight_squats", "wall_sit"],
+        "high_impact_restrictions": ["slow_squats", "squat_holds"],
+        "heart_conditions": ["gentle_squats", "supported_squats"],
+        "balance_concerns": ["wall_supported_squats", "chair_squats"],
+        "pregnancy": ["prenatal_squats", "supported_squats"]
+      },
       "gifUrl": "https://media.giphy.com/media/xU1ryd1OkMzbh9VwDR/giphy.gif",
       "instructions": ["Stand with feet shoulder-width apart", "Lower into a squat position", "Explosively jump up as high as possible", "Land softly and immediately go into next squat", "Maintain control throughout the movement"],
       "tips": ["Land softly on balls of feet", "Keep chest up during squat", "Use arms for momentum", "Start with lower jumps"],
@@ -1033,6 +1112,237 @@
       "modifications": {
         "easier": "Bend knees or keep arms at sides",
         "harder": "Rock back and forth or hold longer"
+      }
+    },
+    {
+      "exerciseId": "plank_up_downs",
+      "name": "Plank Up-Downs",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Shoulders"],
+      "secondaryMuscles": ["Triceps", "Chest"],
+      "gifUrl": "https://media.giphy.com/media/26BRyNmEefw26QTle/giphy.gif",
+      "instructions": [
+        "Start in a high plank position with hands under shoulders",
+        "Lower down to forearm plank, one arm at a time",
+        "Push back up to high plank, one arm at a time",
+        "Alternate which arm leads the movement",
+        "Keep core engaged and hips stable throughout"
+      ],
+      "tips": [
+        "Keep hips level throughout movement",
+        "Don't let hips rock side to side",
+        "Control the movement, don't rush",
+        "Engage core to maintain stability"
+      ],
+      "commonMistakes": [
+        "Hips rocking side to side",
+        "Moving too fast",
+        "Not engaging core",
+        "Letting hips sag or pike up"
+      ],
+      "modifications": {
+        "easier": "Do from knees or against wall",
+        "harder": "Add weights or hold longer"
+      }
+    },
+    {
+      "exerciseId": "plank_jacks",
+      "name": "Plank Jacks",
+      "category": "cardio",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Cardio"],
+      "secondaryMuscles": ["Shoulders", "Legs"],
+      "gifUrl": "https://media.giphy.com/media/vI2BMBcFDgbbFrB0bA/giphy.gif",
+      "instructions": [
+        "Start in a high plank position with hands under shoulders",
+        "Jump feet apart wider than hip-width",
+        "Jump feet back together to starting position",
+        "Keep upper body stable throughout",
+        "Maintain plank form while moving legs"
+      ],
+      "tips": [
+        "Keep core engaged throughout",
+        "Don't let hips sag or pike up",
+        "Land softly on balls of feet",
+        "Maintain steady rhythm"
+      ],
+      "commonMistakes": [
+        "Hips sagging or piking up",
+        "Moving too fast without control",
+        "Not engaging core",
+        "Landing too hard"
+      ],
+      "modifications": {
+        "easier": "Step feet out instead of jumping",
+        "harder": "Increase speed or add push-up"
+      }
+    },
+    {
+      "exerciseId": "pushups",
+      "name": "Push-ups",
+      "category": "strength",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Chest", "Triceps"],
+      "secondaryMuscles": ["Shoulders", "Core"],
+      "gifUrl": "https://media.giphy.com/media/SX9pF45td2gIniqSBm/giphy.gif",
+      "instructions": [
+        "Start in a plank position with hands slightly wider than shoulder-width",
+        "Lower your body until chest nearly touches the floor",
+        "Push back up to starting position",
+        "Keep body in straight line throughout",
+        "Engage core and maintain proper form"
+      ],
+      "tips": [
+        "Keep core engaged throughout",
+        "Don't let hips sag or pike up",
+        "Full range of motion",
+        "Control the movement"
+      ],
+      "commonMistakes": [
+        "Sagging hips",
+        "Not going low enough",
+        "Flaring elbows too wide",
+        "Using momentum"
+      ],
+      "modifications": {
+        "easier": "Do knee push-ups or incline push-ups",
+        "harder": "Elevate feet or add a clap"
+      }
+    },
+    {
+      "exerciseId": "squats",
+      "name": "Squats",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Hamstrings", "Core", "Calves"],
+      "gifUrl": "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHZ2ZThtbHlycms0azQ4dHVtODg5bmZ6N2RkcmY5Z2k2cG01aG5hcyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RTNDA7OxcwuOMcCPhL/giphy.gif",
+      "instructions": [
+        "Stand with feet shoulder-width apart, toes slightly pointed out",
+        "Keep your chest up and core engaged",
+        "Lower down by pushing hips back and bending knees",
+        "Go down until thighs are parallel to floor",
+        "Push through heels to return to starting position"
+      ],
+      "tips": [
+        "Keep knees in line with toes",
+        "Don't let knees cave inward",
+        "Keep chest up throughout movement",
+        "Full range of motion"
+      ],
+      "commonMistakes": [
+        "Knees caving inward",
+        "Not going low enough",
+        "Leaning too far forward",
+        "Rising up on toes"
+      ],
+      "modifications": {
+        "easier": "Hold onto a chair or wall for support",
+        "harder": "Add a pause at the bottom or do jump squats"
+      }
+    },
+    {
+      "exerciseId": "alternating_lunges",
+      "name": "Alternating Lunges",
+      "category": "strength",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Quads", "Glutes"],
+      "secondaryMuscles": ["Hamstrings", "Calves", "Core"],
+      "gifUrl": "https://media.giphy.com/media/BDta60HEH7374d4lSZ/giphy.gif",
+      "instructions": [
+        "Stand with feet hip-width apart",
+        "Step forward with right leg into lunge position",
+        "Lower until both knees are at 90 degrees",
+        "Push back to starting position",
+        "Repeat with left leg, alternating sides"
+      ],
+      "tips": [
+        "Keep front knee over ankle",
+        "Don't let front knee go past toes",
+        "Keep torso upright",
+        "Control the movement"
+      ],
+      "commonMistakes": [
+        "Knee going past toes",
+        "Leaning too far forward",
+        "Not going low enough",
+        "Poor balance"
+      ],
+      "modifications": {
+        "easier": "Hold onto a wall or do stationary lunges",
+        "harder": "Add weights or increase walking distance"
+      }
+    },
+    {
+      "exerciseId": "plank",
+      "name": "Plank",
+      "category": "core",
+      "difficulty": "beginner",
+      "equipment": "none",
+      "primaryMuscles": ["Core", "Abs"],
+      "secondaryMuscles": ["Shoulders", "Back", "Glutes"],
+      "gifUrl": "https://media.giphy.com/media/xrShezcf4yRtraX6fq/giphy.gif",
+      "instructions": [
+        "Start in a forearm plank position with elbows under shoulders",
+        "Keep body in straight line from head to heels",
+        "Engage core and hold position",
+        "Breathe normally while maintaining form",
+        "Hold for desired duration"
+      ],
+      "tips": [
+        "Keep hips level - don't sag or pike",
+        "Engage core throughout",
+        "Keep neck neutral",
+        "Breathe steadily"
+      ],
+      "commonMistakes": [
+        "Hips sagging down",
+        "Hips too high",
+        "Holding breath",
+        "Looking up or down"
+      ],
+      "modifications": {
+        "easier": "Do plank on knees or against a wall",
+        "harder": "Lift one leg or add shoulder taps"
+      }
+    },
+    {
+      "exerciseId": "leg_raises",
+      "name": "Leg Raises",
+      "category": "core",
+      "difficulty": "intermediate",
+      "equipment": "none",
+      "primaryMuscles": ["Lower Abs"],
+      "secondaryMuscles": ["Hip Flexors"],
+      "gifUrl": "https://media.giphy.com/media/TMNCtgJGJnV8k/giphy.gif",
+      "instructions": [
+        "Lie on your back with legs straight",
+        "Place hands at sides or under lower back",
+        "Keeping legs straight, lift them up to 90 degrees",
+        "Lower legs back down with control",
+        "Don't let feet touch the ground between reps"
+      ],
+      "tips": [
+        "Keep lower back pressed to floor",
+        "Control the descent",
+        "Don't swing legs",
+        "Engage core throughout"
+      ],
+      "commonMistakes": [
+        "Lower back arching off floor",
+        "Using momentum",
+        "Bending knees too much",
+        "Going too fast"
+      ],
+      "modifications": {
+        "easier": "Bend knees or do partial range",
+        "harder": "Add ankle weights or hold at top"
       }
     }
   ]

@@ -18,7 +18,7 @@ class OnboardingWizardScreen extends StatefulWidget {
 class _OnboardingWizardScreenState extends State<OnboardingWizardScreen> 
     with TickerProviderStateMixin {
   int currentStep = 1;
-  final int totalSteps = 9; // Separate motivation and goals steps
+  final int totalSteps = 10; // Added physical restrictions step
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
   
@@ -43,6 +43,7 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
     'selectedAdvice': '',
     'fitnessLevel': 'beginner',
     'allergies': [],
+    'physicalRestrictions': [],
   };
 
   @override
@@ -151,10 +152,11 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
       case 3: return _buildGenderStep(isSmallScreen);
       case 4: return _buildFitnessLevelStep(isSmallScreen);
       case 5: return _buildAllergyStep(isSmallScreen);
-      case 6: return _buildMotivationStep(isSmallScreen);
-      case 7: return _buildGoalsStep(isSmallScreen);
-      case 8: return _buildMotivationalAdviceStep(isSmallScreen);
-      case 9: return _buildCompletionStep(isSmallScreen);
+      case 6: return _buildPhysicalRestrictionsStep(isSmallScreen);
+      case 7: return _buildMotivationStep(isSmallScreen);
+      case 8: return _buildGoalsStep(isSmallScreen);
+      case 9: return _buildMotivationalAdviceStep(isSmallScreen);
+      case 10: return _buildCompletionStep(isSmallScreen);
       default: return Container();
     }
   }
@@ -184,7 +186,7 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
           ),
           SizedBox(height: isSmallScreen ? 20 : 32),
           Text(
-            'Meet Your AI Coach!',
+            'Meet Your Home Coach!',
             style: TextStyle(
               color: Colors.white,
               fontSize: isSmallScreen ? 22 : 28,
@@ -648,6 +650,201 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
                           height: isSmallScreen ? 20 : 24,
                           decoration: BoxDecoration(
                             color: isNone ? Colors.green : Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: isSmallScreen ? 12 : 16,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+          
+          SizedBox(height: 20),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPhysicalRestrictionsStep(bool isSmallScreen) {
+    final restrictions = [
+      {
+        'name': 'Knee Sensitivity',
+        'description': 'Avoid deep bends or high impact',
+        'icon': '🦵',
+        'value': 'knee_issues',
+      },
+      {
+        'name': 'Back Care',
+        'description': 'Protect lower back from strain',
+        'icon': '🔄',
+        'value': 'back_problems',
+      },
+      {
+        'name': 'Heart Considerations',
+        'description': 'Keep intensity moderate',
+        'icon': '💗',
+        'value': 'heart_conditions',
+      },
+      {
+        'name': 'Shoulder Care',
+        'description': 'Avoid overhead or strain',
+        'icon': '💪',
+        'value': 'shoulder_limitations',
+      },
+      {
+        'name': 'Low Impact Only',
+        'description': 'No jumping or harsh movements',
+        'icon': '🏃',
+        'value': 'high_impact_restrictions',
+      },
+      {
+        'name': 'Balance Support',
+        'description': 'Keep both feet on ground',
+        'icon': '⚖️',
+        'value': 'balance_concerns',
+      },
+      {
+        'name': 'Wrist Care',
+        'description': 'Gentle on hands and wrists',
+        'icon': '🤲',
+        'value': 'wrist_problems',
+      },
+      {
+        'name': 'Pregnancy Safe',
+        'description': 'Modifications for expecting mothers',
+        'icon': '🤰',
+        'value': 'pregnancy',
+      },
+      {
+        'name': 'No Physical Restrictions',
+        'description': 'I\'m ready for any exercise safely',
+        'icon': '✅',
+        'value': 'none',
+      },
+    ];
+
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: isSmallScreen ? 12 : 16),
+      child: Column(
+        children: [
+          Text(
+            'Any areas we should be extra careful with?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isSmallScreen ? 20 : 24,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: isSmallScreen ? 8 : 12),
+          Text(
+            'We\'ll personalize your workouts for your body',
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: isSmallScreen ? 12 : 14,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: isSmallScreen ? 20 : 32),
+          
+          ...restrictions.map((restriction) {
+            bool isSelected = (userProfile['physicalRestrictions'] as List).contains(restriction['value']);
+            bool isNone = restriction['value'] == 'none';
+            
+            return Container(
+              margin: EdgeInsets.only(bottom: isSmallScreen ? 8 : 10),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    List restrictionsList = userProfile['physicalRestrictions'] as List;
+                    
+                    if (isNone) {
+                      // If "No Restrictions" is selected, clear all others
+                      restrictionsList.clear();
+                      if (!isSelected) {
+                        restrictionsList.add('none');
+                      }
+                    } else {
+                      // Remove "No Restrictions" if any specific restriction is selected
+                      restrictionsList.remove('none');
+                      
+                      if (isSelected) {
+                        restrictionsList.remove(restriction['value']);
+                      } else {
+                        restrictionsList.add(restriction['value']);
+                      }
+                    }
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.all(isSmallScreen ? 12 : 14),
+                  decoration: BoxDecoration(
+                    color: isSelected 
+                        ? (isNone ? Colors.green.withOpacity(0.2) : Color(0xFF6C5CE7).withOpacity(0.2))
+                        : Colors.white.withOpacity(0.05),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: isSelected 
+                          ? (isNone ? Colors.green : Color(0xFF6C5CE7))
+                          : Colors.white.withOpacity(0.1),
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: isSmallScreen ? 40 : 45,
+                        height: isSmallScreen ? 40 : 45,
+                        decoration: BoxDecoration(
+                          color: isSelected 
+                              ? (isNone ? Colors.green : Color(0xFF6C5CE7))
+                              : Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(isSmallScreen ? 20 : 22),
+                        ),
+                        child: Center(
+                          child: Text(
+                            restriction['icon'] as String,
+                            style: TextStyle(fontSize: isSmallScreen ? 18 : 20),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: isSmallScreen ? 12 : 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              restriction['name'] as String,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: isSmallScreen ? 14 : 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              restriction['description'] as String,
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: isSmallScreen ? 10 : 11,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      if (isSelected)
+                        Container(
+                          width: isSmallScreen ? 20 : 24,
+                          height: isSmallScreen ? 20 : 24,
+                          decoration: BoxDecoration(
+                            color: isNone ? Colors.green : Color(0xFF6C5CE7),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -1199,6 +1396,53 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
               ],
             ),
           ),
+          SizedBox(height: 12),
+          
+          // Physical Restrictions Card - Full Width
+          Container(
+            padding: EdgeInsets.all(isSmallScreen ? 12 : 16),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Color(0xFF6C5CE7).withOpacity(0.3)),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF6C5CE7).withOpacity(0.2),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(Icons.health_and_safety_rounded, color: Color(0xFF6C5CE7), size: isSmallScreen ? 20 : 24),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Physical Considerations',
+                        style: TextStyle(
+                          color: Colors.white60,
+                          fontSize: isSmallScreen ? 10 : 11,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        (userProfile['physicalRestrictions'] as List).isEmpty ? 'None' : (userProfile['physicalRestrictions'] as List).join(', '),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: isSmallScreen ? 13 : 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           SizedBox(height: isSmallScreen ? 24 : 32),
           
           // Motivational Message
@@ -1376,10 +1620,11 @@ class _OnboardingWizardScreenState extends State<OnboardingWizardScreen>
       case 3: return userProfile['gender'].isNotEmpty; // Gender step
       case 4: return userProfile['fitnessLevel'].isNotEmpty; // Fitness level step
       case 5: return true; // Allergy step (optional, can be empty)
-      case 6: return userProfile['motivation'].isNotEmpty; // Motivation step
-      case 7: return userProfile['primaryGoal'].isNotEmpty; // Goals step
-      case 8: return userProfile['selectedAdvice'].isNotEmpty; // Motivational advice step
-      case 9: return true; // Completion step
+      case 6: return true; // Physical restrictions step (optional, can be empty)
+      case 7: return userProfile['motivation'].isNotEmpty; // Motivation step
+      case 8: return userProfile['primaryGoal'].isNotEmpty; // Goals step
+      case 9: return userProfile['selectedAdvice'].isNotEmpty; // Motivational advice step
+      case 10: return true; // Completion step
       default: return false;
     }
   }

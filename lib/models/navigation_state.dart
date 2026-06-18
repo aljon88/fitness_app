@@ -47,8 +47,7 @@ class NavigationState {
   /// Check if user is in a workout flow
   bool get isInWorkoutFlow {
     return currentScreen == NavigationScreen.workoutDetail ||
-           currentScreen == NavigationScreen.workoutSession ||
-           (currentScreen == NavigationScreen.camera && hasActiveWorkout);
+           currentScreen == NavigationScreen.workoutSession;
   }
 
   @override
@@ -93,7 +92,6 @@ enum NavigationScreen {
   auth,
   onboarding,
   dashboard,
-  camera,
   workoutProgram,
   workoutDetail,
   workoutSession,

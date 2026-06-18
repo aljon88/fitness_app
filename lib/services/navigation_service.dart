@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import '../models/navigation_state.dart';
 import '../screens/dashboard_screen.dart';
-// import '../screens/camera_screen.dart'; // REMOVED - using timer workout system
+// import '../screens/camera_screen.dart'; // REMOVED - not part of HOME FITNESS COACH system
 import '../screens/calendar_screen.dart';
 import '../screens/workout_detail_screen.dart';
 // import '../screens/workout_session_screen.dart'; // REMOVED - using active_workout_screen with timer system
 import '../screens/meal_plan_screen.dart';
 import '../screens/user_profile_screen.dart';
+import 'firebase_auth_service.dart';
+import 'user_profile_service.dart';
 
 /// Central navigation service for managing app-wide navigation
 /// Provides consistent navigation patterns and state preservation
-class NavigationService {
+class NavigationService extends ChangeNotifier {
   static final NavigationService _instance = NavigationService._internal();
   factory NavigationService() => _instance;
-  NavigationService._internal();
+  NavigationService._internal() {
+    _initializeAuthListener();
+  }
 
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   NavigationState _currentState = NavigationState();
@@ -25,12 +29,48 @@ class NavigationService {
   Map<String, dynamic>? _activeWorkout;
   Map<String, dynamic>? _userProfile;
   
+  // Auth service for listening to user changes
+  late FirebaseAuthService _authService;
+  
   // Getters
   NavigationState get currentState => _currentState;
   List<NavigationContext> get navigationHistory => List.unmodifiable(_navigationHistory);
   Map<String, dynamic>? get activeWorkout => _activeWorkout;
   Map<String, dynamic>? get userProfile => _userProfile;
   bool get hasActiveWorkout => _activeWorkout != null;
+
+  /// Initialize auth listener for automatic profile updates
+  void _initializeAuthListener() {
+    _authService = FirebaseAuthService();
+    _authService.addListener(_onAuthStateChanged);
+  }
+
+  /// Handle auth state changes - simple profile clearing
+  void _onAuthStateChanged() async {
+    print('🔄 NavigationService: Auth state changed');
+    final currentUser = _authService.currentUser;
+    
+    if (currentUser == null) {
+      // User logged out - clear everything
+      _userProfile = null;
+      _currentState = _currentState.copyWith(userProfile: null);
+      print('🚪 NavigationService: User logged out, profile cleared');
+    } else {
+      // User logged in - clear old profile, let screens reload fresh data
+      _userProfile = null;
+      _currentState = _currentState.copyWith(userProfile: null);
+      print('🔄 NavigationService: User changed, profile cleared for fresh load');
+    }
+    
+    // Notify listeners
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _authService.removeListener(_onAuthStateChanged);
+    super.dispose();
+  }
 
   /// Initialize navigation service with user profile
   void initialize(Map<String, dynamic> profile) {
@@ -133,17 +173,6 @@ class NavigationService {
     );
   }
 
-  /// Navigate to camera with workout context
-  Future<void> navigateToCamera({bool fromWorkout = false}) async {
-    await navigateTo(
-      NavigationScreen.camera,
-      arguments: {
-        'fromWorkout': fromWorkout,
-        'activeWorkout': _activeWorkout,
-        'profile': _userProfile,
-      },
-    );
-  }
 
   /// Navigate to workout program
   Future<void> navigateToWorkoutProgram() async {
@@ -174,8 +203,6 @@ class NavigationService {
     switch (screen) {
       case NavigationScreen.dashboard:
         return _getDashboardScreen();
-      case NavigationScreen.camera:
-        return _getCameraScreen(arguments);
       case NavigationScreen.workoutProgram:
         return _getWorkoutProgramScreen(arguments);
       case NavigationScreen.workoutDetail:
@@ -232,10 +259,7 @@ class NavigationService {
     return DashboardScreen(profile: _userProfile ?? {});
   }
 
-  Widget _getCameraScreen(Map<String, dynamic>? arguments) {
-    // Camera screen removed - using timer workout system instead
-    return _getDashboardScreen();
-  }
+
 
   Widget _getWorkoutProgramScreen(Map<String, dynamic>? arguments) {
     return CalendarScreen(userProfile: arguments?['profile'] ?? _userProfile ?? {});
@@ -289,8 +313,6 @@ class NavigationService {
     switch (screen) {
       case NavigationScreen.dashboard:
         return 'Dashboard';
-      case NavigationScreen.camera:
-        return 'AI Camera';
       case NavigationScreen.workoutProgram:
         return 'Workouts';
       case NavigationScreen.workoutDetail:

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'auth_screen.dart';
-import 'progress_tracking_screen.dart';
+import 'workout_history_screen.dart';
 import '../services/navigation_service.dart';
 import '../services/firebase_auth_service.dart';
-import '../services/sample_data_generator.dart';
+import '../services/real_time_calendar_service.dart';
 import '../services/workout_history_service.dart';
-import '../models/workout_history.dart';
+import '../services/workout_program_loader.dart';
 import '../models/navigation_state.dart';
 import '../widgets/navigation_widgets.dart';
 import '../theme/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
   final Map<String, dynamic> profile;
@@ -25,20 +26,19 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   
-  // Real data from WorkoutHistoryService
-  final WorkoutHistoryService _historyService = WorkoutHistoryService();
-  int _totalWorkouts = 0;
-  int _currentStreak = 0;
-  int _currentDay = 1;
-  List<WorkoutHistory> _recentWorkouts = [];
-  bool _isLoadingData = true;
+  Map<String, dynamic> _currentProfile = {};
 
   @override
   void initState() {
     super.initState();
     
+    _currentProfile = widget.profile;
+    
     // Initialize navigation service with user profile
     NavigationService().initialize(widget.profile);
+    
+    // Listen for navigation service changes (includes auth state changes)
+    NavigationService().addListener(_onNavigationStateChanged);
     
     _fadeController = AnimationController(
       duration: Duration(milliseconds: 1000),
@@ -60,38 +60,38 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     
     _fadeController.forward();
     _slideController.forward();
-    
-    // Load real workout data
-    _loadRealData();
   }
-  
-  Future<void> _loadRealData() async {
-    String userId = widget.profile['uid'] ?? 'user_001';
+
+  @override
+  void dispose() {
+    NavigationService().removeListener(_onNavigationStateChanged);
+    _fadeController.dispose();
+    _slideController.dispose();
+    super.dispose();
+  }
+
+  void _onNavigationStateChanged() {
+    // When auth state changes, reload dashboard with fresh data
+    if (mounted) {
+      setState(() {
+        // Clear current profile to force fresh load
+        _currentProfile = {};
+      });
+      // Load fresh profile data
+      _loadFreshProfile();
+    }
+  }
+
+  Future<void> _loadFreshProfile() async {
+    final authService = FirebaseAuthService();
+    final freshProfile = await authService.getUserProfile();
     
-    try {
-      // Load real data from WorkoutHistoryService
-      _totalWorkouts = await _historyService.getTotalWorkoutsCompleted(userId);
-      _currentStreak = await _historyService.getCurrentStreak(userId);
-      _recentWorkouts = await _historyService.getWorkoutHistory(userId);
-      
-      // Calculate current day based on completed workouts
-      List<int> completedDays = await _historyService.getCompletedWorkoutDays(userId);
-      if (completedDays.isNotEmpty) {
-        _currentDay = completedDays.last + 1;
-      }
-      
-      if (mounted) {
-        setState(() {
-          _isLoadingData = false;
-        });
-      }
-    } catch (e) {
-      print('Error loading workout data: $e');
-      if (mounted) {
-        setState(() {
-          _isLoadingData = false;
-        });
-      }
+    if (freshProfile != null && freshProfile.isNotEmpty && mounted) {
+      setState(() {
+        _currentProfile = Map<String, dynamic>.from(freshProfile);
+        _currentProfile['uid'] = authService.currentUser?.uid ?? 'unknown';
+      });
+      print('🔄 Dashboard: Loaded fresh profile for ${_currentProfile['name']}');
     }
   }
 
@@ -99,16 +99,16 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   Widget build(BuildContext context) {
     // Debug logging
     print('🏠 Dashboard build() called');
-    print('   Profile is null: ${widget.profile == null}');
-    print('   Profile is empty: ${widget.profile.isEmpty}');
-    print('   Profile keys: ${widget.profile.keys.toList()}');
-    print('   Profile has name: ${widget.profile.containsKey("name")}');
-    print('   Profile name value: ${widget.profile['name']}');
+    print('   Profile is null: ${_currentProfile == null}');
+    print('   Profile is empty: ${_currentProfile.isEmpty}');
+    print('   Profile keys: ${_currentProfile.keys.toList()}');
+    print('   Profile has name: ${_currentProfile.containsKey("name")}');
+    print('   Profile name value: ${_currentProfile['name']}');
     
     // Check if profile is empty or invalid
-    if (widget.profile.isEmpty || widget.profile['name'] == null) {
+    if (_currentProfile.isEmpty || _currentProfile['name'] == null) {
       print('❌ Dashboard showing "No profile found" error');
-      print('   Reason: ${widget.profile.isEmpty ? "Profile is empty" : "Profile name is null"}');
+      print('   Reason: ${_currentProfile.isEmpty ? "Profile is empty" : "Profile name is null"}');
       
       return Scaffold(
         body: Container(
@@ -201,10 +201,37 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
                 children: [
                   // Header with navigation integration
                   NavigationHeader(
-                    title: 'Hello, ${widget.profile['name'] ?? 'User'}!',
+                    title: 'Hello, ${_currentProfile['name'] ?? 'User'}!',
                     subtitle: 'Ready for your workout?',
                     showBackButton: false,
                     actions: [
+                      // History Icon
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => WorkoutHistoryScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          margin: EdgeInsets.only(right: 12),
+                          decoration: BoxDecoration(
+                            color: AppColors.primary.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(22),
+                            border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+                          ),
+                          child: Icon(
+                            Icons.history_rounded,
+                            color: AppColors.primary,
+                            size: 22,
+                          ),
+                        ),
+                      ),
+                      // Profile Icon
                       GestureDetector(
                         onTap: () => NavigationService().navigateToUserProfile(),
                         child: Container(
@@ -236,7 +263,6 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
         ),
       ),
       bottomNavigationBar: MainNavigationBar(currentScreen: NavigationScreen.dashboard),
-      floatingActionButton: WorkoutCameraFAB(),
     );
   }
 
@@ -255,17 +281,26 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     dashboardWidgets.add(_buildTodayProgress());
     dashboardWidgets.add(SizedBox(height: 100)); // Extra bottom spacing for FAB
 
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      itemCount: dashboardWidgets.length,
-      itemBuilder: (context, index) {
-        return dashboardWidgets[index];
+    return RefreshIndicator(
+      onRefresh: () async {
+        // Trigger a rebuild to refresh stats
+        if (mounted) {
+          setState(() {});
+        }
       },
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        physics: AlwaysScrollableScrollPhysics(),
+        itemCount: dashboardWidgets.length,
+        itemBuilder: (context, index) {
+          return dashboardWidgets[index];
+        },
+      ),
     );
   }
 
   Widget _buildWelcomeSection() {
-    String fitnessLevel = widget.profile['fitnessLevel'] ?? 'beginner';
+    String fitnessLevel = _currentProfile['fitnessLevel'] ?? 'beginner';
     Map<String, dynamic> programInfo = _getProgramInfo(fitnessLevel);
     
     return Container(
@@ -310,7 +345,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
               SizedBox(width: 16),
               Expanded(
                 child: Text(
-                  'AI Fitness Journey',
+                  'Home Fitness Journey',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
@@ -378,47 +413,151 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   }
 
   Widget _buildQuickStats() {
-    String fitnessLevel = widget.profile['fitnessLevel'] ?? 'beginner';
-    Map<String, int> programDays = {
-      'beginner': 90,
-      'intermediate': 60,
-      'advanced': 30,
-    };
-    int totalDays = programDays[fitnessLevel.toLowerCase()] ?? 90;
+    String fitnessLevel = _currentProfile['fitnessLevel'] ?? 'beginner';
+    String primaryGoal = _currentProfile['primaryGoal'] ?? 'Healthy Lifestyle';
     
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _calculateRealTimeStats(primaryGoal, fitnessLevel),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return _buildLoadingStats();
+        }
+        
+        final stats = snapshot.data!;
+        return Row(
+          children: [
+            Expanded(
+              child: _buildStatCard(
+                icon: Icons.calendar_today_rounded,
+                title: 'Day',
+                value: '${stats['currentDay']}',
+                subtitle: 'of ${stats['totalDays']}',
+                color: Color(0xFF6C5CE7),
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildStatCard(
+                icon: Icons.date_range_rounded,
+                title: 'This Week',
+                value: '${stats['weeklyCompleted']}/${stats['weeklyGoal']}',
+                subtitle: 'workouts',
+                color: Color(0xFF4ECDC4),
+              ),
+            ),
+            SizedBox(width: 16),
+            Expanded(
+              child: _buildStatCard(
+                icon: Icons.fitness_center_rounded,
+                title: 'Total',
+                value: '${stats['totalCompleted']}',
+                subtitle: 'completed',
+                color: Color(0xFFFF6B6B),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingStats() {
     return Row(
       children: [
         Expanded(
           child: _buildStatCard(
             icon: Icons.calendar_today_rounded,
             title: 'Day',
-            value: _isLoadingData ? '-' : '$_currentDay',
-            subtitle: 'of $totalDays',
+            value: '-',
+            subtitle: 'of -',
             color: Color(0xFF6C5CE7),
           ),
         ),
         SizedBox(width: 16),
         Expanded(
           child: _buildStatCard(
-            icon: Icons.local_fire_department_rounded,
-            title: 'Streak',
-            value: _isLoadingData ? '-' : '$_currentStreak',
-            subtitle: 'days',
-            color: Color(0xFFFF6B6B),
+            icon: Icons.date_range_rounded,
+            title: 'This Week',
+            value: '-/-',
+            subtitle: 'workouts',
+            color: Color(0xFF4ECDC4),
           ),
         ),
         SizedBox(width: 16),
         Expanded(
           child: _buildStatCard(
             icon: Icons.fitness_center_rounded,
-            title: 'Workouts',
-            value: _isLoadingData ? '-' : '$_totalWorkouts',
+            title: 'Total',
+            value: '-',
             subtitle: 'completed',
-            color: Color(0xFF4ECDC4),
+            color: Color(0xFFFF6B6B),
           ),
         ),
       ],
     );
+  }
+
+  Future<Map<String, dynamic>> _calculateRealTimeStats(String primaryGoal, String fitnessLevel) async {
+    final calendarService = RealTimeCalendarService();
+    final historyService = WorkoutHistoryService();
+    final programLoader = WorkoutProgramLoader();
+    
+    try {
+      // Get current program day from real-time calendar
+      final currentDay = await calendarService.getTodayProgramDay();
+      
+      // Get program info for total days and weekly goal
+      final program = await programLoader.loadProgram(primaryGoal, fitnessLevel);
+      final totalDays = programLoader.getProgramDurationDays(program);
+      final weeklyGoal = program['schedule']['workoutsPerWeek'] ?? 4;
+      
+      // Get completed workout days (excludes rest days)
+      final user = FirebaseAuth.instance.currentUser;
+      final completedDays = user != null 
+          ? await historyService.getCompletedWorkoutDays(user.uid)
+          : <int>[];
+      
+      // Calculate current week number and weekly progress
+      final currentWeek = ((currentDay - 1) ~/ 7) + 1;
+      final weekStartDay = ((currentWeek - 1) * 7) + 1;
+      final weekEndDay = currentWeek * 7;
+      
+      // Count completed workouts in current week (exclude rest days)
+      final calendar = await calendarService.generateProgramCalendar(primaryGoal, fitnessLevel);
+      final currentWeekDays = calendar.where((day) => 
+          day['programDay'] >= weekStartDay && 
+          day['programDay'] <= weekEndDay &&
+          !day['isRestDay']
+      ).toList();
+      
+      final weeklyCompleted = currentWeekDays.where((day) => 
+          completedDays.contains(day['programDay'])
+      ).length;
+      
+      // Total completed workouts (exclude rest days)
+      final totalCompleted = calendar.where((day) => 
+          completedDays.contains(day['programDay']) && !day['isRestDay']
+      ).length;
+      
+      return {
+        'currentDay': currentDay,
+        'totalDays': totalDays,
+        'weeklyCompleted': weeklyCompleted,
+        'weeklyGoal': weeklyGoal,
+        'totalCompleted': totalCompleted,
+        'currentWeek': currentWeek,
+      };
+    } catch (e) {
+      print('Error calculating stats: $e');
+      return {
+        'currentDay': 1,
+        'totalDays': 90,
+        'weeklyCompleted': 0,
+        'weeklyGoal': 4,
+        'totalCompleted': 0,
+        'currentWeek': 1,
+      };
+    }
   }
 
   Widget _buildStatCard({
@@ -458,7 +597,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
             value,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 28,
+              fontSize: title == 'This Week' ? 24 : 28,
               fontWeight: FontWeight.w800,
               letterSpacing: -0.5,
             ),
@@ -485,179 +624,124 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   }
 
   Widget _buildWorkoutHistory() {
-    String fitnessLevel = widget.profile['fitnessLevel'] ?? 'beginner';
+    String fitnessLevel = _currentProfile['fitnessLevel'] ?? 'beginner';
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Workout History',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            TextButton(
-              onPressed: () => _navigateToProgressTracking(),
-              child: Text(
-                'View All',
-                style: TextStyle(
-                  color: Color(0xFF6C5CE7),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
+        Text(
+          'Next Workout',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: 16),
         
         // Next Workout Card
         _buildNextWorkoutCard(fitnessLevel),
-        SizedBox(height: 12),
+      ],
+    );
+  }
+  
+  Widget _buildNextWorkoutCard(String fitnessLevel) {
+    String primaryGoal = _currentProfile['primaryGoal'] ?? 'Healthy Lifestyle';
+    
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _getNextWorkoutFromCalendar(primaryGoal, fitnessLevel),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return _buildLoadingNextWorkoutCard();
+        }
         
-        // Recent Workouts or Empty State
-        if (_isLoadingData)
-          _buildLoadingHistoryCard()
-        else if (_recentWorkouts.isEmpty)
-          _buildEmptyHistoryCard()
-        else
-          _buildRecentWorkoutsSection(),
-      ],
-    );
-  }
-  
-  Widget _buildLoadingHistoryCard() {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Color(0xFF1E1F3A),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
-      ),
-      child: Center(
-        child: CircularProgressIndicator(
-          color: Color(0xFF6C5CE7),
-          strokeWidth: 2,
-        ),
-      ),
-    );
-  }
-  
-  Widget _buildRecentWorkoutsSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Recent Workouts',
-          style: TextStyle(
-            color: Colors.white.withOpacity(0.9),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 12),
-        ..._recentWorkouts.take(3).map((workout) => Column(
-          children: [
-            _buildWorkoutHistoryCard(workout),
-            SizedBox(height: 12),
-          ],
-        )),
-      ],
-    );
-  }
-  
-  Widget _buildWorkoutHistoryCard(WorkoutHistory workout) {
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Color(0xFF1E1F3A),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Icon(
-              Icons.check_circle_rounded,
-              color: Colors.green,
-              size: 24,
-            ),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  workout.workoutTitle,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  '${_formatDate(workout.completedAt)} • ${workout.durationMinutes} min • ${workout.totalReps} reps',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
-                    fontSize: 12,
-                  ),
-                ),
+        final nextWorkout = snapshot.data!;
+        
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Color(0xFF6C5CE7).withOpacity(0.2),
+                Color(0xFF8B7FE8).withOpacity(0.1),
               ],
             ),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Color(0xFF6C5CE7).withOpacity(0.3)),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: nextWorkout['isRestDay'] ? Color(0xFF4ECDC4) : Color(0xFF6C5CE7),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      nextWorkout['isRestDay'] ? 'REST DAY' : 'NEXT UP',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(
+                    nextWorkout['isRestDay'] ? Icons.self_improvement_rounded : Icons.arrow_forward_rounded,
+                    color: nextWorkout['isRestDay'] ? Color(0xFF4ECDC4) : Color(0xFF6C5CE7),
+                    size: 20,
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
               Text(
-                '${workout.caloriesBurned}',
+                nextWorkout['title'],
                 style: TextStyle(
-                  color: Color(0xFFFF6B6B),
+                  color: Colors.white,
                   fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
               ),
+              SizedBox(height: 8),
               Text(
-                'kcal',
+                nextWorkout['description'],
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.5),
-                  fontSize: 11,
+                  color: Colors.white.withOpacity(0.7),
+                  fontSize: 14,
                 ),
               ),
+              if (!nextWorkout['isRestDay']) ...[
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    _buildWorkoutInfoChip(
+                      Icons.fitness_center_rounded,
+                      '${nextWorkout['exercises']} exercises',
+                    ),
+                    SizedBox(width: 12),
+                    _buildWorkoutInfoChip(
+                      Icons.timer_rounded,
+                      '${nextWorkout['duration']} min',
+                    ),
+                  ],
+                ),
+              ],
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
-  
-  String _formatDate(DateTime date) {
-    final now = DateTime.now();
-    final difference = now.difference(date).inDays;
-    
-    if (difference == 0) return 'Today';
-    if (difference == 1) return 'Yesterday';
-    if (difference < 7) return '${difference} days ago';
-    
-    return '${date.month}/${date.day}/${date.year}';
-  }
 
-  Widget _buildNextWorkoutCard(String fitnessLevel) {
-    Map<String, dynamic> nextWorkout = _getNextWorkout(fitnessLevel);
-    
+  Widget _buildLoadingNextWorkoutCard() {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(20),
@@ -679,59 +763,41 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
           Row(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                width: 80,
+                height: 24,
                 decoration: BoxDecoration(
-                  color: Color(0xFF6C5CE7),
+                  color: Colors.white.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  'NEXT UP',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: 1,
-                  ),
                 ),
               ),
               Spacer(),
-              Icon(
-                Icons.arrow_forward_rounded,
-                color: Color(0xFF6C5CE7),
-                size: 20,
+              Container(
+                width: 20,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
             ],
           ),
           SizedBox(height: 16),
-          Text(
-            nextWorkout['title'],
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
+          Container(
+            width: double.infinity,
+            height: 20,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
           SizedBox(height: 8),
-          Text(
-            nextWorkout['description'],
-            style: TextStyle(
-              color: Colors.white.withOpacity(0.7),
-              fontSize: 14,
+          Container(
+            width: 200,
+            height: 16,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(8),
             ),
-          ),
-          SizedBox(height: 16),
-          Row(
-            children: [
-              _buildWorkoutInfoChip(
-                Icons.fitness_center_rounded,
-                '${nextWorkout['exercises']} exercises',
-              ),
-              SizedBox(width: 12),
-              _buildWorkoutInfoChip(
-                Icons.timer_rounded,
-                '${nextWorkout['duration']} min',
-              ),
-            ],
           ),
         ],
       ),
@@ -802,6 +868,161 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     );
   }
 
+  Future<Map<String, dynamic>> _getNextWorkoutFromCalendar(String primaryGoal, String fitnessLevel) async {
+    try {
+      print('🏠 Dashboard: Getting next workout for $primaryGoal - $fitnessLevel');
+      
+      final calendarService = RealTimeCalendarService();
+      final historyService = WorkoutHistoryService();
+      final user = FirebaseAuth.instance.currentUser;
+      
+      if (user == null) {
+        print('❌ Dashboard: No user logged in, using fallback');
+        return _getFallbackNextWorkout(fitnessLevel);
+      }
+      
+      // Get current program day and completed days
+      final currentDay = await calendarService.getTodayProgramDay();
+      final completedDays = await historyService.getCompletedWorkoutDays(user.uid);
+      
+      print('📅 Dashboard: Current day = $currentDay, Completed days = $completedDays');
+      
+      // Generate calendar to find next workout
+      final calendar = await calendarService.generateProgramCalendar(primaryGoal, fitnessLevel);
+      
+      print('📋 Dashboard: Generated calendar with ${calendar.length} days');
+      
+      // Find the next uncompleted workout
+      Map<String, dynamic>? nextWorkout;
+      
+      // First, check if today's workout is not completed
+      final todayWorkout = calendar.firstWhere(
+        (day) => day['programDay'] == currentDay,
+        orElse: () => {},
+      );
+      
+      if (todayWorkout.isNotEmpty && !completedDays.contains(currentDay)) {
+        nextWorkout = todayWorkout;
+        print('✅ Dashboard: Today\'s workout (Day $currentDay) is next');
+      } else {
+        // Find next uncompleted workout after today
+        for (final day in calendar) {
+          if (day['programDay'] > currentDay && !completedDays.contains(day['programDay'])) {
+            nextWorkout = day;
+            print('⏭️ Dashboard: Next workout is Day ${day['programDay']}');
+            break;
+          }
+        }
+      }
+      
+      if (nextWorkout == null || nextWorkout.isEmpty) {
+        print('❌ Dashboard: No next workout found, using fallback');
+        return _getFallbackNextWorkout(fitnessLevel);
+      }
+      
+      // Format the workout data for display
+      if (nextWorkout['isRestDay'] == true) {
+        print('😴 Dashboard: Next is rest day');
+        return {
+          'title': 'Rest Day',
+          'description': 'Recovery and muscle repair time',
+          'exercises': 0,
+          'duration': 0,
+          'isRestDay': true,
+          'programDay': nextWorkout['programDay'],
+        };
+      } else {
+        final workoutData = nextWorkout['workoutData'] ?? {};
+        final exercises = workoutData['exercises'] as List<dynamic>? ?? [];
+        
+        final result = {
+          'title': 'Day ${nextWorkout['programDay']}: ${workoutData['name'] ?? 'Workout'}',
+          'description': _getWorkoutDescription(workoutData['name'] ?? 'Workout', fitnessLevel),
+          'exercises': exercises.length,
+          'duration': workoutData['duration'] ?? 30,
+          'isRestDay': false,
+          'programDay': nextWorkout['programDay'],
+        };
+        
+        print('💪 Dashboard: Next workout = ${result['title']}');
+        return result;
+      }
+    } catch (e) {
+      print('❌ Dashboard: Error getting next workout from calendar: $e');
+      return _getFallbackNextWorkout(fitnessLevel);
+    }
+  }
+
+  Map<String, dynamic> _getFallbackNextWorkout(String fitnessLevel) {
+    // Fallback to static data if calendar service fails
+    // Use generic workout that works for all goals
+    switch (fitnessLevel.toLowerCase()) {
+      case 'beginner':
+        return {
+          'title': 'Day 1: Workout',
+          'description': 'Foundation building with proper form',
+          'exercises': 5,
+          'duration': 25,
+          'isRestDay': false,
+          'programDay': 1,
+        };
+      case 'intermediate':
+        return {
+          'title': 'Day 1: Workout',
+          'description': 'Strength and power development',
+          'exercises': 5,
+          'duration': 30,
+          'isRestDay': false,
+          'programDay': 1,
+        };
+      case 'advanced':
+        return {
+          'title': 'Day 1: Workout',
+          'description': 'Elite performance training',
+          'exercises': 5,
+          'duration': 35,
+          'isRestDay': false,
+          'programDay': 1,
+        };
+      default:
+        return {
+          'title': 'Day 1: Workout',
+          'description': 'Foundation building',
+          'exercises': 5,
+          'duration': 25,
+          'isRestDay': false,
+          'programDay': 1,
+        };
+    }
+  }
+
+  String _getWorkoutDescription(String workoutName, String fitnessLevel) {
+    final name = workoutName.toLowerCase();
+    
+    if (name.contains('full body') || name.contains('strength')) {
+      switch (fitnessLevel.toLowerCase()) {
+        case 'beginner':
+          return 'Foundation building with proper form';
+        case 'intermediate':
+          return 'Strength and power development';
+        case 'advanced':
+          return 'Elite performance training';
+        default:
+          return 'Full body strength training';
+      }
+    } else if (name.contains('hiit') || name.contains('cardio')) {
+      return 'High-intensity cardiovascular training';
+    } else if (name.contains('upper body')) {
+      return 'Upper body strength and conditioning';
+    } else if (name.contains('lower body')) {
+      return 'Lower body power and endurance';
+    } else if (name.contains('flexibility') || name.contains('recovery')) {
+      return 'Active recovery and flexibility';
+    } else {
+      return 'Targeted workout session';
+    }
+  }
+
   Map<String, dynamic> _getNextWorkout(String fitnessLevel) {
     switch (fitnessLevel.toLowerCase()) {
       case 'beginner':
@@ -837,7 +1058,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
 
   Widget _buildMainFeatures_OLD() {
     final navigationService = NavigationService();
-    String fitnessLevel = widget.profile['fitnessLevel'] ?? 'beginner';
+    String fitnessLevel = _currentProfile['fitnessLevel'] ?? 'beginner';
     Map<String, dynamic> programInfo = _getProgramInfo(fitnessLevel);
     
     return Column(
@@ -860,16 +1081,6 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
           subtitle: programInfo['workoutSubtitle'],
           gradient: _getGradientForLevel(fitnessLevel),
           onTap: () => navigationService.navigateToWorkoutProgram(),
-        ),
-        SizedBox(height: 16),
-        
-        // AI Camera Trainer
-        _buildFeatureCard(
-          icon: Icons.camera_alt_rounded,
-          title: 'AI Camera Trainer',
-          subtitle: 'Real-time movement detection & rep counting',
-          gradient: [Color(0xFF74B9FF), Color(0xFF0984E3)],
-          onTap: () => navigationService.navigateToCamera(),
         ),
         SizedBox(height: 16),
         
@@ -1001,7 +1212,7 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   }
 
   Widget _buildTodayProgress() {
-    String fitnessLevel = widget.profile['fitnessLevel'] ?? 'beginner';
+    String fitnessLevel = _currentProfile['fitnessLevel'] ?? 'beginner';
     Map<String, dynamic> programInfo = _getProgramInfo(fitnessLevel);
     
     return Container(
@@ -1123,9 +1334,11 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
   }
 
   void _navigateToProgressTracking() {
-    Navigator.of(context).push(
+    // Navigate to workout history instead
+    Navigator.push(
+      context,
       MaterialPageRoute(
-        builder: (context) => ProgressTrackingScreen(profile: widget.profile),
+        builder: (context) => WorkoutHistoryScreen(),
       ),
     );
   }
@@ -1257,10 +1470,4 @@ class _DashboardScreenState extends State<DashboardScreen> with TickerProviderSt
     }
   }
 
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    _slideController.dispose();
-    super.dispose();
-  }
 }

@@ -41,7 +41,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
 
   void _initializeExercise() {
     _totalSets = widget.exercise['sets'] ?? 1;
-    _restSeconds = widget.exercise['rest'] ?? 30; // Use actual rest time from program
+    _restSeconds = widget.exercise['rest'] ?? 30; // Use 30 seconds as default rest time
     _calculateSetDuration();
   }
 
@@ -51,9 +51,9 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
       // Duration-based exercise (like plank, high knees)
       _totalSeconds = widget.exercise['duration'] as int;
     } else if (widget.exercise['reps'] != null) {
-      // Rep-based exercise - estimate 2 seconds per rep
+      // Rep-based exercise - use full set duration, not per rep
       final reps = widget.exercise['reps'] as int;
-      _totalSeconds = (reps * 2);
+      _totalSeconds = (reps * 2); // 2 seconds per rep for the entire set
     } else {
       // Fallback to 30 seconds if no data
       _totalSeconds = 30;
@@ -108,7 +108,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
         widget.onComplete();
       }
     } else {
-      // Set complete, start rest (unless it's the last set)
+      // SET complete (not individual rep), start rest if more sets remain
       if (_currentSet < _totalSets) {
         SoundService().playRestStart(); // Play rest start sound
         _startRest();
@@ -161,16 +161,20 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
     final exerciseName = widget.exercise['name'] ?? 'Exercise';
     final gifUrl = widget.exercise['gifUrl'];
     
-    // Debug: Print the gifUrl being used
-    print('🎬 ExerciseTimerScreen building for: $exerciseName');
-    print('   gifUrl value: $gifUrl');
-    print('   gifUrl is null: ${gifUrl == null}');
-    print('   gifUrl type: ${gifUrl.runtimeType}');
+    // Only print debug info once, not on every timer tick
+    if (_secondsElapsed == 0) {
+      print('🎬 ExerciseTimerScreen building for: $exerciseName');
+      print('   gifUrl value: $gifUrl');
+      print('   gifUrl is null: ${gifUrl == null}');
+      print('   gifUrl is empty: ${gifUrl?.toString().isEmpty ?? true}');
+      print('   gifUrl type: ${gifUrl.runtimeType}');
+      print('   Full exercise data keys: ${widget.exercise.keys.toList()}');
+    }
     
     final progress = _totalSeconds > 0 ? _secondsElapsed / _totalSeconds : 0.0;
 
     return Scaffold(
-      backgroundColor: _isResting ? Color(0xFF1A1A1A) : Colors.white,
+      backgroundColor: _isResting ? Color(0xFF1A1B3A) : Color(0xFF1A1B3A), // Always use your app's dark theme
       body: SafeArea(
         child: Column(
           children: [
@@ -179,10 +183,10 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFF1A1B3A), // Dark background like your app
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.08),
+                      color: Colors.black.withOpacity(0.1),
                       blurRadius: 8,
                       offset: Offset(0, 2),
                     ),
@@ -197,7 +201,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                           width: 44,
                           height: 44,
                           decoration: BoxDecoration(
-                            color: Colors.grey[100],
+                            color: Color(0xFF2D3561), // Darker shade for button
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: IconButton(
@@ -205,7 +209,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                             icon: Icon(
                               Icons.close_rounded, 
                               size: 24,
-                              color: Colors.black87,
+                              color: Colors.white, // White icon on dark background
                             ),
                             padding: EdgeInsets.zero,
                           ),
@@ -217,7 +221,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                color: Colors.black87,
+                                color: Colors.white, // Bright white for better contrast
                                 letterSpacing: 0.3,
                               ),
                             ),
@@ -249,7 +253,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                         Container(
                           height: 8,
                           decoration: BoxDecoration(
-                            color: Colors.grey[200],
+                            color: Color(0xFF2D3561), // Dark progress track
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
@@ -283,45 +287,22 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
               flex: 3,
               child: Container(
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: _isResting 
-                      ? LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0xFFFF9500), Color(0xFFFF8000)],
-                        )
-                      : null,
-                  color: _isResting ? null : Colors.black,
-                ),
+                color: Colors.black,
                 child: _isResting
                     ? _buildRestDisplay()
                     : Stack(
                         children: [
-                          // Video/GIF background
-                          if (gifUrl != null)
+                          // Video/GIF background - improved container for proper fit
+                          if (gifUrl != null && gifUrl.toString().isNotEmpty)
                             Positioned.fill(
-                              child: ClipRRect(
-                                child: Image.network(
-                                  gifUrl,
-                                  fit: BoxFit.cover,
-                                  loadingBuilder: (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      print('✅ Image loaded successfully: $gifUrl');
-                                      return child;
-                                    }
-                                    print('⏳ Loading image: $gifUrl (${loadingProgress.cumulativeBytesLoaded}/${loadingProgress.expectedTotalBytes ?? 0} bytes)');
-                                    return _buildDemoPlaceholder();
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    print('❌ Failed to load image: $gifUrl');
-                                    print('   Error: $error');
-                                    return _buildDemoPlaceholder();
-                                  },
-                                ),
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: _ExerciseGifWidget(gifUrl: gifUrl.toString()),
                               ),
                             ),
-                          // Dark overlay for better text readability
-                          if (gifUrl != null)
+                          // Dark overlay for better text readability - reduced opacity
+                          if (gifUrl != null && gifUrl.toString().isNotEmpty)
                             Positioned.fill(
                               child: Container(
                                 decoration: BoxDecoration(
@@ -329,16 +310,16 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [
-                                      Colors.black.withOpacity(0.3),
-                                      Colors.black.withOpacity(0.1),
-                                      Colors.black.withOpacity(0.4),
+                                      Colors.black.withOpacity(0.1), // Reduced from 0.3
+                                      Colors.transparent,             // Reduced from 0.1
+                                      Colors.black.withOpacity(0.2), // Reduced from 0.4
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                           // Pause overlay - shows when timer is paused
-                          if (_isPaused && gifUrl != null)
+                          if (_isPaused && gifUrl != null && gifUrl.toString().isNotEmpty)
                             Positioned.fill(
                               child: Container(
                                 color: Colors.black.withOpacity(0.7),
@@ -366,27 +347,27 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                               ),
                             ),
                           // Fallback placeholder if no video
-                          if (gifUrl == null)
+                          if (gifUrl == null || gifUrl.toString().isEmpty)
                             Positioned.fill(child: _buildDemoPlaceholder()),
                         ],
                       ),
               ),
             ),
 
-            // Exercise info and timer - COMPLETELY HIDDEN during rest
+            // Exercise info and timer - DARK THEME
             if (!_isResting)
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.fromLTRB(24, 24, 24, 28),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFF2D3561), // Lighter dark background for better text contrast
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(32),
                     topRight: Radius.circular(32),
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
+                      color: Colors.black.withOpacity(0.2),
                       blurRadius: 30,
                       offset: Offset(0, -8),
                     ),
@@ -404,7 +385,7 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
-                          color: _isResting ? Colors.white : Color(0xFF1A1A1A),
+                          color: Colors.white, // Bright white for maximum readability
                           letterSpacing: 0.5,
                         ),
                         textAlign: TextAlign.center,
@@ -418,10 +399,10 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: Color(0xFF007AFF).withOpacity(0.1),
+                            color: Color(0xFF6C5CE7).withOpacity(0.2), // Your app's purple
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: Color(0xFF007AFF).withOpacity(0.3),
+                              color: Color(0xFF6C5CE7).withOpacity(0.5), // Purple border
                               width: 1.5,
                             ),
                           ),
@@ -429,59 +410,26 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                             'SET $_currentSet OF $_totalSets',
                             style: TextStyle(
                               fontSize: 13,
-                              color: Color(0xFF007AFF),
+                              color: Colors.white, // White text
                               fontWeight: FontWeight.w800,
                               letterSpacing: 1.2,
                             ),
                           ),
                         )
-                      else
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFFF9500).withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                              color: Color(0xFFFF9500).withOpacity(0.3),
-                              width: 1.5,
-                            ),
-                          ),
-                          child: Text(
-                            'Next: Set ${_currentSet + 1} of $_totalSets',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Color(0xFFFF9500),
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.5,
-                            ),
-                          ),
-                        ),
                     ],
                   ),
                   
-                  SizedBox(height: 24),
+                  SizedBox(height: 20),
                   
-                  // CONSISTENT TIMER DISPLAY - Always show timer for all exercises
+                  // COMPACT TIMER DISPLAY - BETTER CONTRAST
                   Container(
-                    padding: EdgeInsets.all(24),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: _isResting 
-                          ? [
-                              Color(0xFFFF9500).withOpacity(0.15),
-                              Color(0xFFFF9500).withOpacity(0.05),
-                            ]
-                          : [
-                              Color(0xFF007AFF).withOpacity(0.12),
-                              Color(0xFF007AFF).withOpacity(0.05),
-                            ],
-                      ),
-                      borderRadius: BorderRadius.circular(24),
+                      color: Color(0xFF6C5CE7).withOpacity(0.15), // Slightly more opacity for better contrast
+                      borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: _isResting 
-                          ? Color(0xFFFF9500).withOpacity(0.3)
-                          : Color(0xFF007AFF).withOpacity(0.3),
-                        width: 2,
+                        color: Color(0xFF6C5CE7).withOpacity(0.4), // Stronger border
+                        width: 1.5,
                       ),
                     ),
                     child: Row(
@@ -489,16 +437,16 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                       children: [
                         Icon(
                           Icons.timer_outlined,
-                          size: 48,
-                          color: _isResting ? Color(0xFFFF9500) : Color(0xFF007AFF),
+                          size: 20,
+                          color: Colors.white, // White icon for better visibility
                         ),
-                        SizedBox(width: 16),
+                        SizedBox(width: 8),
                         Text(
                           _formatTime(_totalSeconds - _secondsElapsed),
                           style: TextStyle(
-                            fontSize: 64,
-                            fontWeight: FontWeight.w900,
-                            color: _isResting ? Color(0xFFFF9500) : Color(0xFF007AFF),
+                            fontSize: 28,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white, // White text for maximum readability
                             height: 1.0,
                           ),
                         ),
@@ -506,84 +454,76 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                     ),
                   ),
                   
-                  SizedBox(height: 24),
+                  SizedBox(height: 18),
                   
-                  // Control buttons
+                  // Control buttons - EXACT APP COLORS
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Pause/Resume button
-                      Expanded(
-                        child: Container(
-                          height: 56,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: _isResting 
-                                  ? [Color(0xFFFF9500), Color(0xFFFF8000)]
-                                  : [Color(0xFF007AFF), Color(0xFF0051D5)],
+                      // Pause/Resume button - YOUR APP'S EXACT PURPLE
+                      Container(
+                        width: 100,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF6C5CE7), // Your app's exact purple
+                          borderRadius: BorderRadius.circular(18),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFF6C5CE7).withOpacity(0.3),
+                              blurRadius: 6,
+                              offset: Offset(0, 2),
                             ),
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: (_isResting ? Color(0xFFFF9500) : Color(0xFF007AFF))
-                                    .withOpacity(0.4),
-                                blurRadius: 12,
-                                offset: Offset(0, 4),
+                          ],
+                        ),
+                        child: ElevatedButton(
+                          onPressed: _togglePause,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+                            foregroundColor: Colors.white,
+                            shadowColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                _isPaused ? Icons.play_arrow_rounded : Icons.pause_rounded, 
+                                size: 16
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                _isPaused ? 'Resume' : 'Pause',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ],
-                          ),
-                          child: ElevatedButton(
-                            onPressed: _togglePause,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              foregroundColor: Colors.white,
-                              shadowColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              padding: EdgeInsets.zero,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  _isPaused ? Icons.play_arrow_rounded : Icons.pause_rounded, 
-                                  size: 28
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  _isPaused ? 'Resume' : 'Pause',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w800,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ),
                         ),
                       ),
                       SizedBox(width: 12),
-                      // Skip button
+                      // Skip button - DARK THEME
                       Container(
-                        width: 56,
-                        height: 56,
+                        width: 36,
+                        height: 36,
                         decoration: BoxDecoration(
-                          color: _isResting ? Colors.white.withOpacity(0.15) : Colors.grey[100],
-                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0xFF2D3561), // Dark button background
+                          borderRadius: BorderRadius.circular(18),
                           border: Border.all(
-                            color: _isResting 
-                                ? Colors.white.withOpacity(0.25)
-                                : Colors.grey[300]!,
-                            width: 1.5,
+                            color: Color(0xFF6C5CE7).withOpacity(0.3),
+                            width: 1,
                           ),
                         ),
                         child: IconButton(
                           onPressed: _skipSet,
                           icon: Icon(
                             Icons.skip_next_rounded, 
-                            size: 28,
-                            color: _isResting ? Colors.white : Colors.grey[700],
+                            size: 16,
+                            color: Colors.white70, // Light icon on dark background
                           ),
                           padding: EdgeInsets.zero,
                         ),
@@ -603,29 +543,40 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
     return Container(
       width: double.infinity,
       height: double.infinity,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF1A1B3A), // Your app's dark background
+            Color(0xFF2D3561), // Lighter dark shade
+            Color(0xFF1A1B3A), // Back to dark
+          ],
+        ),
+      ),
       child: Column(
         children: [
-          // Top section with REST TIME badge - CLEAN DESIGN
+          // Top section with REST TIME badge
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(24),
             child: Center(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(16),
+                  color: Color(0xFF6C5CE7).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(25),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
-                    width: 1,
+                    color: Color(0xFF6C5CE7).withOpacity(0.4),
+                    width: 1.5,
                   ),
                 ),
                 child: Text(
                   'REST TIME',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: 1.2,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 2,
                   ),
                 ),
               ),
@@ -634,58 +585,45 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
 
           Spacer(),
 
-          // Large circular timer - COMPACT VERSION
+          // Large circular timer - SIMPLE AND CLEAN
           Container(
-            width: 160,
-            height: 160,
+            width: 220,
+            height: 220,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.2),
+              color: Color(0xFF2D3561).withOpacity(0.4),
               border: Border.all(
-                color: Colors.white.withOpacity(0.4),
-                width: 3,
+                color: Color(0xFF6C5CE7).withOpacity(0.5),
+                width: 2,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 20,
-                  spreadRadius: 2,
-                ),
-              ],
             ),
             child: Center(
               child: Text(
                 _formatTime(_totalSeconds - _secondsElapsed),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 56,
+                  fontSize: 52,
                   fontWeight: FontWeight.w900,
                   height: 1.0,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 10,
-                    ),
-                  ],
                 ),
               ),
             ),
           ),
 
-          SizedBox(height: 32),
+          SizedBox(height: 50),
 
-          // Action buttons - COMPACT VERSION
+          // Action buttons - ALIGNED WITH YOUR COLORS
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // +20s button
+              // +20s button - SIMPLE DARK STYLE
               Container(
-                height: 48,
+                height: 52,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(24),
+                  color: Color(0xFF2D3561).withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(26),
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
+                    color: Color(0xFF6C5CE7).withOpacity(0.3),
                     width: 1.5,
                   ),
                 ),
@@ -699,9 +637,9 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                     backgroundColor: Colors.transparent,
                     foregroundColor: Colors.white,
                     shadowColor: Colors.transparent,
-                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 32),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(26),
                     ),
                   ),
                   child: Text(
@@ -714,38 +652,31 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
                   ),
                 ),
               ),
-              SizedBox(width: 12),
-              // SKIP button
+              SizedBox(width: 20),
+              // SKIP button - YOUR PURPLE COLOR
               Container(
-                height: 48,
+                height: 52,
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 12,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
+                  color: Color(0xFF6C5CE7),
+                  borderRadius: BorderRadius.circular(26),
                 ),
                 child: ElevatedButton(
                   onPressed: _skipSet,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.transparent,
-                    foregroundColor: Color(0xFFFF9500),
+                    foregroundColor: Colors.white,
                     shadowColor: Colors.transparent,
-                    padding: EdgeInsets.symmetric(horizontal: 32),
+                    padding: EdgeInsets.symmetric(horizontal: 40),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius: BorderRadius.circular(26),
                     ),
                   ),
                   child: Text(
                     'SKIP',
                     style: TextStyle(
                       fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.8,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1,
                     ),
                   ),
                 ),
@@ -758,6 +689,8 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
       ),
     );
   }
+
+
 
   Widget _buildDemoPlaceholder() {
     return Container(
@@ -784,11 +717,58 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
             ),
             SizedBox(height: 24),
             Text(
-              'Demo loading...',
+              widget.exercise['name'] ?? 'Exercise',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Follow the timer below',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.white.withOpacity(0.7),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoadingPlaceholder() {
+    return Container(
+      color: Colors.black,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.all(40),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white.withOpacity(0.1),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.3),
+                  width: 2,
+                ),
+              ),
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white.withOpacity(0.7)),
+                strokeWidth: 3,
+              ),
+            ),
+            SizedBox(height: 24),
+            Text(
+              'Loading demo...',
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.white.withOpacity(0.8),
-                fontWeight: FontWeight.w600,
+                color: Colors.white.withOpacity(0.7),
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
@@ -805,5 +785,130 @@ class _ExerciseTimerScreenState extends State<ExerciseTimerScreen> {
     if (name.contains('plank')) return Icons.horizontal_rule;
     if (name.contains('run')) return Icons.directions_run;
     return Icons.fitness_center;
+  }
+}
+
+// Separate widget for GIF to prevent rebuilds during timer updates
+class _ExerciseGifWidget extends StatelessWidget {
+  final String gifUrl;
+
+  const _ExerciseGifWidget({required this.gifUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    // Validate gifUrl before attempting to load
+    if (gifUrl.isEmpty || gifUrl == 'null' || gifUrl == null) {
+      return _buildFallbackDemo();
+    }
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      color: Colors.black,
+      child: Image.network(
+        gifUrl,
+        fit: BoxFit.contain,
+        width: double.infinity,
+        height: double.infinity,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) return child;
+          return _buildLoadingDemo();
+        },
+        errorBuilder: (context, error, stackTrace) {
+          print('❌ Failed to load exercise GIF: $gifUrl');
+          print('   Error: $error');
+          return _buildFallbackDemo();
+        },
+      ),
+    );
+  }
+
+  Widget _buildLoadingDemo() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // Animated loading indicator
+          TweenAnimationBuilder<double>(
+            duration: Duration(seconds: 2),
+            tween: Tween(begin: 0.8, end: 1.2),
+            builder: (context, scale, child) {
+              return Transform.scale(
+                scale: scale,
+                child: Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF007AFF).withOpacity(0.2),
+                    border: Border.all(
+                      color: Color(0xFF007AFF).withOpacity(0.5),
+                      width: 2,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.fitness_center,
+                    size: 60,
+                    color: Color(0xFF007AFF),
+                  ),
+                ),
+              );
+            },
+          ),
+          SizedBox(height: 24),
+          Text(
+            'Loading Exercise Demo...',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFallbackDemo() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFF007AFF).withOpacity(0.2),
+              border: Border.all(
+                color: Color(0xFF007AFF).withOpacity(0.5),
+                width: 2,
+              ),
+            ),
+            child: Icon(
+              Icons.fitness_center,
+              size: 60,
+              color: Color(0xFF007AFF),
+            ),
+          ),
+          SizedBox(height: 24),
+          Text(
+            'Exercise Demo',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            'Follow the timer below',
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.white.withOpacity(0.7),
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

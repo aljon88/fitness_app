@@ -62,79 +62,38 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
     final gifUrl = widget.exercise['gifUrl'];
 
     return Scaffold(
-      backgroundColor: Color(0xFF1A1A1A),
-      body: SafeArea(
-        child: Stack(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF0A0A0A),
+              Color(0xFF1A1A2E),
+              Color(0xFF16213E),
+            ],
+            stops: [0.0, 0.6, 1.0],
+          ),
+        ),
+        child: SafeArea(
+          child: Stack(
+            children: [
+              // MAIN COLUMN CONTENT
+              Column(
           children: [
-            // Professional demo video display
-            Positioned.fill(
-              child: Stack(
-                children: [
-                  // Dark background
-                  Container(
-                    color: Color(0xFF0A0A0A),
-                  ),
-                  // Centered demo video with proper aspect ratio
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.45,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            blurRadius: 20,
-                            spreadRadius: 5,
-                          ),
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: gifUrl != null
-                            ? Image.network(
-                                gifUrl,
-                                fit: BoxFit.contain, // Changed from cover to contain
-                                errorBuilder: (context, error, stackTrace) {
-                                  return _buildDemoPlaceholder();
-                                },
-                              )
-                            : _buildDemoPlaceholder(),
-                      ),
-                    ),
-                  ),
-                  // Subtle gradient overlay for better text readability
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.3),
-                          Colors.transparent,
-                          Colors.black.withOpacity(0.4),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Top bar - CLEAN, NO SETTINGS
-            Positioned(
-              top: 16,
-              left: 16,
-              right: 16,
+            // CLEAN TOP BAR - No duplicate timer
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // Close button
                   Container(
-                    width: 44,
-                    height: 44,
+                    width: 40,
+                    height: 40,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(12),
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                         color: Colors.white.withOpacity(0.2),
                         width: 1,
@@ -142,144 +101,141 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
                     ),
                     child: IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.close_rounded, color: Colors.white, size: 24),
+                      icon: Icon(Icons.close_rounded, color: Colors.white, size: 20),
                       padding: EdgeInsets.zero,
                     ),
                   ),
-                  Column(
-                    children: [
-                      Text(
-                        'Exercise ${widget.currentExerciseIndex + 1}/${widget.totalExercises}',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF007AFF).withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(
-                            color: Color(0xFF007AFF).withOpacity(0.5),
-                            width: 1,
-                          ),
-                        ),
-                        child: Text(
-                          '00:0$_countdown',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ),
-                    ],
+                  
+                  // Exercise progress - clean and simple
+                  Text(
+                    'Exercise ${widget.currentExerciseIndex + 1}/${widget.totalExercises}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.3,
+                    ),
                   ),
-                  SizedBox(width: 44), // Spacer to center the middle content
+                  
+                  // Spacer to balance layout
+                  SizedBox(width: 40),
                 ],
               ),
             ),
 
-            // Center content
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            // MAIN CONTENT AREA - Clean and minimal
+            Expanded(
+              child: Stack(
                 children: [
-                  Text(
-                    'READY TO GO',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 3,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 20,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 48),
-                  Container(
-                    width: 180,
-                    height: 180,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF007AFF).withOpacity(0.3),
-                          Color(0xFF007AFF).withOpacity(0.1),
+                  // CLEAN VIDEO SECTION
+                  Positioned(
+                    top: 10,
+                    left: 16,
+                    right: 16,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * 0.38,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 8,
+                            offset: Offset(0, 4),
+                          ),
                         ],
                       ),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.3),
-                        width: 3,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xFF007AFF).withOpacity(0.3),
-                          blurRadius: 30,
-                          spreadRadius: 5,
-                        ),
-                      ],
-                    ),
-                    child: Center(
-                      child: Text(
-                        '$_countdown',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 100,
-                          fontWeight: FontWeight.w900,
-                          height: 1.0,
-                          shadows: [
-                            Shadow(
-                              color: Color(0xFF007AFF).withOpacity(0.5),
-                              blurRadius: 20,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Stack(
+                          children: [
+                            // Video/GIF
+                            Positioned.fill(
+                              child: gifUrl != null
+                                  ? Image.network(
+                                      gifUrl,
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (context, child, loadingProgress) {
+                                        if (loadingProgress == null) return child;
+                                        return Container(
+                                          color: Color(0xFF1A1A2E),
+                                          child: Center(
+                                            child: CircularProgressIndicator(
+                                              valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF007AFF)),
+                                              strokeWidth: 2,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      errorBuilder: (context, error, stackTrace) {
+                                        return _buildDemoPlaceholder();
+                                      },
+                                    )
+                                  : _buildDemoPlaceholder(),
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 48),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.3),
-                        width: 1,
-                      ),
-                    ),
-                    child: Text(
-                      'Exercise ${widget.currentExerciseIndex + 1}/${widget.totalExercises}',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Text(
-                    exerciseName,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.5,
-                      shadows: [
-                        Shadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 15,
+
+                  // COUNTDOWN SECTION - Clean and minimal
+                  Positioned(
+                    top: MediaQuery.of(context).size.height * 0.38 + 40,
+                    left: 0,
+                    right: 0,
+                    child: Column(
+                      children: [
+                        // Countdown circle - Smaller and cleaner
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF007AFF),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xFF007AFF).withOpacity(0.3),
+                                blurRadius: 12,
+                                spreadRadius: 1,
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              '$_countdown',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 32,
+                                fontWeight: FontWeight.w700,
+                                height: 1.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        
+                        SizedBox(height: 16),
+                        
+                        // Exercise info - Clean typography
+                        Text(
+                          'READY TO GO',
+                          style: TextStyle(
+                            color: Color(0xFF007AFF),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                        
+                        SizedBox(height: 6),
+                        
+                        Text(
+                          exerciseName,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
                       ],
                     ),
@@ -287,33 +243,31 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
                 ],
               ),
             ),
+              ],
+            ),
 
-            // Bottom button
+            // START NOW BUTTON - Small, clean, bottom-right
             Positioned(
-              bottom: 40,
-              left: 32,
-              right: 32,
+              bottom: 24,
+              right: 24,
               child: Container(
-                height: 60,
+                width: 100,
+                height: 40,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF007AFF), Color(0xFF0051D5)],
-                  ),
-                  borderRadius: BorderRadius.circular(30),
+                  color: Color(0xFF007AFF),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xFF007AFF).withOpacity(0.5),
-                      blurRadius: 20,
-                      offset: Offset(0, 8),
+                      color: Color(0xFF007AFF).withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
                     ),
                   ],
                 ),
                 child: ElevatedButton(
                   onPressed: () async {
                     _timer?.cancel();
-                    // Test sound before starting
                     await SoundService().testSound();
-                    await Future.delayed(Duration(milliseconds: 500));
                     await SoundService().playWorkoutStart();
                     widget.onStart();
                   },
@@ -322,22 +276,22 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
                     foregroundColor: Colors.white,
                     shadowColor: Colors.transparent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     padding: EdgeInsets.zero,
                   ),
                   child: Text(
                     'Start Now',
                     style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 0.5,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
             ),
-          ],
+            ],
+        ),
         ),
       ),
     );
@@ -354,7 +308,7 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
             Color(0xFF1A1A1A),
           ],
         ),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Center(
         child: Column(
@@ -364,21 +318,35 @@ class _ReadyToGoScreenState extends State<ReadyToGoScreen> {
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white.withOpacity(0.1),
+                color: Color(0xFF007AFF).withOpacity(0.1),
+                border: Border.all(
+                  color: Color(0xFF007AFF).withOpacity(0.3),
+                  width: 1,
+                ),
               ),
               child: Icon(
                 _getExerciseIcon(widget.exercise['name'] ?? ''),
-                size: 60,
-                color: Colors.white.withOpacity(0.6),
+                size: 48,
+                color: Color(0xFF007AFF).withOpacity(0.7),
               ),
             ),
             SizedBox(height: 16),
             Text(
-              'Demo Loading...',
+              widget.exercise['name'] ?? 'Exercise',
               style: TextStyle(
-                color: Colors.white.withOpacity(0.7),
-                fontSize: 16,
+                color: Colors.white,
+                fontSize: 18,
                 fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 6),
+            Text(
+              'Get ready to start!',
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.6),
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],

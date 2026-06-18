@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:label="AI Fitness Trainer"
+        android:label="Home Fitness Coach"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

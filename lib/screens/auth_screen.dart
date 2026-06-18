@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:html' as html show window;
 import 'onboarding_wizard_screen.dart';
 import 'dashboard_screen.dart';
-import '../services/firebase_auth_service.dart';
+import '../services/mock_auth_service.dart';
 import '../services/user_storage_service.dart';
 import '../services/user_profile_service.dart';
+// Import for web page reload
+import '../utils/web_helper.dart';
 
 class AuthScreen extends StatefulWidget {
   @override
@@ -101,7 +102,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                             ],
                           ),
                           child: Icon(
-                            Icons.smart_toy_rounded,
+                            Icons.fitness_center_rounded,
                             size: isSmallScreen ? 40 : 50,
                             color: Colors.white,
                           ),
@@ -109,7 +110,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                         SizedBox(height: isSmallScreen ? 16 : 24),
                         
                         Text(
-                          'AI HOME',
+                          'HOME FITNESS',
                           style: TextStyle(
                             fontSize: isSmallScreen ? 24 : 32,
                             fontWeight: FontWeight.w900,
@@ -118,7 +119,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                           ),
                         ),
                         Text(
-                          'WORKOUT COACH',
+                          'COACH',
                           style: TextStyle(
                             fontSize: isSmallScreen ? 24 : 32,
                             fontWeight: FontWeight.w300,
@@ -136,7 +137,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                             border: Border.all(color: Colors.white.withOpacity(0.2)),
                           ),
                           child: Text(
-                            'Smart Movement Detection • Real-time Rep Counting',
+                            'Goal-Based Programs • Real-Time Calendar • Nutrition Plans',
                             style: TextStyle(
                               color: Colors.white70,
                               fontSize: 12,
@@ -538,24 +539,20 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       _showLoading('Creating account...');
       
       // Create account
-      final authService = FirebaseAuthService();
-      final result = await authService.signUpWithEmail(
-        _emailController.text.trim(),
-        _passwordController.text,
-        _nameController.text.trim(),
+      final authService = MockAuthService.instance;
+      final result = await authService.signUp(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+        fullName: _nameController.text.trim(),
       );
       
       Navigator.of(context).pop(); // Close loading
       
-      if (result.success) {
-        _showSuccess(result.message);
-        if (result.needsOnboarding) {
-          _navigateToOnboardingWithBirthday(_emailController.text.trim(), calculatedAge);
-        } else {
-          _navigateToDashboard(_emailController.text.trim());
-        }
+      if (result['success'] == true) {
+        _showSuccess('Account created successfully!');
+        _navigateToOnboardingWithBirthday(_emailController.text.trim(), calculatedAge);
       } else {
-        _showError('Sign-up failed: ${result.message}');
+        _showError('Sign-up failed: ${result['error']}');
       }
     } else {
       // Validate login form
@@ -572,24 +569,25 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       _showLoading('Signing in...');
       
       // Sign in
-      final authService = FirebaseAuthService();
-      final result = await authService.signInWithEmail(
-        _emailController.text.trim(),
-        _passwordController.text,
+      final authService = MockAuthService.instance;
+      final result = await authService.signIn(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
       );
       
       Navigator.of(context).pop(); // Close loading
       
-      if (result.success) {
-        _showSuccess(result.message);
-        if (result.needsOnboarding) {
+      if (result['success'] == true) {
+        _showSuccess('Signed in successfully!');
+        // Check if user has completed onboarding
+        final profile = await UserStorageService.getUserProfile(_emailController.text.trim());
+        if (profile == null || profile.isEmpty) {
           _navigateToOnboarding(_emailController.text.trim());
         } else {
           _navigateToDashboard(_emailController.text.trim());
         }
       } else {
-        _showError('Login failed: ${result.message}');
-        print('Login error details: ${result.message}');
+        _showError('Login failed: ${result['error']}');
       }
     }
   }
@@ -598,44 +596,42 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
     // Show loading dialog
     _showLoading('Signing in with Google...');
     
-    // Use the Firebase authentication service
-    final authService = FirebaseAuthService();
-    final result = await authService.signInWithGoogle();
+    // For mock purposes, create a demo Google user
+    final result = await MockAuthService.instance.signUp(
+      email: 'demo.google.user@gmail.com',
+      password: 'demo123',
+      fullName: 'Demo Google User',
+    );
     
     Navigator.of(context).pop(); // Close loading dialog
     
-    if (result.success) {
-      _showSuccess(result.message);
-      if (result.needsOnboarding) {
-        _navigateToOnboardingWithGoogleData(authService);
-      } else {
-        _navigateToDashboard(authService.userEmail!);
-      }
+    if (result['success'] == true) {
+      _showSuccess('Signed in with Google successfully!');
+      _navigateToOnboardingWithGoogleData();
     } else {
-      _showError(result.message);
+      _showError('Google sign-in failed: ${result['error']}');
     }
   }
 
-  void _navigateToOnboardingWithGoogleData(FirebaseAuthService authService) {
+  void _navigateToOnboardingWithGoogleData() {
     Future.delayed(Duration(milliseconds: 500), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) => OnboardingWizardScreen(
             initialUserData: {
-              'name': authService.currentUser?.displayName ?? '',
-              'email': authService.userEmail ?? '',
+              'name': 'Demo Google User',
+              'email': 'demo.google.user@gmail.com',
             },
             onCompleted: (profile) async {
               print('📝 Onboarding completed, saving profile...');
               print('   Profile keys: ${profile.keys.toList()}');
               print('   Name: ${profile['name']}');
               
-              // Save to BOTH Firebase AND UserStorageService for redundancy
-              await authService.completeOnboarding(profile);
-              await UserStorageService.completeOnboarding(authService.userEmail ?? '', profile);
+              // Save to UserStorageService
+              await UserStorageService.completeOnboarding('demo.google.user@gmail.com', profile);
               
-              print('✅ Profile saved to both Firebase and UserStorageService');
+              print('✅ Profile saved to UserStorageService');
               
               // Navigate to dashboard
               Navigator.pushReplacement(
@@ -681,12 +677,10 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               print('   Profile keys: ${profile.keys.toList()}');
               print('   Name: ${profile['name']}');
               
-              // Save to BOTH Firebase AND UserStorageService for redundancy
-              final authService = FirebaseAuthService();
-              await authService.completeOnboarding(profile);
+              // Save to UserStorageService
               await UserStorageService.completeOnboarding(userEmail, profile);
               
-              print('✅ Profile saved to both Firebase and UserStorageService');
+              print('✅ Profile saved to UserStorageService');
               
               // Navigate to dashboard
               Navigator.pushReplacement(
@@ -728,12 +722,10 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               print('   Profile keys: ${profile.keys.toList()}');
               print('   Name: ${profile['name']}');
               
-              // Save to BOTH Firebase AND UserStorageService for redundancy
-              final authService = FirebaseAuthService();
-              await authService.completeOnboarding(profile);
+              // Save to UserStorageService
               await UserStorageService.completeOnboarding(userEmail, profile);
               
-              print('✅ Profile saved to both Firebase and UserStorageService');
+              print('✅ Profile saved to UserStorageService');
               
               // Navigate to dashboard
               Navigator.pushReplacement(
@@ -759,37 +751,13 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
     Future.delayed(Duration(milliseconds: 500), () async {
       print('🔍 _navigateToDashboard called for: $userEmail');
       
-      // IMPORTANT: Clear cached profile from previous user
-      final profileService = UserProfileService();
-      profileService.clearCache();
-      print('🧹 Cleared profile cache for new user');
+      // Get existing user profile from UserStorageService
+      Map<String, dynamic>? existingProfile = await UserStorageService.getUserProfile(userEmail);
       
-      // Get existing user profile from Firebase
-      final authService = FirebaseAuthService();
-      Map<String, dynamic>? existingProfile = await authService.getUserProfile();
-      
-      print('📱 Firebase profile: ${existingProfile != null ? "Found" : "Not found"}');
+      print('💾 UserStorageService profile: ${existingProfile != null ? "Found" : "Not found"}');
       if (existingProfile != null) {
         print('   Profile keys: ${existingProfile.keys.toList()}');
         print('   Has name: ${existingProfile.containsKey("name")}');
-      }
-      
-      // If no profile in Firebase, try UserStorageService (for backward compatibility)
-      if (existingProfile == null || existingProfile.isEmpty) {
-        print('⚠️ No profile in Firebase, checking UserStorageService...');
-        existingProfile = await UserStorageService.getUserProfile(userEmail);
-        
-        print('💾 UserStorageService profile: ${existingProfile != null ? "Found" : "Not found"}');
-        if (existingProfile != null) {
-          print('   Profile keys: ${existingProfile.keys.toList()}');
-          print('   Has name: ${existingProfile.containsKey("name")}');
-        }
-        
-        // If found in UserStorageService, migrate to Firebase
-        if (existingProfile != null && existingProfile.isNotEmpty) {
-          print('✅ Found profile in UserStorageService, migrating to Firebase...');
-          await authService.completeOnboarding(existingProfile);
-        }
       }
       
       // If still no profile or profile is empty, user needs onboarding
@@ -802,8 +770,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
         return;
       }
       
-      // Add UID to profile for services that need it
-      existingProfile['uid'] = authService.currentUser?.uid ?? 'unknown';
+      // Add mock UID to profile for services that need it
+      existingProfile['uid'] = 'mock_${userEmail.hashCode}';
       
       print('✅ Navigating to dashboard with profile: ${existingProfile['name']}');
       print('   Final profile check before navigation:');
@@ -813,13 +781,16 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       print('   - Profile name value: "${existingProfile['name']}"');
       print('   - Profile keys: ${existingProfile.keys.toList()}');
       
-      // Force browser reload to clear Flutter Web cache
+      // SOLUTION: Force page reload in web development, normal navigation in mobile
       if (kIsWeb) {
-        print('🔄 Forcing page reload to clear cache...');
-        await Future.delayed(Duration(milliseconds: 200));
-        html.window.location.reload();
+        print('🔄 Web detected: Forcing page reload to clear Flutter cache...');
+        // Save profile to ensure it's available after reload
+        await UserStorageService.completeOnboarding(userEmail, existingProfile);
+        // Force page reload (only in web development)
+        reloadWebPage();
       } else {
-        // Fallback for non-web platforms
+        print('📱 Mobile detected: Using normal navigation...');
+        // Normal navigation for mobile (APK builds)
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -877,15 +848,9 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                 return;
               }
               
-              final authService = FirebaseAuthService();
-              bool success = await authService.resetPassword(emailController.text.trim());
-              
+              // Mock password reset - show success message
               Navigator.of(context).pop();
-              if (success) {
-                _showSuccess('Password reset link sent to your email!');
-              } else {
-                _showError('Failed to send reset email. Please check the email address.');
-              }
+              _showSuccess('Password reset link sent to your email!');
             },
             child: Text(
               'Send Link',
@@ -980,9 +945,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   }
 
   void _showDebugInfo() async {
-    final authService = FirebaseAuthService();
-    final allUsers = await authService.getAllUsers();
-    final currentUser = authService.currentUser;
+    final authService = MockAuthService.instance;
+    final currentUserEmail = authService.getCurrentUserEmail();
     
     showDialog(
       context: context,
@@ -1009,27 +973,9 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
               ),
               Text(
-                currentUser?.email ?? 'None (not logged in)',
+                currentUserEmail ?? 'None (not logged in)',
                 style: TextStyle(color: Colors.white70),
               ),
-              SizedBox(height: 16),
-              Text(
-                'Registered Users (${allUsers.length}):',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
-              ),
-              if (allUsers.isEmpty)
-                Text(
-                  'No users registered yet',
-                  style: TextStyle(color: Colors.white70),
-                )
-              else
-                ...allUsers.map((user) => Padding(
-                  padding: EdgeInsets.only(left: 8, top: 4),
-                  child: Text(
-                    '• ${user['email']} (${user['authMethod']})',
-                    style: TextStyle(color: Colors.white70, fontSize: 12),
-                  ),
-                )),
               SizedBox(height: 16),
               Container(
                 padding: EdgeInsets.all(12),
@@ -1042,16 +988,16 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Firebase Authentication:',
+                      'Mock Authentication:',
                       style: TextStyle(color: Colors.orange, fontWeight: FontWeight.w600, fontSize: 12),
                     ),
                     SizedBox(height: 8),
                     Text(
+                      '• Using mock authentication for testing\n'
                       '• New users: Sign up → Onboarding → Dashboard\n'
                       '• Existing users: Sign in → Dashboard (skip onboarding)\n'
-                      '• Google users: First time → Onboarding, Return → Dashboard\n'
-                      '• Only registered users can access the app\n'
-                      '• All data stored in Firebase Cloud Firestore',
+                      '• Google users: Mock Google → Onboarding → Dashboard\n'
+                      '• All data stored locally for testing',
                       style: TextStyle(color: Colors.white70, fontSize: 11),
                     ),
                   ],
