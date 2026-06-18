@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/user_profile.dart';
 import '../services/user_profile_service.dart';
 import '../services/user_storage_service.dart';
+import '../services/firebase_auth_service.dart';
+import '../services/mock_auth_service.dart';
+import '../services/unified_auth_service.dart';
 import '../services/navigation_service.dart';
 import '../theme/app_colors.dart';
 import '../widgets/navigation_widgets.dart';
 import '../models/navigation_state.dart';
 import 'auth_screen.dart';
+import 'quick_profile_setup.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);
@@ -25,12 +30,67 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   void initState() {
     super.initState();
     _loadProfile();
+    
+    // Listen for navigation service changes (which includes auth state changes)
+    _navigationService.addListener(_onNavigationStateChanged);
+  }
+
+  @override
+  void dispose() {
+    _navigationService.removeListener(_onNavigationStateChanged);
+    super.dispose();
+  }
+
+  void _onNavigationStateChanged() {
+    // When auth state changes, reload profile data
+    if (mounted) {
+      _loadProfile();
+    }
   }
 
   Future<void> _loadProfile() async {
     setState(() => _isLoading = true);
     
-    final profile = await _profileService.getUserProfile();
+    // Use unified auth service
+    final authService = UnifiedAuthService();
+    authService.printAuthStatus();
+    
+    if (!authService.isLoggedIn) {
+      print('⚠️ Profile screen: No user logged in');
+      setState(() {
+        _profile = null;
+        _isLoading = false;
+      });
+      return;
+    }
+    
+    final userEmail = authService.getCurrentUserEmail()!;
+    
+    UserProfile? profile;
+    
+    // First try UserProfileService (standardized way)
+    print('🔍 Trying UserProfileService...');
+    profile = await _profileService.getUserProfile();
+    
+    if (profile != null) {
+      print('✅ Profile screen: Loaded profile from UserProfileService for ${profile.name}');
+    } else {
+      // Fallback: Try UserStorageService (onboarding data)
+      print('🔍 Trying UserStorageService fallback...');
+      final localProfile = await UserStorageService.getUserProfile(userEmail);
+      if (localProfile != null && localProfile.isNotEmpty) {
+        try {
+          profile = UserProfile.fromOnboarding(localProfile);
+          print('✅ Profile screen: Loaded local profile for ${profile.name}');
+          
+          // Save to UserProfileService for future use
+          await _profileService.saveUserProfile(profile);
+          print('✅ Profile migrated to UserProfileService');
+        } catch (e) {
+          print('❌ Profile screen: Error converting local profile: $e');
+        }
+      }
+    }
     
     setState(() {
       _profile = profile;
@@ -95,16 +155,31 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         backgroundColor: const Color(0xFF1A1B3A),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back_rounded,
+            color: Colors.white,
+            size: 24,
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
+            icon: const Icon(
+              Icons.logout_rounded,
+              color: Colors.white,
+              size: 24,
+            ),
             onPressed: _handleLogout,
             tooltip: 'Log Out',
           ),
@@ -121,21 +196,127 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
   Widget _buildNoProfileView() {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.person_outline, size: 80, color: Colors.grey[400]),
-          const SizedBox(height: 16),
-          Text(
-            'No profile found',
-            style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Please complete the onboarding process',
-            style: TextStyle(fontSize: 14, color: Colors.grey[500]),
-          ),
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(32),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Profile icon with gradient background
+            Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF6C5CE7).withOpacity(0.2),
+                    Color(0xFF74B9FF).withOpacity(0.2)
+                  ],
+                ),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Color(0xFF6C5CE7).withOpacity(0.3),
+                  width: 2,
+                ),
+              ),
+              child: Icon(
+                Icons.person_outline, 
+                size: 60, 
+                color: Color(0xFF6C5CE7),
+              ),
+            ),
+            SizedBox(height: 24),
+            
+            // Title
+            Text(
+              'No profile found',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 12),
+            
+            // Description
+            Text(
+              'Create your fitness profile to get personalized workouts and track your progress!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
+                height: 1.5,
+              ),
+            ),
+            SizedBox(height: 40),
+            
+            // Create Profile Button
+            Container(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => QuickProfileSetup(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF6C5CE7),
+                  foregroundColor: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.person_add, size: 20),
+                    SizedBox(width: 8),
+                    Text(
+                      'Create My Profile',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            
+            // Alternative: Reset onboarding button
+            TextButton(
+              onPressed: () async {
+                // Clear onboarding and restart
+                final authService = FirebaseAuthService();
+                final user = authService.currentUser;
+                if (user?.email != null) {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.remove('${user!.uid}_onboarding_complete');
+                  await prefs.remove('${user.uid}_profile');
+                  
+                  // Show restart message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('Profile cleared. Restart the app to go through setup again.'),
+                      backgroundColor: Colors.orange,
+                    ),
+                  );
+                }
+              },
+              child: Text(
+                'Clear Profile Data',
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

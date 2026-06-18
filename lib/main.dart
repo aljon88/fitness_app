@@ -5,24 +5,34 @@ import 'firebase_options.dart';
 import 'screens/auth_screen.dart';
 import 'screens/landing_screen.dart';
 import 'services/navigation_service.dart';
-import 'services/app_initialization_service.dart'; // Changed from firebase version
+import 'services/app_initialization_service.dart'; 
 import 'services/sound_service.dart';
+import 'services/data_migration_service.dart';
+import 'services/exercise_restriction_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize Firebase (but don't block if it fails)
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
   } catch (e) {
-    print('Firebase initialization failed: $e');
-    print('Continuing with local storage only...');
+    print('⚠️ Firebase initialization warning: $e');
   }
+  
+  print('🚀 Starting FitFlow with mock authentication...');
   
   // Initialize Sound Service
   await SoundService().initialize();
+  
+  // Initialize Exercise Restriction Service
+  await ExerciseRestrictionService.initialize();
+  
+  // Execute data migration if needed (non-blocking)
+  DataMigrationService().executeMigrationIfNeeded().catchError((e) {
+    print('Data migration failed but app will continue: $e');
+  });
   
   runApp(AIFitnessApp());
 }

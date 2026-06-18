@@ -3,19 +3,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/user_profile.dart';
 import 'user_profile_service.dart';
+import 'unified_auth_service.dart';
 
 class UserStorageService {
   static const String _registeredUsersKey = 'registered_users';
   static const String _currentUserKey = 'current_user';
 
-  /// Get user-specific key using Firebase UID
+  /// Get user-specific key using Unified Auth (works with both Firebase and Mock)
   static String _getUserKey(String baseKey) {
-    final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      return '${user.uid}_$baseKey';
-    }
-    // Fallback to email-based key for backward compatibility
-    return baseKey;
+    return UnifiedAuthService().getUserKey(baseKey);
+  }
+
+  // Check if user has any data stored (for fallback onboarding check)
+  static Future<bool> hasUserData(String uid) async {
+    final prefs = await SharedPreferences.getInstance();
+    
+    // Check if user has any UID-based data
+    final allKeys = prefs.getKeys();
+    final userKeys = allKeys.where((key) => key.startsWith('${uid}_')).toList();
+    
+    // Check for profile or onboarding completion
+    bool hasProfile = userKeys.any((key) => key.endsWith('_profile'));
+    bool hasOnboarding = userKeys.any((key) => key.endsWith('_onboarding_complete'));
+    
+    return hasProfile || hasOnboarding;
   }
 
   // Check if user is registered
@@ -127,6 +138,30 @@ class UserStorageService {
     // Clear session data but keep profile
     // This prevents data leakage between users
     await prefs.remove(_currentUserKey);
+  }
+
+  // Clear ALL user-specific data for current user (for account switching)
+  static Future<void> clearCurrentUserData() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final prefs = await SharedPreferences.getInstance();
+      
+      print('🧹 Clearing all data for current user: ${user.uid}');
+      
+      // Clear all UID-based keys
+      final allKeys = prefs.getKeys();
+      final userKeys = allKeys.where((key) => key.startsWith('${user.uid}_')).toList();
+      
+      for (String key in userKeys) {
+        await prefs.remove(key);
+        print('   Removed key: $key');
+      }
+      
+      // Clear current user session
+      await prefs.remove(_currentUserKey);
+      
+      print('✅ Cleared ${userKeys.length} user-specific keys');
+    }
   }
 
   // Check if this is a fresh user (no profile data)

@@ -158,6 +158,32 @@ class SoundService {
     await playBeep();
   }
 
+  // ULTIMATE CELEBRATION - Enhanced audio experience
+  Future<void> playUltimateCelebrationSequence() async {
+    if (kDebugMode) {
+      print('🎉 ULTIMATE CELEBRATION SEQUENCE STARTING!');
+    }
+    
+    // 1. Victory fanfare (main celebration sound)
+    await playWorkoutComplete();
+    await Future.delayed(Duration(milliseconds: 1200));
+    
+    // 2. Celebration beeps (like applause rhythm)
+    await playBeep();
+    await Future.delayed(Duration(milliseconds: 200));
+    await playBeep();
+    await Future.delayed(Duration(milliseconds: 150));
+    await playBeep();
+    await Future.delayed(Duration(milliseconds: 300));
+    
+    // 3. Final victory confirmation
+    await playSetComplete();
+    
+    if (kDebugMode) {
+      print('🏆 ULTIMATE CELEBRATION COMPLETE!');
+    }
+  }
+
   // Test method with professional feedback
   Future<void> testSound() async {
     if (kDebugMode) {

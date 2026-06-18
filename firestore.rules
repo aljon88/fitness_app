@@ -1,0 +1,57 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ===== USER AUTHENTICATION RULES =====
+    
+    // Users can read and write their own user document
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow user creation during signup (even if document doesn't exist yet)
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // ===== USER DATA RULES =====
+    
+    // Users can manage their own workout data
+    match /users/{userId}/workouts/{workoutId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Users can manage their own profile data
+    match /users/{userId}/profile/{profileId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Users can manage their own workout history
+    match /users/{userId}/history/{historyId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // ===== PUBLIC DATA RULES =====
+    
+    // Exercise database - read-only for authenticated users
+    match /exercises/{exerciseId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can modify (add admin rules if needed)
+    }
+    
+    // Workout programs - read-only for authenticated users
+    match /programs/{programId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can modify
+    }
+    
+    // Meal plans - read-only for authenticated users
+    match /meals/{mealId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only admins can modify
+    }
+    
+    // ===== SECURITY: DENY ALL OTHER ACCESS =====
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
